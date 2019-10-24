@@ -1,0 +1,253 @@
+package Steganography;
+
+import java.awt.image.BufferedImage;
+import java.util.Random;
+
+/**
+ * this class finds the edges of the image passed.
+ *
+ * @author Shreyansh ,Afsha, Noreen
+ */
+
+public class AntColony {
+    static BufferedImage grayImage;
+    static int height, width;
+
+    static boolean[][] getEdges(BufferedImage img) {
+        //grayImage = Utility.convertToGray(img);
+        grayImage = img;
+        int i, j, n, x, y, c, z, newX, newY, a;
+        height = grayImage.getHeight();
+        width = grayImage.getWidth();
+        int constructionSteps = Math.min(height, width) / 10;        //N
+        int numberOfAnts = (int) (Math.sqrt(height * width));        //k
+        int[][] antPosition = new int[numberOfAnts][2];
+        double normalizationFactor = 0;                            //Z
+        int antSteps = (int) (Math.max(height, width) * 0.02);    //L
+        //int antSteps = Math.min(height, width)/10; 	//L
+        double heuristicInformation;                            //eta(i,j)
+        double weightingFactorOfPheromoneInformation = 1;        //alpha
+        double weightingFactorOfHeuristicInformation = 0.1;        //beta
+        double evaporationRate = 0.1;                            //rho
+        double pheromoneDecayCoefficient = 0.05;                //sai
+        double transitionProbability;                            //p(i,j)
+        double initialPheromone = 0.0001;                        //tau(initial)
+        double pheromoneMatrix[][] = new double[height][width];        //tau
+        double tolerence = 0.1;                                    //epsilon
+        double maxTransitionProbability;
+        boolean edgeMatrix[][] = new boolean[height][width];
+
+        for (j = 0; j < height; j++) {
+            for (i = 0; i < width; i++) {
+                pheromoneMatrix[j][i] = initialPheromone;
+            }
+        }
+
+        //Placing ants randomly
+        Random generateRandomNumber = new Random(21_06_15);
+        for (i = 0; i < numberOfAnts; i++) {
+            antPosition[i][0] = Math.abs(generateRandomNumber.nextInt() % width);
+            antPosition[i][1] = Math.abs(generateRandomNumber.nextInt() % height);
+        }
+
+        // calculating normalizationFactor(Z) which will be equal for all.
+        for (i = 0; i < height; i++) {
+            for (j = 0; j < width; j++) {
+                normalizationFactor += calculateClique(i, j);
+            }
+        }
+
+        //construction process
+        for (n = 0; n < constructionSteps; n++) {
+            for (z = 0; z < antSteps; z++) {
+                for (a = 0; a < numberOfAnts; a++) {
+                    newX = x = antPosition[a][0];
+                    newY = y = antPosition[a][1];
+                    maxTransitionProbability = Double.NEGATIVE_INFINITY;
+
+                    // calculating max transitionProbability of ant
+                    // we are not calculating denominator for optimization purpose.
+
+                    for (i = x + 1, j = y + 1, c = 0; c < 3; i--, c++) {
+                        if (j < height && i >= 0 && i < width) {
+                            heuristicInformation = calculateClique(j, i) / normalizationFactor;
+                            transitionProbability = Math.pow(pheromoneMatrix[j][i],
+                                    weightingFactorOfPheromoneInformation) *
+                                    Math.pow(heuristicInformation, weightingFactorOfHeuristicInformation);
+
+                            if (transitionProbability > maxTransitionProbability) {
+                                maxTransitionProbability = transitionProbability;
+                                newX = i;
+                                newY = j;
+                            }
+                        }
+                    }
+
+                    if (x - 1 >= 0) {
+                        heuristicInformation = calculateClique(y, x - 1) / normalizationFactor;
+                        transitionProbability = Math.pow(pheromoneMatrix[y][x - 1],
+                                weightingFactorOfPheromoneInformation) *
+                                Math.pow(heuristicInformation, weightingFactorOfHeuristicInformation);
+
+                        if (transitionProbability > maxTransitionProbability) {
+                            maxTransitionProbability = transitionProbability;
+                            newX = x - 1;
+                            newY = y;
+                        }
+                    }
+
+                    for (i = x - 1, j = y - 1, c = 0; c < 3; i++, c++) {
+                        if (i >= 0 && j >= 0 && i < width) {
+                            heuristicInformation = calculateClique(j, i) / normalizationFactor;
+                            transitionProbability = Math.pow(pheromoneMatrix[j][i],
+                                    weightingFactorOfPheromoneInformation) *
+                                    Math.pow(heuristicInformation, weightingFactorOfHeuristicInformation);
+
+                            if (transitionProbability > maxTransitionProbability) {
+                                maxTransitionProbability = transitionProbability;
+                                newX = i;
+                                newY = j;
+                            }
+                        }
+                    }
+
+                    if (x + 1 < width) {
+                        heuristicInformation = calculateClique(y, x + 1) / normalizationFactor;
+                        transitionProbability = Math.pow(pheromoneMatrix[y][x + 1],
+                                weightingFactorOfPheromoneInformation) *
+                                Math.pow(heuristicInformation, weightingFactorOfHeuristicInformation);
+
+                        if (transitionProbability > maxTransitionProbability) {
+                            maxTransitionProbability = transitionProbability;
+                            newX = x + 1;
+                            newY = y;
+                        }
+                    }
+
+
+                    // updating pheromoneMatrix
+                    heuristicInformation = calculateClique(newY, newX) / normalizationFactor;
+                    //heuristicInformation *= 100;
+                    pheromoneMatrix[newY][newX] = ((1 - evaporationRate) *
+                            pheromoneMatrix[newY][newX]) + (evaporationRate * heuristicInformation);
+                    System.out.println(pheromoneMatrix[newY][newX]);
+
+                    // moving ant to new position
+                    antPosition[a][0] = newX;
+                    antPosition[a][1] = newY;
+                }
+            }
+
+            //updating pheromoneMatrix
+            for (i = 0; i < height; i++) {
+                for (j = 0; j < width; j++) {
+                    pheromoneMatrix[i][j] = ((1 - pheromoneDecayCoefficient) * pheromoneMatrix[i][j])
+                            + (pheromoneDecayCoefficient * initialPheromone);
+                }
+            }
+
+        }
+
+        // decision process
+        double meanPheromone = 0, oldPheromone, upperPheromone, lowerPheromone, upper, lower;
+
+        for (i = 0; i < height; i++) {
+            for (j = 0; j < width; j++) {
+                meanPheromone += pheromoneMatrix[i][j];
+            }
+        }
+
+        meanPheromone /= (height * width);
+
+        do {
+            oldPheromone = meanPheromone;
+            upperPheromone = lowerPheromone = upper = lower = 0;
+            for (i = 0; i < height; i++) {
+                for (j = 0; j < width; j++) {
+                    if (pheromoneMatrix[i][j] <= meanPheromone) {
+                        lowerPheromone += pheromoneMatrix[i][j];
+                        lower++;
+                    } else {
+                        upperPheromone += pheromoneMatrix[i][j];
+                        upper++;
+                    }
+                }
+            }
+            lowerPheromone /= lower;
+            upperPheromone /= upper;
+            meanPheromone = (lowerPheromone + upperPheromone) / 2;
+        } while (Math.abs(oldPheromone - meanPheromone) > tolerence);
+
+        int alpha, newPixel;
+        BufferedImage finalImage = grayImage.getSubimage(0, 0, width, height);
+        for (i = 0; i < width; i++) {
+            for (j = 0; j < height; j++) {
+                if (pheromoneMatrix[j][i] < meanPheromone) {
+                    //pheromoneMatrix[j][i] = 1;
+                    edgeMatrix[j][i] = true;
+                    alpha = Utility.getAlpha(grayImage, i, j);
+                    newPixel = Utility.calculateRGB(alpha, 0, 0, 0);    //black
+                    finalImage.setRGB(i, j, newPixel);
+                } else {
+                    //pheromoneMatrix[j][i] = 0;
+                    edgeMatrix[j][i] = false;
+                    alpha = Utility.getAlpha(grayImage, i, j);
+                    newPixel = Utility.calculateRGB(alpha, 255, 255, 255);    //white
+                    finalImage.setRGB(i, j, newPixel);
+                }
+            }
+        }
+
+        return edgeMatrix;
+    }
+
+    private static int calculateClique(int y, int x) {
+        int intensity1, intensity2, clique = 0;
+
+        if ((y - 2) >= 0 && (x - 1) >= 0 && (y + 2) < height && (x + 1) < width) {
+            intensity1 = Utility.getBlue7Bit(grayImage, x - 1, y - 2);
+            intensity2 = Utility.getBlue7Bit(grayImage, x + 1, y + 2);
+            clique += Math.abs((intensity1 - intensity2));
+
+            intensity1 = Utility.getBlue7Bit(grayImage, x + 1, y - 2);
+            intensity2 = Utility.getBlue7Bit(grayImage, x - 1, y + 2);
+            clique += Math.abs((intensity1 - intensity2));
+        }
+
+        if ((y - 1) >= 0 && (x - 2) >= 0 && (y + 1) < height && (x + 2) < width) {
+            intensity1 = Utility.getBlue7Bit(grayImage, x - 2, y - 1);
+            intensity2 = Utility.getBlue7Bit(grayImage, x + 2, y + 1);
+            clique += Math.abs((intensity1 - intensity2));
+
+            intensity1 = Utility.getBlue7Bit(grayImage, x + 2, y - 1);
+            intensity2 = Utility.getBlue7Bit(grayImage, x - 2, y + 1);
+            clique += Math.abs((intensity1 - intensity2));
+        }
+
+        if ((y - 1) >= 0 && (x - 1) >= 0 && (y + 1) < height && (x + 1) < width) {
+            intensity1 = Utility.getBlue7Bit(grayImage, x - 1, y - 1);
+            intensity2 = Utility.getBlue7Bit(grayImage, x + 1, y + 1);
+            clique += Math.abs((intensity1 - intensity2));
+
+            intensity1 = Utility.getBlue7Bit(grayImage, x + 1, y - 1);
+            intensity2 = Utility.getBlue7Bit(grayImage, x - 1, y + 1);
+            clique += Math.abs((intensity1 - intensity2));
+        }
+
+        if ((y - 1) >= 0 && (y + 1) < height) {
+            intensity1 = Utility.getBlue7Bit(grayImage, x, y - 1);
+            intensity2 = Utility.getBlue7Bit(grayImage, x, y + 1);
+            clique += Math.abs((intensity1 - intensity2));
+        }
+
+        if ((x - 1) >= 0 && (x + 1) < width) {
+            intensity1 = Utility.getBlue7Bit(grayImage, x - 1, y);
+            intensity2 = Utility.getBlue7Bit(grayImage, x + 1, y);
+            clique += Math.abs((intensity1 - intensity2));
+        }
+
+        //System.out.println("clique value: " + clique);
+
+        return (clique);
+    }
+}

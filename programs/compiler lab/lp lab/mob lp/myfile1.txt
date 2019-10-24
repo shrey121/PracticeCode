@@ -1,0 +1,16 @@
+a=b+c
+q=2
+y=3*b
+x= a and b
+if a>x goto 3
+z=m*k
+l= a/n
+ifz>l goto 5
+l=a+b
+goto 12
+z=p+k
+p=m+a
+goto 3
+p=p+1
+r[p]=s
+w[p]=f

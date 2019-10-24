@@ -1,0 +1,79 @@
+create table user
+(
+username varchar(10) primary key,
+password varchar(20) NOT NULL
+);
+************************************************************************************
+create table teacher
+(
+tid varchar(10) primary key,
+tname varchar(10) NOT NULL,
+dname varchar(10) NOT NULL,
+tphone varchar(11),
+bissueno int,
+foreign key(tid) references user(username)
+ON DELETE CASCADE ON UPDATE CASCADE
+);
+**************************************************************************************
+create table student
+(
+sid varchar(10) primary key,
+sname varchar(10) NOT NULL,
+sdname varchar(10) NOT NULL,
+syear int NOT NULL,
+saddress varchar(20),
+sphone varchar(20),
+bissueno int,
+fine int,
+foreign key(sid) references user(username)
+ON DELETE CASCADE ON UPDATE CASCADE
+);
+****************************************************************************************
+create procedure infoteacher(in tid varchar(10),in tname varchar(10),in dname varchar(10),in tphone varchar(11),in bissueno int)
+BEGIN
+insert into user(username,password) values(tid,tname);
+insert into teacher(tid,tname,dname,tphone,bissueno) values(tid,tname,dname,tphone,bissueno);
+END
+#
+call infoteacher('T01','Shubham','CS','9716027137',5)#
+*******************************************************************************************
+create procedure infostudent(in sid varchar(10),in sname varchar(10),in sdname varchar(10),in syear int,in saddress varchar(20),in sphone varchar(20),in bissueno int)
+BEGIN
+insert into user(username,password) values(sid,sname);
+insert into student(sid,sname,sdname,syear,saddress,sphone,bissueno) values(sid,sname,sdname,syear,saddress,sphone,bissueno) ;
+END
+#
+
+call infostudent('S01','Shreyansh','CS',3,'34-e Nirman Vihar','98745612',3,0)#
+***********************************************************************************************
+create procedure search_stu(in stu_name varchar(10))
+BEGIN
+select *from student where sname=stu_name;
+END#
+
+call search_stu('shreyansh')# 
+******************************************************************************************
+create procedure search_teacher(in teach_name varchar(10))
+BEGIN
+select *from teacher where teach_name=tname;
+END#
+
+call search_teacher('shubham')# 
+******************************************************************************************
+create procedure book_author(in auth varchar(10))
+BEGIN
+select *from book where btypeid=(select btypeid from authorby where auid=(select auid from author where auname=auth));
+END#
+******************************************************************************************
+create procedure book_name(in b_name varchar(20))
+BEGIN
+select *from book where btypeid=(select btypeid from btype where b_name=bname);
+END#
+
+call book_name('electronics')#
+******************************************************************************************************************************************
+create procedure book_pub(in pub_name varchar(10))
+BEGIN
+select *from book where btypeid=(select btypeid from btype where pid=(select pid from pubby where  
+
+

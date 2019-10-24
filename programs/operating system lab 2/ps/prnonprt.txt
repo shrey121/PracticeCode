@@ -1,0 +1,74 @@
+#include<stdio.h>
+void main()
+{
+	int max,exe[10],wait[10],sav[10],burst[10],pri[10],n=0,i=0,j=0,k=0;
+	char name[10][3];
+	float time=0,avgwait=0;
+	FILE *fp;
+
+			// File Reading
+
+
+	fp=fopen("a.txt","r+");
+	printf("\n\n\n\n\t\tPriority Scheduling\n\n\n\n\n\nProcess\tBurst\tPriority\n\n");
+	while(fscanf(fp,"%s%d%d",name[n],&burst[n],&pri[n])!=EOF)
+	{
+		exe[n]=wait[n]=0;
+		printf("%s\t%d\t%d\n",name[n],burst[n],pri[n]);
+		n++;
+	}
+
+			// Main Logic
+
+
+	while(k<n)
+	{
+		max=100;
+		for(i=0;i<n;i++)
+			if(pri[i]<max && exe[i]==0)
+			{
+				max=pri[i];
+				j=i;
+			}
+		for(i=0;i<n;i++)
+			if(i!=j && exe[i]==0)
+				wait[i]+=burst[j];
+		exe[j]=1;
+		sav[k++]=j;
+		time+=burst[j];
+	}
+	for(i=0;i<n;i++)
+		avgwait+=wait[i];
+	time+=avgwait;
+
+				// G Chart
+
+
+	printf("\n\n\n\tGantt Chart\n\n\n");
+	for(i=0;i<n;i++)
+		printf("--------");
+	printf("\n");
+	for(i=0;i<n;i++)
+	{
+		j=sav[i];
+		printf("|%s\t",name[j]);
+	}
+	printf("|\n");
+	for(i=0;i<n;i++)
+		printf("--------");
+	printf("\n");
+	k=0;
+	for(i=0;i<n;i++)
+	{
+		j=sav[i];
+		printf("%d\t",k);
+		k+=burst[j];
+	}
+	printf("%d",k);
+	printf("\n");
+
+			// Avg printing
+
+	printf("\n\n\n\nAverage Waiting time %f ms\n\n\nAverage Turnaround time %f ms\n\n\n\n\n\n\n\n\n",avgwait/n,time/n);
+	getch();
+}

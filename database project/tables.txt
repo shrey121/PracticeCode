@@ -1,0 +1,126 @@
+1. PUBLISHER
+create table pub
+( pid int primary key,
+pname varchar(20) not null,
+ptitle varchar(10),
+dealer varchar(20) not null);
+
+
+2. BTYPE
+create table btype
+( btypeid int primary key,
+bname varchar(20) not null,
+pid int not null,
+quant int,
+avail int,
+rackloc int,
+subject varchar(20),
+foreign key (pid)
+references pub(pid)
+on delete cascade 
+on update cascade
+);
+
+3. PUBBY
+create table pubby
+( btypeid int,
+pid int,
+primary key(btypeid,pid),
+foreign key (btypeid)
+references btype(btypeid)
+on delete cascade
+on update cascade,
+foreign key (pid)
+references pub(pid)
+on delete cascade
+on update cascade);
+
+4. BOOK
+create table book 
+( btypeid int,
+bid int,
+primary key(btypeid,bid),
+edition int not null,
+yearpub int not null,
+avail int,
+foreign key (btypeid)
+references btype(btypeid)
+on delete cascade
+on update cascade); 
+
+5. AUTHOR
+create table author
+( auid int primary key,
+auname varchar(20) not null);
+
+6.AUTHORBY
+create table authorby
+( btypeid int,
+auid int,
+primary key(btypeid,auid),
+foreign key (btypeid)
+references btype(btypeid)
+on delete cascade
+on update cascade,
+foreign key (auid)
+references author(auid)
+on delete cascade
+on update cascade);
+
+7. ADMIN
+create table admin 
+(aid varchar(10) primary key,
+aname varchar(20) not null,
+);
+
+8. USER
+create table user
+(uid varchar(10) primary key,
+password varchar(20) NOT NULL
+);
+
+9.ISSUEBY
+create table issueby
+( btypeid int,
+bid int,
+primary key(btypeid,bid),
+uid varchar(10) not null,
+idate date,
+rdate date,
+fine int,
+aid varchar(10) not null,
+foreign key (btypeid,bid)
+references book(btypeid,bid)
+on delete cascade
+on update cascade,
+foreign key (uid)
+references user(username)
+on delete cascade
+on update cascade,
+foreign key (aid)
+references admin(aid)
+on delete cascade
+on update cascade);
+
+10. STUDENT
+create table student
+(sid varchar(10) primary key,
+sname varchar(10) NOT NULL,
+sdname varchar(10) NOT NULL,
+syear int NOT NULL,
+saddress varchar(20),
+sphone varchar(20),
+bissueno int,
+fine int,
+foreign key(sid) references user(uid)
+ON DELETE CASCADE ON UPDATE CASCADE);
+
+11.TEACHER
+create table teacher
+(tid varchar(10) primary key,
+tname varchar(10) NOT NULL,
+dname varchar(10) NOT NULL,
+tphone varchar(11),
+bissueno int,
+foreign key(tid) references user(uid)
+ON DELETE CASCADE ON UPDATE CASCADE);

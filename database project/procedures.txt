@@ -1,0 +1,128 @@
+create procedure infoadmin(in aid varchar(10),aname varchar(20),aphone varchar(11))	
+BEGIN
+insert into user(username,password) values(aid,aname);				
+insert into admin(aid,aname,aphone) values(aid,aname,aphone);		
+END
+#
+****************************************************************************************
+create procedure infoteacher(in tid varchar(10),in tname varchar(10),in dname varchar(10),in tphone varchar(11),in bissueno int)
+BEGIN
+insert into user(username,password) values(tid,tname);
+insert into teacher(tid,tname,dname,tphone,bissueno) values(tid,tname,dname,tphone,bissueno);
+END
+#
+call infoteacher('T01','Shubham','CS','9716027137',5)#
+*******************************************************************************************
+create procedure infostudent(in sid varchar(10),in sname varchar(10),in sdname varchar(10),in syear int,in saddress varchar(20),in sphone varchar(20),in bissueno int)
+BEGIN
+insert into user(username,password) values(sid,sname);
+insert into student(sid,sname,sdname,syear,saddress,sphone,bissueno) values(sid,sname,sdname,syear,saddress,sphone,bissueno) ;
+END
+#
+call infostudent('S01','Shreyansh','CS',3,'34-e Nirman Vihar','98745612',3,0)#
+***********************************************************************************************
+create procedure search_stu(in stu_name varchar(10))
+BEGIN
+select *from student where sname=stu_name;
+END#
+
+call search_stu('shreyansh')# 
+******************************************************************************************
+create procedure search_teacher(in teach_name varchar(10))
+BEGIN
+select *from teacher where teach_name=tname;
+END#
+
+call search_teacher('shubham')# 
+******************************************************************************************
+create procedure book_author(in auth varchar(10))
+BEGIN
+select *from book where btypeid=(select btypeid from authorby where auid=(select auid from author where auname=auth));
+END#
+******************************************************************************************
+create procedure book_name(in b_name varchar(20))
+BEGIN
+select *from book where btypeid=(select btypeid from btype where b_name=bname);
+END#
+
+call book_name('electronics')#
+*********************************************************************************************
+
+create procedure insert_book(in id int,in editn int,in year int,in bname varchar(20),in pnam varchar(20),in ptit varchar(20),in deal varchar(20),in rack int,in author varchar(20))
+BEGIN
+declare a int;
+declare b int;
+declare c int;
+set c=(select count(*) from book)+1;
+IF NOT EXISTS(select (1) from pub where pname=pnam)
+then
+set b=(select count(*) from pub)+1;
+insert into pub values(b,pnam,ptit,deal);
+ELSE
+set b=(select pid from pub where pname=pnam);
+END IF;
+IF NOT EXISTS(select (1) from btype where btypeid=id)
+then
+insert into btype values(id,bname,b,1,1,rack);
+insert into pubby values(id,b);
+insert into book values(id,c,editn,year);
+ELSE
+insert into book values(id,c,editn,year);
+update btype set quant=quant+1 where id=btypeid;
+update btype set avail=avail+1 where id=btypeid;
+END IF;
+IF NOT EXISTS(select (1) from authorby where btid=id)
+then
+set a=(select count(*) from author)+1;
+insert into author values(a,author);
+insert into authorby values(id,a);
+END IF;
+END#
+*****************************************************************************
+
+create procedure sby_id(in id int,type varchar(20))
+begin
+if(type like 'auth%')
+then
+select bt.btypeid, bt.bname, bt.avail, a.auname, p.pname from btype bt, author a, pub p, pubby pb, authorby ab where ab.auid=a.auid and p.pid=pb.pid and ab.btypeid=bt.btypeid and pb.btypeid=bt.btypeid and ab.btypeid=pb.btypeid and bt.pid=p.pid and a.auid=id;
+elseif(type like 'pub%')
+then 
+select bt.btypeid, bt.bname, bt.avail, a.auname, p.pname from btype bt, author a, pub p, pubby pb, authorby ab where ab.auid=a.auid and p.pid=pb.pid and ab.btypeid=bt.btypeid and pb.btypeid=bt.btypeid and ab.btypeid=pb.btypeid and bt.pid=p.pid and p.pid=id;
+elseif(type like 'b%')
+then
+select bt.btypeid, bt.bname, bt.avail, a.auname, p.pname from btype bt, author a, pub p, pubby pb, authorby ab where ab.auid=a.auid and p.pid=pb.pid and ab.btypeid=bt.btypeid and pb.btypeid=bt.btypeid and ab.btypeid=pb.btypeid and bt.pid=p.pid and bt.btypeid=id;
+elseif(type like '%')
+then
+select bt.btypeid, bt.bname, bt.avail, a.auname, p.pname from btype bt, author a, pub p, pubby pb, authorby ab where ab.auid=a.auid and p.pid=pb.pid and ab.btypeid=bt.btypeid and pb.btypeid=bt.btypeid and ab.btypeid=pb.btypeid and bt.pid=p.pid;
+end if;
+end#
+
+***********************************************************************************
+
+create procedure returnbook(in id1 int,id2 int)
+begin
+declare issue int default 0;
+declare user varchar(10) default '';
+declare exist int default 0;
+declare no int default 0;
+select count(*) from issueby where btypeid=id1 and bid=id2 into exist;
+if(exist>0)
+then
+select uid from issueby where btypeid=id1 and bid=id2 into user;
+if (user like 'S%')
+then
+select bissueno from student where sid=user into issue;
+set issue=issue-1;
+update student set bissueno=issue where sid=user;
+elseif(user like 'T%')
+then
+select bissueno from teacher where tid=user into issue;
+set issue=issue-1;
+update teacher set bissueno=issue where tid=user;
+end if;
+select avail from btype where btypeid=id1 into no;
+set no=no+1;
+update btype set avail=no where btypeid=id1;
+delete from issueby where btypeid=id1 and bid=id2;
+end if;
+end#

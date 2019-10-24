@@ -1,0 +1,5 @@
+package Steganography;
+
+public class getMessageLSB {
+
+}

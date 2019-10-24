@@ -1,0 +1,121 @@
+create table book159
+(bookid int primary key,
+title varchar(20),
+pages int,
+copyright varchar(5));
+
+create table author159
+(authid int primary key,
+authname varchar (20),
+authcity varchar (20),
+age date);
+
+create table wby159
+(bookid int,
+authid int,
+pubname varchar(20),
+foreign key(bookid) references book159(bookid)
+on delete cascade on update cascade,
+foreign key(authid) references author159(authid)
+on delete cascade on update cascade,
+primary key(bookid,authid));
+
+create function agevalidate159(ag date) returns int
+begin
+declare diff int;
+set diff=Datediff(sysdate(),ag);
+if diff>6575 and diff<21915 then
+return 1;
+else
+return 0;
+end if;
+end#
+
+create procedure insertintoauth159(in id int,name varchar(20),city varchar(20),age date)
+begin
+declare c int;
+set c=(select count(*) from author159 where authid=id);
+if c>0 then
+select 'Author ID already exists';
+else
+if agevalidate159(date) =1 then
+insert into author159 values(id,name,city,age);
+else
+select 'Condition Not Satisfied';
+end if;
+end if;
+end#
+
+create procedure insertwby159(in bid int, id int, pbname varchar(20))
+begin
+insert into wby159 values(bid,id,pbname);
+end#
+
+create procedure insertbook159(in bid int, cp varchar(5), title varchar(20), pages int, id int, pbname varchar(20))
+begin
+declare ct int;
+set ct=(select count(*) from book159 where bookid=bid);
+if ct>0 then
+select 'Book ID already exists';
+else
+insert into book159 values(bid,title,pages,cp);
+call insertwby159(bid,id,pbname);
+end if;
+end#
+
+create procedure insertbookinfo159(in bid int, title varchar(20), pages int, cp varchar(5), id int, pbname varchar(20))
+begin
+declare ct int;
+set ct=(select count(*) from author159 where authid=id);
+if ct=0 then
+select 'ERROR';
+else
+call insertbook159(bid,cp,title,pages,id,pbname);
+end if;
+end#
+
+create procedure delauthor159(in id int)
+begin
+declare ct int;
+declare str varchar(100) default "";
+set ct=(select count(*) from wby159 where authid=id);
+if ct>0 then
+set str=concat(str,"You can't delete Author because total ",ct," book exist in table book159. First delete all the books written by him");
+select str as "ERROR";
+else
+delete from author159 where authid=id;
+end if;
+end#
+
+create procedure delbook159(in id int)
+begin
+declare bid int;
+declare i int;
+set i=(select count(*) from wby159 where authid=id);
+myloop:loop
+if i>0 then
+set i=i-1;
+set bid=(select bookid from wby159 where authid=id limit i,1);
+delete from book159 where bookid=bid;
+iterate myloop;
+else
+leave myloop;
+end if;
+end loop myloop;
+end#
+
+select title, authname, pubname from author159 a, book159 b, wby159 c where authcity like '%a%a%' and a.authid=c.authid and b.bookid=c.bookid;
+
+select * from book159 where bookid in (select bookid from wby159 group by bookid having count(*)>=2);
+
+q1) get the title, author name, publisher name for author whose city contain total no of a=2.
+
+q2) give the details of the book which is written by at least two authors.
+
+q3) write a stored procedure (insertintoauth) to insert the author information.
+
+q4) write a stored procedure (insertbookinfo) to insert the book informaton such as bookid, title, no of pages, copyright, authorid, publisher name.
+
+q5) write a stored procedure to delete the author information using its authid.
+
+q6) write a stored procedure to delete the book using authid.

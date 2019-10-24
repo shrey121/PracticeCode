@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0032)http://www.linfo.org/kernel.html -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+<link rel="stylesheet" type="text/css" href="./Kernel Definition_files/belug1.css">
+
+<title>Kernel Definition</title></head>
+
+<body bgcolor="#ffffff">
+
+<a href="http://www.linfo.org/index.html">LINFO</a>
+
+<br><center><h1>Kernel Definition</h1></center><br>
+
+<table width="100%"><tbody><tr><td width="10%"></td><td width="80%">
+
+<br>
+
+<p>
+The <i>kernel</i> is a program that constitutes the central core of a computer <a href="http://www.linfo.org/operating_systems_list.html">operating system</a>. It has complete control over everything that occurs in the system. 
+</p>
+
+<p>
+A kernel can be contrasted with a <a href="http://www.linfo.org/shell.html"><i>shell</i></a> (such as <i>bash</i>, <i>csh</i> or <i>ksh</i> in <a href="http://www.linfo.org/unix-like.html">Unix-like</a> operating systems), which is the outermost part of an operating system and a program that interacts with user <a href="http://www.linfo.org/command.html">commands</a>. The kernel itself does not interact directly with the user, but rather interacts with the shell and other programs as well as with the hardware devices on the system, including the processor (also called the central processing unit or CPU), <a href="http://www.linfo.org/memory.html">memory</a> and disk drives. 
+</p>
+
+<p>
+The kernel is the first part of the operating system to load into memory during <i>booting</i> (i.e., system startup), and it remains there for the entire duration of the computer session because its services are required continuously. Thus it is important for it to be as small as possible while still providing all the essential services needed by the other parts of the operating system and by the various application programs. 
+</p>
+
+<p>
+Because of its critical nature, the kernel code is usually loaded into a <i>protected</i> area of memory, which prevents it from being overwritten by other, less frequently used parts of the operating system or by application programs. The kernel performs its tasks, such as executing <a href="http://www.linfo.org/process.html"><i>processes</i></a> and handling <i>interrupts</i>, in <a href="http://www.linfo.org/kernel_space.html"><i>kernel space</i></a>, whereas everything a user normally does, such as writing text in a text editor or running programs in a <a href="http://www.linfo.org/gui.html">GUI</a> (graphical user interface), is done in <a href="http://www.linfo.org/user_space.html"><i>user space</i></a>. This separation is made in order to prevent user data and kernel data from interfering with each other and thereby diminishing performance or causing the system to become unstable (and possibly crashing).
+</p>
+
+<p>
+When a computer <i>crashes</i>, it actually means the kernel has crashed. If only a single program has crashed but the rest of the system remains in operation, then the kernel itself has not crashed. A crash is the situation in which a program, either a user application or a part of the operating system, stops performing its expected function(s) and responding to other parts of the system. The program might appear to the user to <i>freeze</i>. If such program is a critical to the operation of the kernel, the entire computer could stall or shut down.
+</p>
+
+<p>
+The kernel provides basic services for all other parts of the operating system, typically including memory management, process management, file management and I/O (input/output) management (i.e., accessing the peripheral devices). These services are requested by other parts of the operating system or by application programs through a specified set of program interfaces referred to as <i>system calls</i>.
+</p>
+
+<p>
+Process management, possibly the most obvious aspect of a kernel to the user, is the part of the kernel that ensures that each process obtains its turn to run on the processor and that the individual processes do not interfere with each other by writing to their areas of memory. A process, also referred to as a <i>task</i>, can be defined as an executing (i.e., running) instance of a program. 
+</p>
+
+<p>
+The contents of a kernel vary considerably according to the operating system, but they typically include (1) a scheduler, which determines how the various processes share the kernel's processing time (including in what order), (2) a supervisor, which grants use of the computer to each process when it is scheduled, (3) an interrupt handler, which handles all requests from the various hardware devices (such as disk drives and the keyboard) that compete for the kernel's services and (4) a memory manager, which allocates the system's <i>address spaces</i> (i.e., locations in memory) among all users of the kernel's services.
+</p>
+
+<p>
+The kernel should not be confused with the <i>BIOS</i>  (Basic Input/Output System). The BIOS is an independent program stored in a chip on the <i>motherboard</i> (the main circuit board of a computer) that is used during the booting process for such tasks as initializing the hardware and loading the kernel into memory. Whereas the BIOS always remains in the computer and is specific to its particular hardware, the kernel can be easily replaced or upgraded by changing or upgrading the operating system or, in the case of <a href="http://www.linfo.org/linuxdef.html">Linux</a>, by  adding a newer kernel or modifying an existing kernel.
+</p>
+
+<p>
+Most kernels have been developed for a specific operating system, and there is usually only one version available for each operating system. For example, the Microsoft Windows 2000 kernel is the only kernel for Microsoft Windows 2000 and the Microsoft Windows 98 kernel is the only kernel for Microsoft Windows 98. Linux is far more flexible in that there are numerous versions of the Linux kernel, and each of these can be modified in innumerable ways by an informed user.
+</p>
+
+<p>
+A few kernels have been designed with the goal of being suitable for use with any operating system. The best known of these is the Mach kernel, which was developed at Carnegie-Mellon University and is used in the Macintosh OS X operating system. 
+</p>
+
+<p>
+It is not necessary for a computer to have a kernel in order for it to be usable, the reason being that it is not necessary for it to have an operating system. That is, it is possible to load and run programs directly on <i>bare metal machines</i> (i.e., computers without any operating system installed), although this is usually not very practical.
+</p><p>
+
+</p><p>
+In fact, the first generations of computers used bare metal operation. However, it was eventually realized that convenience and efficiency could be increased by retaining small utility programs, such as program loaders and debuggers, in memory between applications. These programs gradually evolved into operating system kernels.
+</p>
+
+<p>
+The term <i>kernel</i> is frequently used in books and discussions about Linux, whereas it is used less often when discussing some other operating systems, such as the Microsoft Windows systems. The reasons are that the kernel is highly configurable in the case of Linux and users are encouraged to learn about and modify it and to download and install updated versions. With the Microsoft Windows operating systems, in contrast, there is relatively little point in discussing kernels because they cannot be modified or replaced.
+</p>
+
+<p>
+<strong>Categories of Kernels</strong>
+</p>
+
+<p>
+Kernels can be classified into four broad categories:
+<i>monolithic kernels</i>, <i>microkernels</i>, <i>hybrid kernels</i> and <i>exokernels</i>. Each has its own advocates and detractors.
+</p>
+
+<p>
+Monolithic kernels, which have traditionally been used by Unix-like operating systems, contain all the operating system core functions and the <i>device drivers</i> (small programs that allow the operating system to interact with hardware devices, such as disk drives, video cards and printers). Modern monolithic kernels, such as those of Linux and FreeBSD, both of which fall into the category of Unix-like operating systems, feature the ability to load <i>modules</i> at runtime, thereby allowing easy extension of the kernel's capabilities as required, while helping to minimize the amount of code running in kernel space.
+</p>
+
+<p>
+A microkernel usually provides only minimal services, such as defining memory address spaces, interprocess communication (IPC) and process management. All other functions, such as hardware management, are implemented as processes running independently of the kernel. Examples of microkernel operating systems are AIX, BeOS, Hurd, Mach, Mac OS X, <a href="http://www.linfo.org/minix.html">MINIX</a> and QNX. 
+</p>
+
+<p>
+Hybrid kernels are similar to microkernels, except that they include additional code in kernel space so that such code can run more swiftly than it would were it in user space. These kernels represent a compromise that was implemented by some developers before it was demonstrated that pure microkernels can provide high performance. Hybrid kernels should not be confused with monolithic kernels that can load modules after booting (such as Linux). 
+</p>
+
+<p>
+Most modern operating systems use hybrid kernels, including Microsoft Windows NT, 2000 and XP. DragonFly BSD, a recent <i>fork</i> (i.e., variant) of FreeBSD, is the first non-Mach based BSD operating system to employ a hybrid kernel architecture. 
+</p>
+
+<p>
+Exokernels are a still experimental approach to operating system design.  They differ from the other types of kernels in that their functionality is limited to the protection and multiplexing of the raw hardware, and they provide no hardware abstractions on top of which applications can be constructed. This separation of hardware protection from hardware management enables application developers to determine how to make the most efficient use of the available hardware for each specific program.
+</p>
+
+<p>
+Exokernels in themselves they are extremely small. However, they are accompanied by <i>library operating systems</i>, which provide application developers with the conventional functionalities of a complete operating system. A major advantage of exokernel-based systems is that they can incorporate multiple library operating systems, each exporting a different API (application programming interface), such as one for Linux and one for Microsoft Windows, thus making it possible to simultaneously run both Linux and Windows applications. 
+</p>
+
+<p>
+<strong>The Monolithic Versus Micro Controversy</strong>
+</p>
+
+<p>
+In the early 1990s, many computer scientists considered monolithic kernels to be obsolete, and they predicted that microkernels would revolutionize operating system design. In fact, the development of Linux as a monolithic kernel rather than a microkernel led to <a href="http://www.linfo.org/obsolete.html">a famous <i>flame war</i></a> (i.e., a war of words on the Internet) between Andrew Tanenbaum, the developer of the MINIX operating system, and <a href="http://www.linfo.org/linus.html">Linus Torvalds</a>, who originally developed Linux based largely on MINIX.
+</p>
+
+<p>
+Proponents of microkernels point out that monolithic kernels have the disadvantage that an error in the kernel can cause the entire system to crash. However, with a microkernel, if a kernel process crashes, it is still possible to prevent a crash of the system as a whole by merely restarting the service that caused the error. Although this sounds sensible, it is questionable how important it is in reality, because operating systems with monolithic kernels such as Linux have become extremely stable and can run for years without crashing.
+</p>
+
+<p>
+Another disadvantage cited for monolithic kernels is that they are not <i>portable</i>; that is, they must be rewritten for each new <i>architecture</i> (i.e., processor type) that the operating system is to be used on. However, in practice, this has not appeared to be a major disadvantage, and it has not prevented Linux from being ported to numerous processors.
+</p>
+
+<p>
+Monolithic kernels also appear to have the disadvantage that their <a href="http://www.linfo.org/sourcecode.html"><i>source code</i></a> can become extremely large. Source code is the version of <i>software</i> as it is originally <i>written</i> (i.e., typed into a computer) by a human in <a href="http://www.linfo.org/plain_text.html"><i>plain text</i></a>  (i.e., human readable <a href="http://www.linfo.org/alphabet.html">alpha</a>numeric <a href="http://www.linfo.org/character.html">characters</a>) and before it is converted by a <a href="http://www.linfo.org/compiler.html">compiler</a> into <i>object code</i> that a computer's processor can directly read and execute. 
+</p>
+
+<p>
+For example, the source code for the Linux kernel version 2.4.0 is approximately 100MB and contains nearly 3.38 million lines, and that for version 2.6.0 is 212MB and contains 5.93 million lines. This adds to the complexity of maintaining the kernel, and it also makes it difficult for new generations of <a href="http://www.linfo.org/computer_science.html">computer science</a> students to study and comprehend the kernel. However, the advocates of monolithic kernels claim that in spite of their size such kernels are easier to design correctly, and thus they can be improved more quickly than can microkernel-based systems.
+</p>
+
+<p>
+Moreover, the size of the compiled kernel is only a tiny fraction of that of the source code, for example roughly 1.1MB in the case of Linux version 2.4 on a typical Red Hat Linux 9 desktop installation. Contributing to the small size of the compiled Linux kernel is its ability to dynamically load modules at runtime, so that the basic kernel contains only those components that are necessary for the system to start itself and to load modules. 
+</p>
+
+<p>
+The monolithic Linux kernel can be made extremely small not only because of its ability to dynamically load modules but also because of its ease of customization. In fact, there are some versions that are small enough to fit together with a large number of utilities and other programs on a single floppy disk and still provide a fully functional operating system (one of the most popular of which is <a href="http://www.linfo.org/mulinux.html"><i>muLinux</i></a>). This ability to miniaturize its kernel has also led to a rapid growth in the use of Linux in <i>embedded systems</i> (i.e., computer circuitry built into other products).
+</p>
+
+<p>
+Although microkernels are very small by themselves, in combination with all their required auxiliary code they are, in fact, often larger than monolithic kernels. Advocates of monolithic kernels also point out that the two-tiered structure of microkernel systems, in which most of the operating system does not interact directly with the hardware, creates a not-insignificant cost in terms of system efficiency.
+</p>
+
+
+
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+<p><br></p>
+
+<p class="copy">Created May 25, 2004. Updated May 31, 2005.<br>
+Copyright © 2004 - 2005 The Linux Information Project. All Rights Reserved.</p>
+
+</td><td width="10%"></td></tr></tbody></table>
+
+
+
+</body></html>

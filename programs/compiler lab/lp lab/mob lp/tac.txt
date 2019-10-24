@@ -1,0 +1,15 @@
+a=b+c
+b=e+d
+e=b+c
+if a>b goto 2
+a=b&c
+b=e+d
+c=e+d
+if b&c goto 5
+c=d+a
+goto 10
+c=a-b
+d=d+a
+goto 4
+a=b-a
+goto 5

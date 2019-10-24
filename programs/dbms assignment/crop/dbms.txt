@@ -1,0 +1,37 @@
+EMPLOYEE( empno, name, deptno,job,hiredate, sal , commission, dob, city, phone)  
+DEPARTMENT( deptno, dname, manager,loc) 
+SALARY( eno, basic,HR,DA,tax) 
+Write equivalent SQL for the following query. (Use foreign key to join the tables.)  
+
+1) Get the name and city of the employee working for the accounting department? 
+2) Get the name, department name of all the employees whose pay is greater than 10000. 
+3) Get the name of the employee in ascending and descending order. 
+4) Update the city of the employee no.2 from Mumbai to Delhi. 
+5) Get the sum of the basic salary of the employees belongs to Delhi city. 
+6) Get the details of the highest income tax payee. 
+7) Which employee is the senior most? 
+8) Give the details of second highest salary employee (without use of ?<? operator) 
+9) Give the details of second highest salary employee (without use of max and limit operator) 
+10) Give the details of second highest salary employee (with the use of MINUS operator) 
+11) Give the details of all employees of 6th highest salary ( or nth highest salary) 
+12) How many clerks are there in the company? 
+13) Which department has exactly one employee as clerk? 
+14) Which department has the highest number of clerks? Show the deptno and count. 
+15) How many employees are there in each department? 
+16) List the lowest salary for different jobs used in a company and list them in descending order. 
+17) Which department average salary is the lowest among all? Show the deptno,average salary. 
+18) List the minimum, maximum and average salary for each job 
+19) Compute the difference between maximum and minimum salary 
+20) List the names of the employees whose name contains LA. 
+21) List the names of the employees whose joining date is between 2nd April,1981 and 8th Sept,1981. 
+22) How many different job titles exist in the employee table? 
+23) Compute the sum of all salaries of employee working under deptno=30. 
+24) For each salesman in the emp table retrieve the deptno and department name. 
+25) List the names of all the employees with their name of the manager. 
+26) List all employees who are working in department located at CHICAGO. 
+27) List all the employees who are working in same department as their managers. 
+28) Retrieve all the employees who are working in deptno=10 and who earn salary atleast as much as any employee working in deptno=30. 
+29) List all the department who have no employees 
+30) Delete the EC department.
+  
+NOTE: Each table name end with your roll no. e.g. roll no is 11CSS23 then table name should be Employee123.

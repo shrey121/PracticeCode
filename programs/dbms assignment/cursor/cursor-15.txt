@@ -1,0 +1,88 @@
+create table emp
+(
+	eid int primary key,
+	ename varchar(20),
+	esal int
+);
+
+insert into emp
+values(1,'Aman Kumar',20000),
+(2,'Shitij Sahni',37000),
+(3,'Lakshay Sahni',35000),
+(4,'Raman Bhanot',30000),
+(5,'Sambhav Singh',35000);
+
+create procedure emprecord(OUT str varchar(200))
+begin
+	declare name varchar(20) default '';
+	declare flag int default 1;
+	declare cur cursor for select ename from emp;
+	declare continue handler for NOT found set flag=0;
+	set str='';
+	open cur;
+	FETCH cur into str;
+	myloop: loop
+		FETCH cur into name;
+		if flag=0 then
+			leave myloop;
+		else
+			set str=CONCAT_WS(',',str,name);
+		end if;
+	end loop;
+	close cur;
+end;;
+
+create procedure empsecond(OUT str varchar(200),OUT sal int)
+begin
+	declare name varchar(20) default '';
+	declare flag int default 1;
+	declare cur cursor for select ename from emp where
+	esal=(select distinct(esal) from emp order by esal desc limit 1,1);
+	declare continue handler for NOT found set flag=0;
+	set str='';
+	open cur;
+	FETCH cur into str;
+	myloop: loop
+		FETCH cur into name;
+		if flag=0 then
+			leave myloop;
+		else
+			set str=CONCAT_WS(',',str,name);
+		end if;
+	end loop;
+	close cur;
+	set sal = (select distinct(esal) from emp order by esal desc limit 1,1);
+end;;
+
+
+create procedure empsalrecord(OUT strnamesal varchar(400))
+begin
+	declare name varchar(20) default '';
+	declare flag int default 1;
+	declare sal int;
+	declare strname varchar(200) default '';
+	declare strsal varchar(200) default '';
+	declare cur1 cursor for select ename from emp;
+	declare cur2 cursor for select esal from emp;
+	declare continue handler for NOT found set flag=0;
+	open cur1;
+	open cur2;
+	FETCH cur1 into strname;
+	FETCH cur2 into strsal;
+	myloop: loop
+		FETCH cur1 into name;
+		FETCH cur2 into sal;
+		if flag=0 then
+			leave myloop;
+		else
+			set strname=CONCAT_WS(',',strname,name);
+			set strsal=CONCAT_WS('       ',strsal,sal);
+		end if;
+	end loop;
+	
+	set strnamesal=strname;
+	set strnamesal=CONCAT_WS('\n    ',strnamesal,strsal);
+	close cur1;
+	close cur2;
+end;;
+

@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<!-- saved from url=(0064)http://www.slideshare.net/VandanaSalve/kernel-module-programming -->
+<html prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# slideshare: http://ogp.me/ns/fb/slideshare#" lang="en"><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# slideshare-dev: http://ogp.me/ns/fb/slideshare-dev#"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <meta charset="utf-8">
+   <!--
+   __________.__SlideShare_______               __
+   \______   \__| ____ \______   \ ____   _____/  |_
+    |    |  _/  |/ ___\ |    |  _//  _ \ /  _ \   __\
+    |    |   \  / /_/  >|    |   (  <_> |  <_> )  |
+    |______  /__\___  / |______  /\____/ \____/|__|
+           \/  /_____/         \/
+   -->
+
+  
+  
+  <!-- SL:start:notranslate -->
+  <title>Kernel module programming</title>
+  <!-- SL:end:notranslate -->
+  <meta name="viewport" content="width=1024">
+  <!-- SL:start:notranslate -->
+  <meta name="description" content="This presentation gives introduction to kernel module programming with sample kernel module. It helps to start with kernel programming and how it can be used to">
+  <meta name="thumbnail" content="http://cdn.slidesharecdn.com/ss_thumbnails/kernelmoduleprogramming-131029073444-phpapp01-thumbnail-2.jpg?cb=1383050287">
+  <!-- SL:end:notranslate -->
+
+  <!--[if !IE]>-->
+  <link rel="dns-prefetch" href="http://www.slideshare.net/">
+  <link rel="dns-prefetch" href="http://public.slidesharecdn.com/">
+  <link rel="dns-prefetch" href="http://image.slidesharecdn.com/">
+  <link rel="dns-prefetch" href="http://cdn.slidesharecdn.com/">
+  <link rel="dns-prefetch" href="http://cdn01.smartling.com/">
+  <!--<![endif]-->
+
+  <!--[if IE 9]>
+  <link rel="prefetch" href="//www.slideshare.net">
+  <link rel="prefetch" href="//public.slidesharecdn.com">
+  <link rel="prefetch" href="//image.slidesharecdn.com">
+  <link rel="prefetch" href="//cdn.slidesharecdn.com">
+  <link rel="prefetch" href="//cdn01.smartling.com">
+  <![endif]-->
+
+  <script src="./Kernel module programming_files/combined_presentation_init.js"></script></head><body class="sticky_navbar loggedIn"><div></div>
+  <link href="./Kernel module programming_files/sv-core.css" media="screen" rel="stylesheet" type="text/css">
+  <meta name="robots" content="index"><link rel="stylesheet" type="text/css" media="all" href="./Kernel module programming_files/combined.css">
+  <div></div>
+  
+  
+  <!--<link rel="stylesheet" media="all and (min-width: 748px) and (max-width: 977px)" href="grid-748.css">
+  <link rel="stylesheet" media="all and (min-width: 0px) and (max-width: 747px)" href="grid-300.css">-->
+  <link href="./Kernel module programming_files/combined_presentation.css" media="screen" rel="stylesheet" type="text/css">
+
+
+  <script type="text/javascript" id="page-load">
+  // <![CDATA[
+    var timer = (new Date()).getTime();
+    var _jspl = {}
+    _jspl.pageInitTime = timer;
+    var _ssPageMetrics = {};
+  // ]]>
+  </script>
+
+  <script type="text/javascript">
+  var jQl={q:[],dq:[],ready:function(a){typeof a=="function"&&jQl.q.push(a);return jQl},unq:function(){for(var a=0;a<jQl.q.length;a++)jQl.q[a]();jQl.q=[]},bId:null,boot:function(a){if(typeof window.jQuery.fn=="undefined"){if(!jQl.bId)jQl.bId=setInterval(function(){jQl.boot(a)},25)}else{jQl.bId&&clearInterval(jQl.bId);jQl.bId=0;jQl.unqjQdep();$(jQl.unq());typeof a=="function"&&a()}},booted:function(){return jQl.bId===0},loadjQ:function(a,c){setTimeout(function(){var b=document.createElement("script"); b.src=a;document.getElementsByTagName("head")[0].appendChild(b)},1);jQl.boot(c)},loadjQdep:function(a){jQl.loadxhr(a,jQl.qdep)},qdep:function(a){if(a)typeof window.jQuery.fn!=="undefined"&&!jQl.dq.length?jQl.rs(a):jQl.dq.push(a)},unqjQdep:function(){if(typeof window.jQuery.fn=="undefined")setTimeout(jQl.unqjQdep,50);else{for(var a=0;a<jQl.dq.length;a++)jQl.rs(jQl.dq[a]);jQl.dq=[]}},rs:function(a){var c=document.createElement("script");document.getElementsByTagName("head")[0].appendChild(c);c.text= a},loadxhr:function(a,c){var b;b=jQl.getxo();b.onreadystatechange=function(){b.readyState!=4||200!=b.status||c(b.responseText,a)};try{b.open("GET",a,true);b.send("")}catch(d){}},getxo:function(){var a=false;try{a=new XMLHttpRequest}catch(c){for(var b=["MSXML2.XMLHTTP.5.0","MSXML2.XMLHTTP.4.0","MSXML2.XMLHTTP.3.0","MSXML2.XMLHTTP","Microsoft.XMLHTTP"],d=0;d<b.length;++d){try{a=new ActiveXObject(b[d])}catch(e){continue}break}}finally{return a}}}; if(typeof window.jQuery=="undefined")var $=jQl.ready,jQuery=$;
+  </script>
+
+  <script id="page-json" type="text/javascript"><!--
+ var slideshare_object =  {"is_free_author":false,"facebook_app_id":2490221586,"flagging":{"flagged_value":null,"update_url":"http://www.slideshare.net/main/flag?slideshow_id=27688960"},"relative_static_origin_server":"//public.slidesharecdn.com/","category":{"featured":0},"presentationId":27688960,"slideshow_placeholder":"//public.slidesharecdn.com/images/thumbnail.png","doc":"kernelmoduleprogramming-131029073444-phpapp01","gam_cat_name":"technology","comments":{"destroy_url":"/comment/destroy","create_url":"/comment/create","slideview_template":"\u003Cli\u003E\n                    \u003Ca href=\"#\" title=\"Commenter Title\" class=\"notranslate commenter h-commenter j-author-photo\" rel=\"nofollow\"\u003E\n                        \u003Cimg class=\"nickname\" src=\"/images/user-48x48.png\" height=\"48\" alt=\"Full Name\" width=\"48\" original=\"/images/user-48x48.png\" /\u003E\n                        \u003Cstrong class=\"h-username j-username notranslate\"\u003EFull Name\u003C/strong\u003E\u003Cspan class=\"bioStub notranslate\"\u003E\u003Cspan class=\"h-commenter-role\"\u003E\u003C/span\u003E\u003Cspan class=\"h-commenter-org\"\u003E\u003C/span\u003E\u003C/span\u003E\n                    \u003C/a\u003E\n                    \u003Cspan class=\"commentText h-comment-text notranslate\"\u003E\n                        Comment goes here.\n                    \u003C/span\u003E\n                    \u003Cspan class=\"commentMeta h-comment-meta\"\u003E\n                      \u003Cspan class=\"commentTimestamp h-timestamp\"\u003E12 hours ago\u003C/span\u003E\n                      \u003Cspan class=\"commentActions h-comment-actions hide\"\u003E\n                        \u003Cbutton class=\"j-reply btn btn-mini\"\u003EReply\u003C/button\u003E\n                        \u003Cbutton class=\"action-edit btn btn-mini\"\u003EEdit\u003C/button\u003E\n                        \u003Cbutton class=\"action-delete btn btn-mini\"\u003EDelete\u003C/button\u003E\n                        \u003Cbutton class=\"action-spam btn btn-mini\"\u003ESpam\u003C/button\u003E\n                        \u003Cbutton class=\"action-block btn btn-mini\"\u003EBlock\u003C/button\u003E\n                      \u003C/span\u003E\n                    \u003C/span\u003E\n                    \u003Cdiv class=\"alertMessage blockMessage warning\" id=\"confirmDialog\"\u003E\n                        \u003Cspan class=\"title\"\u003EAre you sure you want to\u003C/span\u003E\n                        \u003Cbutton class=\"btn btn-mini\" id=\"yes\"\u003EYes\u003C/button\u003E\n                        \u003Cbutton class=\"btn btn-mini\" id=\"no\"\u003ENo\u003C/button\u003E\n                    \u003C/div\u003E\n                    \u003Cdiv class=\"alertMessage blockMessage warning\" id=\"messageDialog\"\u003E\n                        Your message goes here\n                    \u003C/div\u003E\n\n                    \u003Cspan class=\"j-loading hide\"\u003E \u003Cimg src=\"\u003C%= $slideshare_conf['static-origin-server'] %\u003Eimages/indicator.gif\" height=\"5\" alt=\"Processing\u0026hellip;\" width=\"21\" /\u003E \u003C/span\u003E\n\n                \u003C/li\u003E","ajaxurl":"/~/slideshow/comments/27688960.json","unsubscribe_url":"/comment/unsubscribe/27688960","update_url":"/comment/update","spam_url":"/comment/mark_spam","total_count":0,"captcha_url":"http://s3.amazonaws.com/ss-captchas/"},"stats":{"url":"http://www.slideshare.net/~/slideshow/stats/27688960.json"},"downloads":{"allow":true,"sp_isdwnl":true},"jsplayer":{"html_ttffont_url_suffix":".js","hosted_in":"slideview","shareoptions":{"html":"\u003C!-- \u003Cscript\u003E\n(function(){  var FBInitParams = {\n    appId  : '2490221586',\n    status : true, // check login status\n    cookie : true, // enable cookies to allow the server to access the session\n    xfbml  : true, // parse XFBML\n    oauth  : true,  // to enable OAuth 2.0\n    channelUrl  : '//public.slidesharecdn.com/channel.html'\n  };\n  if(typeof(FB) === \"object\"){\n    window.setTimeout(function(){\n      FB.XFBML.parse();\n      FB.Event.subscribe('edge.create',fbLike);\n    },50);\n  }else{\n    window.fbAsyncInit = function() {\n      FB.init(FBInitParams);\n      FB.Event.subscribe('edge.create',fbLike);\n    }\n  }\n})();\n\u003C/script\u003E --\u003E\n\n\u003Cdiv class=\"shareoptions\"\u003E\n  \u003Cul class=\"thirdPartyShare\"\u003E\n  \t\u003Cli\u003E\u003Ca href=\"#\" class=\"shareSprite Twitter\"\u003E\u0026nbsp; \u003C/a\u003E\u003C/li\u003E\n    \u003Cli\u003E\u003Ca href=\"#\" class=\"shareSprite Linkedin\"\u003E\u0026nbsp; \u003C/a\u003E\u003C/li\u003E\n    \u003Cli\u003E\u003Ca href=\"#\" class=\"fb-like\"/\u003E\u003C/li\u003E\n  \u003C/ul\u003E\n\u003C/div\u003E\n","linkedin_share":"http://www.slideshare.net/share/linkedin/27688960/SlideShare:%20Kernel%20module%20programming","facebook_like_button":"\u003Ciframe class=\"fb-like\" src=\"//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.slideshare.net%2FVandanaSalve%2Fkernel-module-programming\u0026amp;width=50\u0026amp;height=21\u0026amp;colorscheme=light\u0026amp;layout=button_count\u0026amp;action=like\u0026amp;show_faces=false\u0026amp;send=false\u0026amp;appId=2490221586\" scrolling=\"no\" frameborder=\"0\" style=\"border:none; overflow:hidden; width:50px; height:25px;\" allowTransparency=\"true\"\u003E\u003C/iframe\u003E","facebook_share":"http://www.slideshare.net/share/facebook/27688960/Check%20out%20this%20SlideShare%20presentation%20:%20Kernel%20module%20programming","googleplus_share":"http://plus.google.com/share?url=http%3A%2F%2Fwww.slideshare.net%2FVandanaSalve%2Fkernel-module-programming","twitter_share":"http://www.slideshare.net/share/tweet/27688960/Kernel%20module%20programming"},"iframe_url":"http://www.slideshare.net/slideshow/embed_code/27688960","disable_eagerload":false,"start_slide":1,"image_ready":true,"embed_code":"\u003Ciframe src=\"http://www.slideshare.net/slideshow/embed_code/27688960\" width=\"427\" height=\"356\" frameborder=\"0\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"no\" style=\"border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px\" allowfullscreen\u003E \u003C/iframe\u003E \u003Cdiv style=\"margin-bottom:5px\"\u003E \u003Cstrong\u003E \u003Ca href=\"https://www.slideshare.net/VandanaSalve/kernel-module-programming\" title=\"Kernel module programming\" target=\"_blank\"\u003EKernel module programming\u003C/a\u003E \u003C/strong\u003E from \u003Cstrong\u003E\u003Ca href=\"http://www.slideshare.net/VandanaSalve\" target=\"_blank\"\u003EVandana Salve\u003C/a\u003E\u003C/strong\u003E \u003C/div\u003E","iframe_code":"\u003Ciframe src=\"{iframe_url}\" width=\"{width}\" height=\"{height}\" frameborder=\"0\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"no\" style=\"border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px\" allowfullscreen\u003E \u003C/iframe\u003E \u003Cdiv style=\"margin-bottom:5px\"\u003E \u003Cstrong\u003E \u003Ca href=\"https://www.slideshare.net/VandanaSalve/kernel-module-programming\" title=\"Kernel module programming\" target=\"_blank\"\u003EKernel module programming\u003C/a\u003E \u003C/strong\u003E from \u003Cstrong\u003E\u003Ca href=\"http://www.slideshare.net/VandanaSalve\" target=\"_blank\"\u003EVandana Salve\u003C/a\u003E\u003C/strong\u003E \u003C/div\u003E","bucket_location":"//html.slidesharecdn.com/kernelmoduleprogramming-131029073444-phpapp01/","pin_image_url":"http://cdn.slidesharecdn.com/ss_thumbnails/kernelmoduleprogramming-131029073444-phpapp01-thumbnail-4.jpg?cb=1383050287","meta_error_template":"\u003Cstyle type=\"text/css\"\u003E\n  .jsplayer-slide-error {\n    background-color: #000;\n    padding: 20% 0 13% !important;\n  }\n  .jsplayer-slide-error div {\n    text-align: center;\n  }\n  .jsplayer-slide-error img {\n    height: 79px !important;\n    margin: 0 0 10px;\n    width: 80px !important;\n  }\n  .jsplayer-slide-error .slide-error-body {\n    color: #eee;\n    font-family: 'Lucida Grande',Verdana, Arial, Helvetica, sans-serif;\n    padding: 0 !important;\n  }\n  .jsplayer-slide-error .slide-error-body p {\n    font-size: 0.8em;\n    line-height: 1.1em;\n    margin: 8px 0;\n  }   \n  .jsplayer-slide-error .slide-error-body input[type=button] {\n    margin: 7px 0 0;\n    padding: 7px 14px;\n  }\n\u003C/style\u003E\n\u003Cdiv class=\"jsplayer-slide-error\"\u003E\n  \u003Cdiv style=\"position:relative;\"\u003E\n    \u003Cimg src='//public.slidesharecdn.com/images/ssplayer/error_dudes-80x79.png' height=\"79\" width=\"80\" /\u003E\n    \u003Cdiv class=\"slide-error-body\"\u003E\n      \u003Cp\u003EWe have encountered an error.\u003C/p\u003E\n      \u003Cp\u003EPlease refresh the page.\u003C/p\u003E\n    \u003C/div\u003E\n  \u003C/div\u003E\n\u003C/div\u003E\n","twitter_recommended_users":null,"has_video":false,"show_image_player":true,"video_slides_count":0,"fullscreen_url":"/fullscreen/VandanaSalve/kernel-module-programming","timestamp":1383050287,"ppt_location":"kernelmoduleprogramming-131029073444-phpapp01","slide_error_template":"\u003Cstyle type=\"text/css\"\u003E\n  .jsplayer-slide-error {\n    background-color: #000;\n    padding: 20% 0 13% !important;\n  }\n  .jsplayer-slide-error div {\n    text-align: center;\n  }\n  .jsplayer-slide-error img {\n    height: 79px !important;\n    margin: 0 0 10px;\n    width: 80px !important;\n  }\n  .jsplayer-slide-error .slide-error-body {\n    color: #eee;\n    font-family: 'Lucida Grande',Verdana, Arial, Helvetica, sans-serif;\n    padding: 0 !important;\n  }\n  .jsplayer-slide-error .slide-error-body p {\n    font-size: 0.8em;\n    line-height: 1.1em;\n    margin: 7px 0 11px;\n  }\n  .jsplayer-slide-error .slide-error-body input[type=button] {\n    margin: 7px 0 0;\n    padding: 7px 14px;\n  }\n\u003C/style\u003E\n\u003Cdiv class=\"jsplayer-slide-error\"\u003E\n  \u003Cdiv style=\"position:relative;\"\u003E\n    \u003Cimg src='//public.slidesharecdn.com/images/ssplayer/error_dudes-80x79.png' height=\"79\" width=\"80\" /\u003E\n    \u003Cdiv class=\"slide-error-body\"\u003E\n      \u003Cp\u003EWe were unable to load the slide.\u003C/p\u003E\n      \u003Cinput class=\"btn btn-large\" type=\"button\" value=\"Reload slide\" /\u003E\n    \u003C/div\u003E\n  \u003C/div\u003E\n\u003C/div\u003E\n","sharescreen":{"html":"\u003Cdiv class=\"shareScreen\"\u003E\n  \u003Ca href=\"#\" class=\"close\"\u003E\u0026times;\u003C/a\u003E\n  \u003Cul class=\"shareMethods\"\u003E\n    \u003Cli class=\"embed\"\u003E\n      \u003Clabel for=\"embed-code\"\u003EEmbed\u003C/label\u003E\n      \u003Cinput type='text' class=\"shareScreenEmbedCode\" value=\"code\" name=\"embed-code\" /\u003E\n    \u003C/li\u003E\n    \u003Cli class=\"url last\"\u003E\n      \u003Clabel for=\"embed-url\"\u003EURL\u003C/label\u003E\n      \u003Cinput type='text' class=\"shareScreenSSUrl\" value=\"code\" name=\"embed-url\" /\u003E\n\t\u003C/li\u003E\n  \u003C/ul\u003E\n  \u003Cform class=\"emailShare\"\u003E\n    \u003Cfieldset\u003E\n      \u003Clegend\u003EEmail this\u003C/legend\u003E\n      \u003Cinput type=\"hidden\" class=\"shareDefaultMessage\" value=\"I think you will find this useful.\" /\u003E\n      \u003Cul\u003E\n        \u003Cli\u003E\n          \u003Clabel for=\"name\"\u003EYour name\u003C/label\u003E\n          \u003Cinput class='shareScreenFromName' type=\"text\" value=\"\" /\u003E\n        \u003C/li\u003E\n        \u003Cli\u003E\n          \u003Clabel for=\"mailID\"\u003EEmail to\u003C/label\u003E\n          \u003Cinput class=\"shareScreenMailID\" type=\"text\" value=\"\" /\u003E\n        \u003C/li\u003E\n        \u003Cli class=\"submit\"\u003E\n          \u003Clabel\u003E\u0026nbsp;\u003C/label\u003E\n          \u003Cinput class=\"shareSprite\" type=\"submit\" value=\"\" /\u003E\n        \u003C/li\u003E        \n      \u003C/ul\u003E\n      \u003C/fieldset\u003E\n  \u003C/form\u003E\n\u003C/div\u003E\u003C!-- shareScreen ends here --\u003E","slideshow_id":27688960,"title":"Kernel module programming","url":"http://www.slideshare.net/VandanaSalve/kernel-module-programming","user_name":"Shamim Biswas"},"spinner_url":"//public.slidesharecdn.com/images/ssplayer/loading_bigfoot.gif?bb6a018640","container":"svPlayerId","has_lead":false,"show_related_content":"1","preload_after_pageload":true,"is_private":false,"mode":"html","slide_count":19,"toolbar_html":"\u003C!--[if IE 7]\u003E\n  \u003Cstyle\u003E\n    .toolbar .navActions { position: relative; top: -28px; }\n    div.toolbar .nav {margin-left : 37%; }\n  \u003C/style\u003E\n\u003C![endif]--\u003E\n  \u003Ca href=\"#\" class=\"sprite btnViewOnSS\" title=\"View on SlideShare\"\u003E\u0026nbsp;\u003C/a\u003E\u003C!-- view on SS --\u003E\n  \u003Cdiv class=\"nav\"\u003E\n    \u003Ca href=\"#btnFirst\" class=\"btnFirst\" title=\"First Slide\" rel=\"nofollow\"\u003E\u0026laquo;\u003C/a\u003E\n    \u003Ca href=\"#btnPrevious\" class=\"btnPrevious\" title=\"Previous Slide\" rel=\"nofollow\"\u003E\u0026lsaquo;\u003C/a\u003E\n    \u003Ca href=\"#btnNext\" class=\"btnNext\" title=\"Next Slide\" rel=\"nofollow\"\u003E\u0026rsaquo;\u003C/a\u003E\n    \u003Ca href=\"#btnLast\" class=\"btnLast\" title=\"Last Slide\" rel=\"nofollow\"\u003E\u0026raquo;\u003C/a\u003E\n  \u003C/div\u003E\n  \u003Cdiv class=\"navActions\"\u003E\n    \u003Ca href=\"#\" class=\"btnFullScreen\" title=\"View Fullscreen\" rel=\"nofollow\"\u003E\u0026nbsp;\u003C/a\u003E\n    \u003Ca href=\"#\" class=\"btnLeaveFullScreen\" title=\"Exit Fullscreen\" rel=\"nofollow\"\u003E\u0026nbsp;\u003C/a\u003E\n    \u003Clabel class=\"goToSlideLabel\"\u003E\u003Cinput type=\"text\" name=\"goToSlide\" value=\"1\" /\u003E\u003Cspan\u003E/123\u003C/span\u003E\u003C/label\u003E\n  \u003C/div\u003E\n","player_type":"presentation","lastscreen":{"related":[{"author_login":"kodjoa1","title":"Ch02","author":"Kodjo Adanledji","thumbnail":"//cdn.slidesharecdn.com/ss_thumbnails/ch02-120926160200-phpapp01-thumbnail.jpg?cb=1348693388","url":"/kodjoa1/ch02-14474286","views":262},{"author_login":"murali_purushothaman","title":"Studienarb linux kernel-dev","author":"murali_purushothaman","thumbnail":"//cdn.slidesharecdn.com/ss_thumbnails/studienarb-linuxkerneldev-130227113333-phpapp01-thumbnail.jpg?cb=1361991888","url":"/murali_purushothaman/studienarb-linux-kerneldev","views":90},{"author_login":"sudhir1223","title":"Linux_kernelmodule ","author":"sudhir1223","thumbnail":"//cdn.slidesharecdn.com/ss_thumbnails/lkm2-6-130319040820-phpapp01-thumbnail.jpg?cb=1363684184","url":"/sudhir1223/linuxkernelmodule","views":219},{"author_login":"gnunify","title":"Linux Kernel Development","author":"gnunify","thumbnail":"//cdn.slidesharecdn.com/ss_thumbnails/linux-kernel-development-22001-thumbnail.jpg?cb=1170902420","url":"/gnunify/linux-kernel-development","views":12409},{"author_login":"mukulbhardwaj","title":"Basic Linux Internals","author":"mukulbhardwaj","thumbnail":"//cdn.slidesharecdn.com/ss_thumbnails/presentation1-100818022110-phpapp02-thumbnail.jpg?cb=1282118035","url":"/mukulbhardwaj/basic-linux-internals","views":23639},{"author_login":"DngNguyn5","title":"Linux kernel module programming guide","author":"D\u0169ng Nguy\u1ec5n","thumbnail":"//cdn.slidesharecdn.com/ss_thumbnails/linuxkernelmoduleprogrammingguide-101215134521-phpapp02-thumbnail.jpg?cb=1292443217","url":"/DngNguyn5/linux-kernel-module-programming-guide","views":2230},{"author_login":"anshuljmi","title":"Device driver","author":"Anshul Sharma","thumbnail":"//cdn.slidesharecdn.com/ss_thumbnails/devicedriver-130211053242-phpapp02-thumbnail.jpg?cb=1360582540","url":"/anshuljmi/device-driver-16465756","views":414},{"author_login":"anil_pugalia","title":"Introduction to Linux Drivers","author":"Anil Kumar Pugalia","thumbnail":"//cdn.slidesharecdn.com/ss_thumbnails/introductiontolinuxdrivers-100621164852-phpapp01-thumbnail.jpg?cb=1307927061","url":"/anil_pugalia/introduction-to-linux-drivers","views":14783},{"author_login":"danielneis","title":"Writing Device Drivers For Linux","author":"Daniel Neis","thumbnail":"//cdn.slidesharecdn.com/ss_thumbnails/writingdevicedriversforlinux-1208918312957687-9-thumbnail.jpg?cb=1208911089","url":"/danielneis/writing-device-drivers-for-linux","views":6999},{"author_login":"tspradeepkumar","title":"Device drivers tsp","author":"Pradeep Kumar TS","thumbnail":"//cdn.slidesharecdn.com/ss_thumbnails/devicedriverstsp-110317023246-phpapp02-thumbnail.jpg?cb=1300347230","url":"/tspradeepkumar/device-drivers-tsp","views":2561},{"author_login":"williamosores","title":"L lpic2201-pdf","author":"Comafal","thumbnail":"//cdn.slidesharecdn.com/ss_thumbnails/l-lpic2201-pdf-121030094222-phpapp02-thumbnail.jpg?cb=1351608184","url":"/williamosores/l-lpic2201pdf","views":226},{"author_login":"abuaisy1","title":"Load module kernel","author":"Abu Azzam","thumbnail":"//cdn.slidesharecdn.com/ss_thumbnails/loadmodulekernel-130928112012-phpapp02-thumbnail.jpg?cb=1380386466","url":"/abuaisy1/load-module-kernel","views":522}],"url":"http://www.slideshare.net/VandanaSalve/kernel-module-programming"},"player_bgcolor":"jsplBgColorBigfoot","embed_sizes":{"presets":{"preset3":{"size":{"height":420,"width":510},"displaySize":{"height":45,"width":60}},"preset4":{"size":{"height":485,"width":595},"displaySize":{"height":53,"width":70}},"preset1":{"size":{"height":290,"width":340},"displaySize":{"height":30,"width":40}},"preset2":{"size":{"height":355,"width":425},"displaySize":{"height":38,"width":50}}},"config":{"defaultPreset":"preset2"}},"html_eotfont_url_suffix":"-eot.js","twitter_share_text":"Kernel module programming #kernelmoduleprogramming","id":27688960,"spinner_url_fullscreen":"//public.slidesharecdn.com/images/ssplayer/loading_white.gif?5889cf60da","has_audio":false,"referer":"https://www.google.co.in/","share_text":"Kernel module programming by Vandana Salve via slideshare","disable_share":false,"page":1,"share_cta":{"html":"\u003Cdiv class=\"action-btns-container\"\u003E\n\n  \u003Ca rel=\"nofollow\" href=\"#\" title=\"Share this presentation\" class=\"action-btn share j-share\" data-ssid=\"00\"\u003E\n    \u003Cspan class=\"action-btn-icon\"\u003E\u003C/span\u003E\n    \u003Cspan class=\"action-btn-text\"\u003EShare\u003C/span\u003E\n  \u003C/a\u003E\n\n\u003C/div\u003E\n"},"stripped_title":"kernel-module-programming","track_slide_enable":1,"is_only_private":false,"inpage_full_screen":true,"replayscreen":{"html":"\u003Ca href=\"#\" class=\"replayScreenReplay\" \u003EView again\u003C/a\u003E"},"image_bucket_location":"//image.slidesharecdn.com/kernelmoduleprogramming-131029073444-phpapp01","author_id":29242558,"beacon_url":"stats.slideshare.net/1.gif","use_ssl":false,"slideview_url":"/VandanaSalve/kernel-module-programming","wp_code":"[slideshare id=27688960\u0026doc=kernelmoduleprogramming-131029073444-phpapp01]","fullscreen_bgcolor":"jsplBgColorWhite"},"fb_app_name":"slideshare","slideshow":{"iframe_url":"http://www.slideshare.net/slideshow/embed_code/27688960","total_slides":19,"iframe_code":"\u003Ciframe src=\"{iframe_url}\" width=\"{width}\" height=\"{height}\" frameborder=\"0\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"no\" style=\"border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px\" allowfullscreen\u003E \u003C/iframe\u003E \u003Cdiv style=\"margin-bottom:5px\"\u003E \u003Cstrong\u003E \u003Ca href=\"https://www.slideshare.net/VandanaSalve/kernel-module-programming\" title=\"Kernel module programming\" target=\"_blank\"\u003EKernel module programming\u003C/a\u003E \u003C/strong\u003E from \u003Cstrong\u003E\u003Ca href=\"http://www.slideshare.net/VandanaSalve\" target=\"_blank\"\u003EVandana Salve\u003C/a\u003E\u003C/strong\u003E \u003C/div\u003E","pin_image_url":"http://cdn.slidesharecdn.com/ss_thumbnails/kernelmoduleprogramming-131029073444-phpapp01-thumbnail-4.jpg?cb=1383050287","title":"Kernel module programming","form_after_slide_number":null,"show_related_content":"1","user_login":"VandanaSalve","is_author_premium":false,"fullscreen_bg_color":"White","embed_sizes":{"presets":{"preset3":{"size":{"height":420,"width":510},"displaySize":{"height":45,"width":60}},"preset4":{"size":{"height":485,"width":595},"displaySize":{"height":53,"width":70}},"preset1":{"size":{"height":290,"width":340},"displaySize":{"height":30,"width":40}},"preset2":{"size":{"height":355,"width":425},"displaySize":{"height":38,"width":50}}},"config":{"defaultPreset":"preset2"}},"id":"27688960","type":"presentation","view_action_state":"unpublished","user_name":"Vandana Salve","allow_embeds":true,"is_audio":false,"zeroclipboard_url":"http://static.slidesharecdn.com/ZeroClipboard.swf","form_is_blocking":false,"facade_slide_url":"http://image.slidesharecdn.com/kernelmoduleprogramming-131029073444-phpapp01/95/slide-1-638.jpg?cb=1383050287","ss_url":"http://www.slideshare.net/VandanaSalve/kernel-module-programming","wp_code":"[slideshare id=27688960\u0026doc=kernelmoduleprogramming-131029073444-phpapp01]"},"embeds_count":2,"pvt":0,"default_tab":".svMoreAuthor","related_type":"related","favorites":{"create_url":"/favorite/create","delete_url":"/favorite/delete","update_url":"/favorite/update/FAVID"},"startSlide":1,"activities":{"favorites":{"total":0,"url":"/~/slideshow/favorites_list/27688960.json","count":0}},"userimage_placeholder":"//public.slidesharecdn.com/images/user-48x48.png","sharing_more":{"url":"http://www.slideshare.net/~/slideshow/sharing_more/27688960.html"},"top_nav":{"get_url":"/top_nav"},"show_ads":{},"cached_template_url":"//public.slidesharecdn.com/get_cacheable_template","show_branding":1,"stripped_title":"kernel-module-programming","li_bar":{"get_url":"/li_bar"},"useHttp":1,"totalSlides":19,"preview":"no","contacts":{"create_url":"/contact/create?contactee=CONTACTEE\u0026contacter=52784412\u0026frm_source=slideview","delete_url":"/contact/delete?contactee=29242558\u0026contacter=52784412\u0026frm_source=slideview"},"key":false,"beacon_url":"stats.slideshare.net/1.gif","user":{"user_group":"user","occupation":null,"name":"Shamim Biswas","su":false,"can_remove_contact":null,"pro":false,"member_type":"member","fb_access_token":"CAAAAAJRtxBIBAPKVL8YTgJ0tM8DfztKnXZCEXRBQOtnlRfAuTcXN1qRRz5KRVDRZA0XqANojr1HQMyH6jp1ZAf3IX1M44k0p73Lk353oc2IBUI5RqyVrxC7V4dRdrmagVGtI2Ia6bFWZCbKsRkPjOrChvGBXZAHOc2iRZB9f9Dlzks92dor6fH","photo_url":"//cdn.slidesharecdn.com/profile-photo-shamimbiswas752-48x48.jpg?cb=1389080114","is_opengraph_user":true,"id":52784412,"commenter":false,"organization":"Jamia Millia Islamia","enable_boomerang":false,"opengraph_permissions":{"comment":true,"download":true,"upload":true,"follow":true,"view":true,"favorite":true},"loggedin":true,"fb_userid":"100000179948219","login":"shamimbiswas752","email":"sha_coolbuddy@yahoo.co.in","owner":false},"asset_id":"5ae8683e04b8def680841795d0f05d4803f4fc7b","version_no":"1383050287","dev":false}; var user_info =  {"name":"Shamim Biswas","userGroup":"member","is_pro":false,"su":false,"fb_access_token":"CAAAAAJRtxBIBAPKVL8YTgJ0tM8DfztKnXZCEXRBQOtnlRfAuTcXN1qRRz5KRVDRZA0XqANojr1HQMyH6jp1ZAf3IX1M44k0p73Lk353oc2IBUI5RqyVrxC7V4dRdrmagVGtI2Ia6bFWZCbKsRkPjOrChvGBXZAHOc2iRZB9f9Dlzks92dor6fH","id":52784412,"is_opengraph_user":true,"has_uploads":false,"is_fbuser":true,"login":"shamimbiswas752","loggedin":true,"opengraph_permissions":{"comment":true,"download":true,"upload":true,"follow":true,"view":true,"favorite":true},"fb_userid":"100000179948219"}; 
+//--></script>
+  <script id="adQueue" type="text/javascript"><!--
+ if(!slideshare_object.delayedLIAd){ slideshare_object._adQueue = []; } 
+//--></script>
+  <script type="text/javascript">
+//<![CDATA[
+jQl.loadjQ("//public.slidesharecdn.com/slideview/scripts/combined_presentation_init.js?5ae8683e04b8def680841795d0f05d4803f4fc7b");
+//]]>
+</script>
+  <script type="text/javascript" id="ga-init">
+  // <![CDATA[
+    window._gaq = [];
+    window._gaq.push(['_trackEvent', 'bigfoot_slideview', 'pageload', slideshare_object.gam_cat_name, undefined, true]);
+    window._sstq && _sstq.push(['track', 'player_share_cta', 'slideview_pageload']);
+    if(slideshare_object.user.member_type === "non-member"){
+      window._gaq.push(['_trackEvent', 'bigfoot_slideview', 'loggedout_pageload', slideshare_object.gam_cat_name, undefined, true]);
+    }
+  // ]]>
+  </script>
+  <script id="h-qu-experiment-instrumentation"></script>
+  <script id="rails_environment" type="text/javascript"><!--
+ slideshare_object.deploy_environment = 'production';
+//--></script>
+
+  
+
+
+  <!--[if lt IE 9]><script src="//public.slidesharecdn.com/javascripts/plugins/html5.js"></script><![endif]-->
+
+  <script type="text/javascript">
+//<![CDATA[
+var smtId = "ab5bb963d";
+var smtDefaultStyles = false;
+var smtRedirect = true;
+var smtProt = (("https:" == document.location.protocol) ? "https://" : "http://");
+
+var smtPreRender = function(data) {
+  for (i in data) {
+    if (data[i].code === "en-us") {
+      data[i].name = "English";
+    }
+  }
+};
+
+var smtRedirectMapper = function(locale, sites) {
+  if (/^es/i.test(locale)){ //disable redirect to spanish site
+    return null;
+  }
+  if (locale in sites) {
+    return sites[locale];
+  }
+  if (/^fr/i.test(locale)) {
+    return sites['fr-fr'] || null;
+  }
+  if (/^de/i.test(locale)) {
+    return sites['de-de'] || null;
+  }
+  return null;
+};
+
+document.write(unescape("%3Cscript src='" + smtProt + "cdn01.smartling.com/ls/"+ smtId +".js' type='text/javascript'%3E%3C/script%3E"));
+
+//]]>
+</script><script src="./Kernel module programming_files/ab5bb963d.js" type="text/javascript"></script>
+
+  <link rel="Shortcut Icon" href="http://public.slidesharecdn.com/images/favicon.ico">
+  <link href="./Kernel module programming_files/Kernel module programming.htm" rel="canonical">
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="http://www.slideshare.net/rss/latest">
+  <link rel="search" type="application/opensearchdescription+xml" href="http://www.slideshare.net/search/opensearch.xml" title="SlideShare Search">
+  <link href="http://www.slideshare.net/api/oembed/2?format=json&url=http://www.slideshare.net/VandanaSalve/kernel-module-programming" title="Slideshow oEmbed Profile" rel="alternate" type="application/json+oembed">
+  <link href="http://www.slideshare.net/api/oembed/2?format=xml&url=http://www.slideshare.net/VandanaSalve/kernel-module-programming" title="Slideshow oEmbed Profile" rel="alternate" type="text/xml+oembed">
+  <link href="http://www.slideshare.net/mobile/VandanaSalve/kernel-module-programming" rel="alternate" media="handheld">
+  
+  <!-- fb open graph meta tags -->
+  <meta name="fb_app_id" property="fb:app_id" class="fb_og_meta" content="2490221586">
+  <meta name="og_type" property="og:type" class="fb_og_meta" content="slideshare:presentation">
+  <meta name="og_url" property="og:url" class="fb_og_meta" content="http://www.slideshare.net/VandanaSalve/kernel-module-programming">
+  <meta name="og_image" property="og:image" class="fb_og_meta" content="http://cdn.slidesharecdn.com/ss_thumbnails/kernelmoduleprogramming-131029073444-phpapp01-thumbnail-4.jpg?cb=1383050287">
+  <!-- SL:start:notranslate -->
+  <meta name="og_title" property="og:title" class="fb_og_meta" content="Kernel module programming">
+  <meta name="og_description" property="og:description" class="fb_og_meta" content="This presentation gives introduction to kernel module programming with sample kernel module. It helps to start with kernel programming and how it can be used to">
+  <!-- SL:end:notranslate -->
+  <meta name="slideshow_published_time" property="slideshare:published" class="fb_og_meta" content="2013-10-29T12:34:44Z">
+  <meta name="slideshow_author" property="slideshare:author" class="fb_og_meta" content="http://www.slideshare.net/VandanaSalve">
+  <meta name="slideshow_view_count" property="slideshare:view_count" class="fb_og_meta" content="238">
+  <meta name="slideshow_embed_count" property="slideshare:embed_count" class="fb_og_meta" content="2">
+  <meta name="slideshow_comment_count" property="slideshare:comment_count" class="fb_og_meta" content="0">
+  <meta name="slideshow_download_count" property="slideshare:download_count" class="fb_og_meta" content="2">
+  <meta name="slideshow_created_at" property="slideshare:created_at" class="fb_og_meta" content="2013-10-29 12:34:44 UTC">
+  <meta name="slideshow_updated_at" property="slideshare:updated_at" class="fb_og_meta" content="2013-10-29 12:38:07 UTC">
+  <meta name="slideshow_featured_on" property="slideshare:featured_on" class="fb_og_meta" content="">
+  <meta name="slideshow_favorites_count" property="slideshare:favorites_count" class="fb_og_meta" content="0">
+  <meta name="slideshow_category" property="slideshare:category" class="fb_og_meta" content="Education">
+
+  <!-- SL:start:notranslate -->
+  <meta name="twitter:card" value="player">
+  <meta name="twitter:site" value="@slideshare">
+  <meta name="twitter:player" class="twitter_player" value="https://www.slideshare.net/slideshow/embed_code/27688960">
+  <meta name="twitter:player:width" value="342">
+  <meta name="twitter:player:height" value="291">
+  <meta name="twitter:title" class="twitter_title" value="Kernel module programming">
+  <meta name="twitter:image" class="twitter_image" value="http://cdn.slidesharecdn.com/ss_thumbnails/kernelmoduleprogramming-131029073444-phpapp01-thumbnail-4.jpg?cb=1383050287">
+  <!-- SL:end:notranslate -->
+
+  
+
+  
+    <div class="li-global-msg-container hide">    <div class="li-global-msg" style="display: block; ">
+      <div class="container">
+        <p>
+          Connect your LinkedIn account to SlideShare to get the best of both worlds
+          <a class="li-connect" id="li-login" href="http://www.slideshare.net/liconnect/ss_campaign"><span class="li-icon"></span>Connect</a>
+          <a href="http://www.slideshare.net/VandanaSalve/kernel-module-programming#" class="li-close">×</a>
+        </p>
+      </div>
+    </div>
+</div>
+
+    <!-- Navbar -->
+    <div id="main_navbar" class="navbar new_navbar mobile-hide">
+  <div class="navbar-inner">
+    <div class="container">
+      
+      <!-- Logo -->
+
+      <div class="logo-wrapper" itemscope="" itemtype="http://schema.org/Organization">
+        <a class="sprite-brand" href="http://www.slideshare.net/?ss" itemprop="url" title="Homepage" id="j-slideshare-logo" rel="tooltip" data-ga="homepage">
+          <img itemprop="logo" src="./Kernel module programming_files/logo.png" width="185" height="38" alt="SlideShare">
+        </a>
+      </div>
+
+      <ul class="nav">
+
+        <!-- Updates -->
+
+          <li>
+            <a href="http://www.slideshare.net/shamimbiswas752/newsfeed" class="j-icon_NoNotification no-notification" data-ga="my_newsfeed">
+              Updates <span class="count">0</span>
+            </a>
+            <a href="http://www.slideshare.net/shamimbiswas752/newsfeed" class="hide j-icon_Notification yes-notification" data-ga="my_newsfeed">
+              Updates <span class="count">0</span>
+            </a>
+          </li>
+
+        <li class="nav_divider"></li>
+
+        <!-- Explore -->
+
+        <li class="dropdown" id="browse">
+            <a href="http://www.slideshare.net/featured" class="dropdown-toggle" data-toggle="dropdown">Explore&nbsp;<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li>
+                    <a href="http://www.slideshare.net/featured" data-ga="featured">Featured</a>
+                </li>
+                <li>
+                    <a href="http://www.slideshare.net/popular/week" data-ga="popular">Popular</a>
+                </li>
+                <li>
+                    <a href="http://www.slideshare.net/most-liked/week" data-ga="most_liked">Most Liked</a>
+                </li>
+                <li>
+                    <a href="http://www.slideshare.net/featured/media/infographics" data-ga="infographics">Infographics</a>
+                </li>
+                <li>
+                    <a href="http://www.slideshare.net/popular/media/videos/week" data-ga="videos">Videos</a>
+                </li>
+            </ul>
+        </li>
+
+        <li class="nav_divider"></li>
+
+        <!-- Search -->
+
+        <form class="navbar-search pull-left" method="get" action="http://www.slideshare.net/search/slideshow" data-ga="search_submit">
+          <input type="submit" class="iconTemp-search iconTemp-gray hide-text">
+          <input name="searchfrom" type="hidden" value="header">
+          <input class="search-query" value="" name="q" id="search_query_top" type="text" placeholder="Search" autocomplete="off" data-ga="search">
+          <div class="suggestionContainer"></div>
+        </form>
+      </ul>
+
+      <div id="topNavLinks-11" class="pull-right">
+          <!-- New navbar -->
+
+   <ul class="nav pull-right" id="login_link">
+
+    <!-- Upload button -->
+
+    <li>
+      <span>
+        <a id="upload-link" href="http://www.slideshare.net/upload" class="btn btn-primary void_fancybox" data-ga="upload">Upload</a>
+      </span>
+    </li>
+
+       <li>
+          <a id="go-pro" href="http://www.slideshare.net/business/premium/plans?cmp_src=general&cmp_src_from=main_nav" title="Upgrade to SlideShare PRO" class="goPro j-tooltip" onclick="window._gaq = _gaq || []; _gaq.push([&#39;_trackEvent&#39;, &#39;top_nav&#39;,&#39;topnav&#39;,&#39;business-index&#39;]);" data-ga="go_pro">
+              Go <span class="goProLabel">Pro</span>
+          </a>
+       </li>
+
+
+
+
+        <!-- User drop down (user image) -->
+
+       <li class="dropdown " id="user-drop-down">
+        <a href="http://www.slideshare.net/shamimbiswas752" class="topnav-dropdown-userImage" data-ga="user_profile">
+            <img src="./Kernel module programming_files/profile-photo-shamimbiswas752-48x48.jpg" alt="Shamim Biswas" width="32" height="32">
+        </a>
+        <a href="http://www.slideshare.net/VandanaSalve/kernel-module-programming#user-drop-down" class="dropdown-toggle-caret topnav-dropdown-carret" data-toggle="dropdown"><b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu">
+          <li class="j-public-profile">
+            <a href="http://www.slideshare.net/shamimbiswas752" data-ga="user_profile">
+              <span class="notranslate">Shamim Biswas</span>
+              <small class="metadata">View my profile page</small>
+            </a>
+           </li>
+           <li class="divider"></li>
+           <li><a class="j-uploads" href="http://www.slideshare.net/shamimbiswas752/edit_my_uploads" data-ga="my_uploads"><i class="iconTemp-upload"></i> My Uploads</a></li>
+           <li><a class="j-edit-profile" href="http://www.slideshare.net/shamimbiswas752/edit_myinformation" data-ga="edit_profile"><i class="iconTemp-cog"></i> Account Settings</a></li>
+           <li class="divider"></li>
+           <li><a class="j-analytics" href="http://www.slideshare.net/features?cmp_src=analytics&cmp_src_from=main_nav" data-ga="analytics"><i class="iconTemp-signal"></i> Analytics</a></li>
+           <li><a class="j-pro-dashboard" href="http://www.slideshare.net/features?cmp_src=general&cmp_src_from=pro_dashboard" data-ga="pro_dashboard"><i class="iconTemp-th-large"></i> PRO dashboard</a></li>
+           <li><a class="j-logout" href="https://www.slideshare.net/logout" data-ga="logout"><i class="icon-logout"></i> Logout</a></li>
+           <li class="divider"></li>
+           <li><a class="j-help" href="http://help.slideshare.com/" data-ga="support"><i class="iconTemp-question-sign"></i> Support</a></li>
+         </ul>
+       </li>
+
+  </ul>
+
+    <script type="text/javascript" charset="utf-8">
+      var user_object = {"name":"Shamim Biswas","userGroup":"member","is_pro":false,"su":false,"fb_access_token":"CAAAAAJRtxBIBAPKVL8YTgJ0tM8DfztKnXZCEXRBQOtnlRfAuTcXN1qRRz5KRVDRZA0XqANojr1HQMyH6jp1ZAf3IX1M44k0p73Lk353oc2IBUI5RqyVrxC7V4dRdrmagVGtI2Ia6bFWZCbKsRkPjOrChvGBXZAHOc2iRZB9f9Dlzks92dor6fH","id":52784412,"is_opengraph_user":true,"has_uploads":false,"is_fbuser":true,"login":"shamimbiswas752","loggedin":true,"opengraph_permissions":{"comment":true,"download":true,"upload":true,"follow":true,"view":true,"favorite":true},"fb_userid":"100000179948219"};
+      for(var key in user_object) {
+        slideshare_object.user[key] = user_object[key];
+      }
+      if(typeof(slideshare_object.setupTopnavMenu) === 'function') {
+        slideshare_object.setupTopnavMenu();
+      }
+    </script>
+
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div id="fb-root"></div>
+    
+
+    <section>
+
+        
+        <div class="sectionElements container">
+        <div class="banner h-top-ad">
+            <div class="leaderboard1" id="leaderboardAd" style="height:36px"><script type="text/javascript"> slideshare_object._adQueue.push({ tile : 1, zone : 'slideview', dart_code: '%3Bkw%3DCompiler%3Bkw%3DLinux%3Bkw%3DLinux%2Bkernel%3Bkw%3DCommand-line%2Binterface%3Bkw%3DKernel%3Bkw%3DLoadable%2Bkernel%2Bmodule%3Bkw%3DMake%2B%28software%29%3Bkw%3DModprobe%3Bcat%3Dtechnology%3Bcat%3Deducation', width: 1, height: 1, appendTo: 'leaderboardAd'}); </script></div>
+            <a id="slideview_ad_top" href="http://www.slideshare.net/VandanaSalve/kernel-module-programming#" rel="nofollow" class="removeAd j-cta_remove_ad_fancy j-tooltip h-ad-remove-top hide" title="Remove this advertisement">×</a>
+        </div>
+        
+        
+        <div id="h-modal-flash"></div>
+        <div class="playerWrapper" style="width: 728px;">
+            <div class="actions">
+                <ul class="ssActions h-tools">
+                    <li class="action-share public-only"><a href="http://www.slideshare.net/VandanaSalve/kernel-module-programming#" title="Email this presentation to your contacts" class="sprite iconEmail j-tooltip" rel="nofollow">Email</a></li>
+                    <li class="action-addfav public-only"><a href="http://www.slideshare.net/VandanaSalve/kernel-module-programming#" title="Like this" class="sprite iconFav j-tooltip j-favorite" rel="nofollow">Like</a></li>
+
+                    <li class="action-fav public-only" style="display:none">
+                    <a href="http://www.slideshare.net/VandanaSalve/kernel-module-programming#" class="sprite removeFav delete iconFavOn j-tooltip" title="You have liked this" rel="nofollow">Liked <strong>×</strong></a>
+                      <span class="j-favPulse fav-pulse"></span>
+                    </li>
+                    
+                    <li class="action-download" style=""><a href="http://www.slideshare.net/shamimbiswas752/savedfiles?s_title=kernel-module-programming&user_login=VandanaSalve" title="Save this presentation" class="sprite iconDownload j-tooltip j-download" rel="nofollow" data-href="" data-target="#login_modal">Save</a></li>
+                    
+                    <li class="hide h-private-notice last"><span class="iconPrivate" title="Private Content">Private Content</span></li>
+                    <li class="action-embed h-action-embed"><a href="http://www.slideshare.net/VandanaSalve/kernel-module-programming#" title="Embed this presentation" class="sprite iconEmbed j-tooltip" rel="nofollow">Embed</a></li>
+                    <li class="expandedOverlay action-embed-code embedPanel h-embed-allow" style="display:none">Loading embed code…</li>
+                  <li class="expandedOverlay action-addfav-new public-only" style="display:none">
+                    <a class="close cancel">×</a>
+                    <i class="linkedin-picture"></i>
+                    <p class="linkedin-shared">This activity has also been shared with your LinkedIn network</p>
+                    <span rel="tooltip" data-original-title="You can undo LinkedIn share from the activity feed on your LinkedIn profile."><a class="iconTemp-question-sign" href="http://www.slideshare.net/VandanaSalve/kernel-module-programming#"></a></span>&nbsp;<a class="muted text-info" href="http://www.linkedin.com/" target="_blank">Undo LinkedIn share</a>&nbsp;<a href="http://www.slideshare.net/VandanaSalve/kernel-module-programming#" class="fav-settings"><i class="iconTemp-cog"></i>Settings</a>
+                  </li>
+
+                  <li class="expandedOverlay action-unverified-download public-only" style="display:none">
+                     <p>
+                        We have emailed the verification/download link to <strong>"<span class="user-email">sha_coolbuddy@yahoo.co.in</span>"</strong>.
+                        <br>
+                        Login to your email and click the link to download the file directly.
+                      </p>
+                      <form class="changeEmail change-unverified-email">
+                        <fieldset>
+                        <legend>To request the link at a different email address, update it here.</legend>
+                        <input name="unverified-email" class="text unverified-email" value="sha_coolbuddy@yahoo.co.in">
+                        <input type="submit" class="submit btn" value="Update">
+                        <a class="ilink cancel" href="http://www.slideshare.net/VandanaSalve/kernel-module-programming#" rel="nofollow">Close</a><br>
+                        <span class="change-unverified-email-validate" style="display:none">Validation messages.</span>
+                        <span class="change-unverified-email-win" style="display:none;color:#0A0">Success message.</span>
+                        <span class="change-unverified-email-fail" style="display:none;color:#A00">Fail message.</span>
+                        </fieldset>
+                      </form>
+                      <p style="margin:0"><span class="hint">Check your bulk/spam folders if you can't find our mail.</span></p>
+                    </li>
+
+                  <li class="expandedOverlay action-leads-contact" style="display:none">
+                    
+                  </li>
+                  <li class="expandedOverlay j-menu-loading" style="display:none">
+                    <div class="svLightBox"><span class="h-loading">Loading <img alt="Loading…" src="./Kernel module programming_files/indicator.gif" height="5" width="21" style="margin:0;float:none;vertical-align:middle"></span>
+                    </div>
+                  </li>
+                </ul>
+                
+            </div>
+
+            
+            <div class="h-js-player"><!-- For slideview page , combined js for player is now combined with slideview javascripts for logged out users-->
+ 
+
+<div class="player lightPlayer fluidImage presentation_player" id="svPlayerId">
+  <div class="stage valign-first-slide">
+    <a class="exit-fullscreen j-exit-fullscreen"></a>
+    <div class="slide_container">
+            <div data-index="1" class="slide show">
+              <img class="slide_image" src="./Kernel module programming_files/slide-1-638.jpg" data-normal="http://image.slidesharecdn.com/kernelmoduleprogramming-131029073444-phpapp01/95/slide-1-638.jpg?cb=1383050287" data-full="http://image.slidesharecdn.com/kernelmoduleprogramming-131029073444-phpapp01/95/slide-1-1024.jpg?cb=1383050287" data-small="http://image.slidesharecdn.com/kernelmoduleprogramming-131029073444-phpapp01/85/slide-1-320.jpg?cb=1383050287">
+            </div>
+            <div data-index="2" class="slide">
+              <img class="slide_image" src="" data-normal="http://image.slidesharecdn.com/kernelmoduleprogramming-131029073444-phpapp01/95/slide-2-638.jpg?cb=1383050287" data-full="http://image.slidesharecdn.com/kernelmoduleprogramming-131029073444-phpapp01/95/slide-2-1024.jpg?cb=1383050287" data-small="http://image.slidesharecdn.com/kernelmoduleprogramming-131029073444-phpapp01/85/slide-2-320.jpg?cb=1383050287">
+            </div>
+            <div data-index="3" class="slide">
+              <img class="slide_image" src="" data-normal="http://image.slidesharecdn.com/kernelmoduleprogramming-131029073444-phpapp01/95/slide-3-638.jpg?cb=1383050287" data-full="http://image.slidesharecdn.com/kernelmoduleprogramming-131029073444-phpapp01/95/slide-3-1024.jpg?cb=1383050287" data-small="http://image.slidesharecdn.com/kernelmoduleprogramming-131029073444-phpapp01/85/slide-3-320.jpg?cb=1383050287">
+            </div>
+            <div data-index="4" class="slide">
+              <img class="slide_image" src="" data-normal="http://image.slidesharecdn.com/kernelmoduleprogramming-131029073444-phpapp01/95/slide-4-638.jpg?cb=1383050287" data-full="http://image.slidesharecdn.com/kernelmoduleprogramming-131029073444-phpapp01/95/slide-4-1024.jpg?cb=1383050287" data-small="http://image.slidesharecdn.com/kernelmoduleprogramming-131029073444-phpapp01/85/slide-4-320.jpg?cb=1383050287">
+            </div>
+            <div data-index="5" class="slide">
+              <img class="slide_image" src="" data-normal="http://image.slidesharecdn.com/kernelmoduleprogramming-131029073444-phpapp01/95/slide-5-638.jpg?cb=1383050287" data-full="http://image.slidesharecdn.com/kernelmoduleprogramming-131029073444-phpapp01/95/slide-5-1024.jpg?cb=1383050287" data-small="http://image.slidesharecdn.com/kernelmoduleprogramming-131029073444-phpapp01/85/slide-5-320.jpg?cb=1383050287">
+            </div>
+            <div data-index="6" class="slide">
+              <img class="slide_image" src="" data-normal="http://image.slidesharecdn.com/kernelmoduleprogramming-131029073444-phpapp01/95/slide-6-638.jpg?cb=1383050287" data-full="http://image.slidesharecdn.com/kernelmoduleprogramming-131029073444-phpapp01/95/slide-6-1024.jpg?cb=1383050287" data-small="http://image.slidesharecdn.com/kernelmoduleprogramming-131029073444-phpapp01/85/slide-6-320.jpg?cb=1383050287">
+            </div>
+            <div data-index="7" class="slide">
+              <img class="slide_image" src="" data-normal="http://image.slidesharecdn.com/kernelmoduleprogramming-131029073444-phpapp01/95/slide-7-638.jpg?cb=1383050287" data-full="http://image.slidesharecdn.com/kernelmoduleprogramming-131029073444-phpapp01/95/slide-7-1024.jpg?cb=1383050287" data-small="http://image.slidesharecdn.com/kernelmoduleprogramming-131029073444-phpapp01/85/slide-7-320.jpg?cb=1383050287">
+            </div>
+            <div data-index="8" class="slide">
+              <img class="slide_image" src="" data-normal="http://image.slidesharecdn.com/kernelmoduleprogramming-131029073444-phpapp01/95/slide-8-638.jpg?cb=1383050287" data-full="http://image.slidesharecdn.com/kernelmoduleprogramming-131029073444-phpapp01/95/slide-8-1024.jpg?cb=1383050287" data-small="http://image.slidesharecdn.com/kernelmoduleprogramming-131029073444-phpapp01/85/slide-8-320.jpg?cb=1383050287">
+            </div>
+            <div data-index="9" class="slide">
+              <img class="slide_image" src="" data-normal="http://image.slidesharecdn.com/kernelmoduleprogramming-131029073444-phpapp01/95/slide-9-638.jpg?cb=1383050287" data-full="http://image.slidesharecdn.com/kernelmoduleprogramming-131029073444-phpapp01/95/slide-9-1024.jpg?cb=1383050287" data-small="http://image.slidesharecdn.com/kernelmoduleprogramming-131029073444-phpapp01/85/slide-9-320.jpg?cb=1383050287">
+            </div>
+            <div data-index="10" class="slide">
+              <img class="slide_image" src="" data-normal="http://image.slidesharecdn.com/kernelmoduleprogramming-131029073444-phpapp01/95/slide-10-638.jpg?cb=1383050287" data-full="http://image.slidesharecdn.com/kernelmoduleprogramming-131029073444-phpapp01/95/slide-10-1024.jpg?cb=1383050287" data-small="http://image.slidesharecdn.com/kernelmoduleprogramming-131029073444-phpapp01/85/slide-10-320.jpg?cb=1383050287">
+            </div>
+            <div data-index="11" class="slide">
+              <img class="slide_image" src="" data-normal="http://image.slidesharecdn.com/kernelmoduleprogramming-131029073444-phpapp01/95/slide-11-638.jpg?cb=1383050287" data-full="http://image.slidesharecdn.com/kernelmoduleprogramming-131029073444-phpapp01/95/slide-11-1024.jpg?cb=1383050287" data-small="http://image.slidesharecdn.com/kernelmoduleprogramming-131029073444-phpapp01/85/slide-11-320.jpg?cb=1383050287">
+            </div>
+            <div data-index="12" class="slide">
+              <img class="slide_image" src="" data-normal="http://image.slidesharecdn.com/kernelmoduleprogramming-131029073444-phpapp01/95/slide-12-638.jpg?cb=1383050287" data-full="http://image.slidesharecdn.com/kernelmoduleprogramming-131029073444-phpapp01/95/slide-12-1024.jpg?cb=1383050287" data-small="http://image.slidesharecdn.com/kernelmoduleprogramming-131029073444-phpapp01/85/slide-12-320.jpg?cb=1383050287">
+            </div>
+            <div data-index="13" class="slide">
+              <img class="slide_image" src="" data-normal="http://image.slidesharecdn.com/kernelmoduleprogramming-131029073444-phpapp01/95/slide-13-638.jpg?cb=1383050287" data-full="http://image.slidesharecdn.com/kernelmoduleprogramming-131029073444-phpapp01/95/slide-13-1024.jpg?cb=1383050287" data-small="http://image.slidesharecdn.com/kernelmoduleprogramming-131029073444-phpapp01/85/slide-13-320.jpg?cb=1383050287">
+            </div>
+            <div data-index="14" class="slide">
+              <img class="slide_image" src="" data-normal="http://image.slidesharecdn.com/kernelmoduleprogramming-131029073444-phpapp01/95/slide-14-638.jpg?cb=1383050287" data-full="http://image.slidesharecdn.com/kernelmoduleprogramming-131029073444-phpapp01/95/slide-14-1024.jpg?cb=1383050287" data-small="http://image.slidesharecdn.com/kernelmoduleprogramming-131029073444-phpapp01/85/slide-14-320.jpg?cb=1383050287">
+            </div>
+            <div data-index="15" class="slide">
+              <img class="slide_image" src="" data-normal="http://image.slidesharecdn.com/kernelmoduleprogramming-131029073444-phpapp01/95/slide-15-638.jpg?cb=1383050287" data-full="http://image.slidesharecdn.com/kernelmoduleprogramming-131029073444-phpapp01/95/slide-15-1024.jpg?cb=1383050287" data-small="http://image.slidesharecdn.com/kernelmoduleprogramming-131029073444-phpapp01/85/slide-15-320.jpg?cb=1383050287">
+            </div>
+            <div data-index="16" class="slide">
+              <img class="slide_image" src="" data-normal="http://image.slidesharecdn.com/kernelmoduleprogramming-131029073444-phpapp01/95/slide-16-638.jpg?cb=1383050287" data-full="http://image.slidesharecdn.com/kernelmoduleprogramming-131029073444-phpapp01/95/slide-16-1024.jpg?cb=1383050287" data-small="http://image.slidesharecdn.com/kernelmoduleprogramming-131029073444-phpapp01/85/slide-16-320.jpg?cb=1383050287">
+            </div>
+            <div data-index="17" class="slide">
+              <img class="slide_image" src="" data-normal="http://image.slidesharecdn.com/kernelmoduleprogramming-131029073444-phpapp01/95/slide-17-638.jpg?cb=1383050287" data-full="http://image.slidesharecdn.com/kernelmoduleprogramming-131029073444-phpapp01/95/slide-17-1024.jpg?cb=1383050287" data-small="http://image.slidesharecdn.com/kernelmoduleprogramming-131029073444-phpapp01/85/slide-17-320.jpg?cb=1383050287">
+            </div>
+            <div data-index="18" class="slide">
+              <img class="slide_image" src="" data-normal="http://image.slidesharecdn.com/kernelmoduleprogramming-131029073444-phpapp01/95/slide-18-638.jpg?cb=1383050287" data-full="http://image.slidesharecdn.com/kernelmoduleprogramming-131029073444-phpapp01/95/slide-18-1024.jpg?cb=1383050287" data-small="http://image.slidesharecdn.com/kernelmoduleprogramming-131029073444-phpapp01/85/slide-18-320.jpg?cb=1383050287">
+            </div>
+            <div data-index="19" class="slide">
+              <img class="slide_image" src="" data-normal="http://image.slidesharecdn.com/kernelmoduleprogramming-131029073444-phpapp01/95/slide-19-638.jpg?cb=1383050287" data-full="http://image.slidesharecdn.com/kernelmoduleprogramming-131029073444-phpapp01/95/slide-19-1024.jpg?cb=1383050287" data-small="http://image.slidesharecdn.com/kernelmoduleprogramming-131029073444-phpapp01/85/slide-19-320.jpg?cb=1383050287">
+            </div>
+    </div>
+  </div> <!-- end stage -->
+    <div class="toolbar_wrapper">
+      <div class="toolbar normal">
+        <!--[if IE 7]>
+  <style>
+    .toolbar .navActions { position: relative; top: -28px; }
+    div.toolbar .nav {margin-left : 37%; }
+  </style>
+<![endif]-->
+  <a href="http://www.slideshare.net/VandanaSalve/kernel-module-programming#" class="sprite btnViewOnSS" title="View on SlideShare">&nbsp;</a><!-- view on SS -->
+  <div class="nav">
+    <a href="http://www.slideshare.net/VandanaSalve/kernel-module-programming#btnFirst" class="btnFirst" title="First Slide" rel="nofollow">«</a>
+    <a href="http://www.slideshare.net/VandanaSalve/kernel-module-programming#btnPrevious" class="btnPrevious" title="Previous Slide" rel="nofollow">‹</a>
+    <a href="http://www.slideshare.net/VandanaSalve/kernel-module-programming#btnNext" class="btnNext" title="Next Slide" rel="nofollow">›</a>
+    <a href="http://www.slideshare.net/VandanaSalve/kernel-module-programming#btnLast" class="btnLast" title="Last Slide" rel="nofollow">»</a>
+  </div>
+  <div class="navActions">
+    <a href="http://www.slideshare.net/VandanaSalve/kernel-module-programming#" class="btnFullScreen" title="View Fullscreen" rel="nofollow">&nbsp;</a>
+    <a href="http://www.slideshare.net/VandanaSalve/kernel-module-programming#" class="btnLeaveFullScreen" title="Exit Fullscreen" rel="nofollow">&nbsp;</a>
+    <label class="goToSlideLabel"><input type="text" name="goToSlide" value="1"><span>/19</span></label>
+  </div>
+
+      </div>
+    </div>
+    <div class="image_maps"></div>
+</div>
+<script type="text/javascript">
+
+  $(document).ready(function() {
+    var ele = $('#svPlayerId');
+    
+    player = new SSPlayer(slideshare_object.jsplayer);
+    $(player).bind('slidechanged', function(e){
+      if(typeof(loadDataForSlide) === 'function'){
+      loadDataForSlide(e.ssData.index);
+     }
+    });
+
+    /* Infographics experiment */
+
+    setupInfographicPlayer = function() {
+      // Add proper class to the player
+      $(".player").addClass("infographic_player");
+
+      var $toolBar = $(".toolbar_wrapper");
+      var $topToolBar = $(".playerWrapper .actions");
+      var $toolBarClone = $toolBar.clone(true);
+
+      // Tweak bottom toolbar
+      $toolBar.children(".toolbar").empty().height(10).css({
+        "border-radius" : "0 0 3px 3px",
+        "border-bottom" : "none"
+      });
+
+      // Tweak new toolbar
+      $toolBarClone.find(".toolbar").css({
+        "background" : "none",
+        "border-top" : "none"
+      });
+      $toolBarClone.find(".nav").remove();
+      $toolBarClone.find(".goToSlideLabel").remove();
+
+      // Tweak top toolbar
+      $topToolBar.height(34);
+      $topToolBar.children(".ssActions").css({
+        "float"      : "left",
+        "margin-top" : "8px"
+      });
+
+      // Add new toolbar
+      $topToolBar.append($toolBarClone);
+
+      // Add exit fullscreen button, show it on mousemove, hide it after 2 seconds
+      var exitFullscreenOverlay = $("<div><div></div></div>").addClass("exit_fullscreen_overlay").appendTo($(".stage"));
+
+      exitFullscreenOverlay.on("click", function() {
+        $(".btnLeaveFullScreen").trigger("click");
+      });
+
+      var countdown;
+      var startCountDown = function() {
+        countdown = setTimeout(function() {
+          exitFullscreenOverlay.removeClass("show");
+        }, 2000);
+      }
+      $(".player").mousemove(function() {
+        exitFullscreenOverlay.addClass("show");
+        clearTimeout(countdown);
+        startCountDown();
+      })
+
+      // Set max height to prevent zooming from growing the player viewport
+      $(window).load(function() {
+        $(".stage").css({
+          "max-height" : $(".slide").first().height() + "px"
+        });
+      });
+    }
+
+    if (false && player.config.show_image_player && player.config.player_type === "document" && slideshare_object.totalSlides === 1) {
+      setupInfographicPlayer();
+    }
+  });
+</script>
+
+</div>
+            
+
+        </div>
+
+        <div id="lastScreen" class="hide">
+          <div class="lastScreen">
+  <div class="jsplLastScreenOverlay j-last-screen-overlay"></div>
+  <div class="pro-overlay j-lastscreen">
+    <div class="proSharingText">Like this presentation? Why not share!</div>
+    <ul class="lastActions j-last-screen-actions">
+      <li class="share-cta j-share-cta lastscreen-share-cta"><a class="share-btn"><span class="lastScreen-sprite"></span>Share</a></li>
+      <li class="email-cta j-email-cta"><a class="email-btn"><span class="lastScreen-sprite"></span>Email</a></li>
+      <li class="replay last">
+        <a class="replay-btn lastScreenReplay j-tooltip j-last-screen-replay" data-original-title="View again" title="View again">
+          <span class="lastScreen-sprite">&nbsp;</span>
+        </a>
+      </li>
+      <li class="close-btn lastScreen-sprite j-lastscreen-close">
+        <a>&nbsp;</a>
+      </li>
+    </ul>
+    <div class="related-presentations j-lastscreen-related">
+      <ul class="presentation-list">
+        <li>
+         <a href="http://www.slideshare.net/kodjoa1/ch02-14474286" title="Ch02">
+           <img src="./Kernel module programming_files/ch02-120926160200-phpapp01-thumbnail.jpg" alt="Ch02">
+           <span class="presentation-meta">
+             <span class="title">Ch02</span>
+             <span class="author">by&nbsp;Kodjo Adanledji</span>
+             <span class="view-count">262&nbsp;views</span>
+           </span>
+         </a>
+        </li>
+        <li>
+         <a href="http://www.slideshare.net/murali_purushothaman/studienarb-linux-kerneldev" title="Studienarb linux kernel-dev">
+           <img src="./Kernel module programming_files/studienarb-linuxkerneldev-130227113333-phpapp01-thumbnail.jpg" alt="Studienarb linux kernel-dev">
+           <span class="presentation-meta">
+             <span class="title">Studienarb linux kernel-dev</span>
+             <span class="author">by&nbsp;murali_purushothaman</span>
+             <span class="view-count">90&nbsp;views</span>
+           </span>
+         </a>
+        </li>
+        <li>
+         <a href="http://www.slideshare.net/sudhir1223/linuxkernelmodule" title="Linux_kernelmodule ">
+           <img src="./Kernel module programming_files/lkm2-6-130319040820-phpapp01-thumbnail.jpg" alt="Linux_kernelmodule ">
+           <span class="presentation-meta">
+             <span class="title">Linux_kernelmodule </span>
+             <span class="author">by&nbsp;sudhir1223</span>
+             <span class="view-count">219&nbsp;views</span>
+           </span>
+         </a>
+        </li>
+        <li>
+         <a href="http://www.slideshare.net/gnunify/linux-kernel-development" title="Linux Kernel Development">
+           <img src="./Kernel module programming_files/linux-kernel-development-22001-thumbnail.jpg" alt="Linux Kernel Development">
+           <span class="presentation-meta">
+             <span class="title">Linux Kernel Development</span>
+             <span class="author">by&nbsp;gnunify</span>
+             <span class="view-count">12409&nbsp;views</span>
+           </span>
+         </a>
+        </li>
+        <li>
+         <a href="http://www.slideshare.net/mukulbhardwaj/basic-linux-internals" title="Basic Linux Internals">
+           <img src="./Kernel module programming_files/presentation1-100818022110-phpapp02-thumbnail.jpg" alt="Basic Linux Internals">
+           <span class="presentation-meta">
+             <span class="title">Basic Linux Internals</span>
+             <span class="author">by&nbsp;mukulbhardwaj</span>
+             <span class="view-count">23639&nbsp;views</span>
+           </span>
+         </a>
+        </li>
+        <li>
+         <a href="http://www.slideshare.net/DngNguyn5/linux-kernel-module-programming-guide" title="Linux kernel module programming guide">
+           <img src="./Kernel module programming_files/linuxkernelmoduleprogrammingguide-101215134521-phpapp02-thumbnail.jpg" alt="Linux kernel module programming guide">
+           <span class="presentation-meta">
+             <span class="title">Linux kernel module programming guide</span>
+             <span class="author">by&nbsp;Dũng Nguyễn</span>
+             <span class="view-count">2230&nbsp;views</span>
+           </span>
+         </a>
+        </li>
+        <li>
+         <a href="http://www.slideshare.net/anshuljmi/device-driver-16465756" title="Device driver">
+           <img src="./Kernel module programming_files/devicedriver-130211053242-phpapp02-thumbnail.jpg" alt="Device driver">
+           <span class="presentation-meta">
+             <span class="title">Device driver</span>
+             <span class="author">by&nbsp;Anshul Sharma</span>
+             <span class="view-count">414&nbsp;views</span>
+           </span>
+         </a>
+        </li>
+        <li>
+         <a href="http://www.slideshare.net/anil_pugalia/introduction-to-linux-drivers" title="Introduction to Linux Drivers">
+           <img src="./Kernel module programming_files/introductiontolinuxdrivers-100621164852-phpapp01-thumbnail.jpg" alt="Introduction to Linux Drivers">
+           <span class="presentation-meta">
+             <span class="title">Introduction to Linux Drivers</span>
+             <span class="author">by&nbsp;Anil Kumar Pugalia</span>
+             <span class="view-count">14783&nbsp;views</span>
+           </span>
+         </a>
+        </li>
+        <li>
+         <a href="http://www.slideshare.net/danielneis/writing-device-drivers-for-linux" title="Writing Device Drivers For Linux">
+           <img src="./Kernel module programming_files/writingdevicedriversforlinux-1208918312957687-9-thumbnail.jpg" alt="Writing Device Drivers For Linux">
+           <span class="presentation-meta">
+             <span class="title">Writing Device Drivers For Linux</span>
+             <span class="author">by&nbsp;Daniel Neis</span>
+             <span class="view-count">6999&nbsp;views</span>
+           </span>
+         </a>
+        </li>
+        <li>
+         <a href="http://www.slideshare.net/tspradeepkumar/device-drivers-tsp" title="Device drivers tsp">
+           <img src="./Kernel module programming_files/devicedriverstsp-110317023246-phpapp02-thumbnail.jpg" alt="Device drivers tsp">
+           <span class="presentation-meta">
+             <span class="title">Device drivers tsp</span>
+             <span class="author">by&nbsp;Pradeep Kumar TS</span>
+             <span class="view-count">2561&nbsp;views</span>
+           </span>
+         </a>
+        </li>
+        <li>
+         <a href="http://www.slideshare.net/williamosores/l-lpic2201pdf" title="L lpic2201-pdf">
+           <img src="./Kernel module programming_files/l-lpic2201-pdf-121030094222-phpapp02-thumbnail.jpg" alt="L lpic2201-pdf">
+           <span class="presentation-meta">
+             <span class="title">L lpic2201-pdf</span>
+             <span class="author">by&nbsp;Comafal</span>
+             <span class="view-count">226&nbsp;views</span>
+           </span>
+         </a>
+        </li>
+        <li>
+         <a href="http://www.slideshare.net/abuaisy1/load-module-kernel" title="Load module kernel">
+           <img src="./Kernel module programming_files/loadmodulekernel-130928112012-phpapp02-thumbnail.jpg" alt="Load module kernel">
+           <span class="presentation-meta">
+             <span class="title">Load module kernel</span>
+             <span class="author">by&nbsp;Abu Azzam</span>
+             <span class="view-count">522&nbsp;views</span>
+           </span>
+         </a>
+        </li>
+      </ul>
+    </div>
+
+  </div> <!-- end of div class pro-overlay -->
+    <div class="j-modal-share modal-share mobile-hide" style="display: none;" id="last-screen-modal-share" data-ga-track-category="" data-ga-track-action="">
+  <div class="j-modal-popup modal-popup">
+    <div class="j-modal-close modal-close"></div>
+    <div class="j-modal-content modal-content" id="modal-content" data-slideshowid="">
+      <header class="j-tabs tabs">
+        <a id="button-share-tab" class="selected j-button-share-tab">Share</a>
+        <a id="button-embed-tab" class="j-button-embed-tab">Embed</a>
+        <hr class="divider">
+      </header>
+      <div class="j-share-tab share-tab">
+        <section class="section share-social">
+          <div>
+            <ul class="j-share-social-list share-social-list">
+              <li class="linkedin">
+                <div class="social-hover">
+                  <a class="share-link" rel="nofollow" data-url="http://www.slideshare.net/VandanaSalve/kernel-module-programming" data-text="Kernel module programming by Vandana Salve via slideshare">LinkedIn</a>
+                </div>
+              </li>
+              <li class="facebook">
+                <div class="social-hover">
+                  <a class="share-link" rel="nofollow" data-url="http://www.slideshare.net/VandanaSalve/kernel-module-programming">Facebook</a>
+                </div>
+              </li>
+              <li class="twitter">
+                <div class="social-hover">
+                  <a class="share-link" rel="nofollow" data-url="http://www.slideshare.net/VandanaSalve/kernel-module-programming" data-text="Kernel module programming #kernelmoduleprogramming" data-related="" data-via="SlideShare">Twitter</a>
+                </div></li>
+              <li class="wordpress">
+                <div class="social-hover">
+                  <a rel="nofollow">Wordpress</a>
+                </div>
+              </li>
+              <li class="googleplus">
+                <div class="social-hover">
+                  <a class="share-link" rel="nofollow" data-url="http://www.slideshare.net/VandanaSalve/kernel-module-programming">Google</a>
+                </div>
+              </li>
+              <li class="pinterest">
+                <div class="social-hover">
+                  <a class="share-link" rel="nofollow" data-url="http://www.slideshare.net/VandanaSalve/kernel-module-programming" data-media="http://cdn.slidesharecdn.com/ss_thumbnails/kernelmoduleprogramming-131029073444-phpapp01-thumbnail-4.jpg?cb=1383050287" data-description="Kernel module programming by Vandana Salve via slideshare" data-pin-do="buttonPin" data-pin-config="above">Pinterest</a>
+                </div>
+              </li>
+              <li class="reddit">
+                <div class="social-hover">
+                  <a rel="nofollow" data-url="http://www.slideshare.net/VandanaSalve/kernel-module-programming">Reddit</a>
+                </div>
+              </li>
+              <li class="scoopit">
+                <div class="social-hover">
+                  <a rel="nofollow" data-url="http://www.slideshare.net/VandanaSalve/kernel-module-programming">ScoopIt</a>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="share-link-container">
+            <input type="input" class="j-share-link-url" id="share-link-url" data-ga="link" readonly="">
+          </div>
+        </section>
+        <hr class="divider">
+        <section class="section share-email">
+          <header>
+            <h3>Email Presentation</h3>
+            <span class="j-email-flash email-flash"></span>
+          </header>
+          <form id="share-email-form" class="j-share-email-form">
+            <input id="share-email-to" data-ga="to" class="j-share-email-to j-email-clear" name="recipients" type="email" placeholder="Recipient Email or Username" required="">
+            <input id="share-email-name" data-ga="name" class="j-share-email-name j-email-clear" name="name" type="text" placeholder="Your Name" required="">
+            <textarea id="share-email-msg" data-ga="msg" class="j-share-email-msg j-email-clear" name="msg" placeholder="I think you will find this useful."></textarea>
+            <div class="share-email-expand">
+              <div id="add-msg" class="j-add-msg" data-ga="add-msg">Add Message</div>
+              <input id="share-email-send" data-ga="send" class="j-share-email-send button" type="submit" value="Send">
+            </div>
+          </form>
+          <div id="email-sent" class="j-email-sent section"><div>
+            <span class="success-text">Email Sent!</span>
+            <button id="send-another-email" data-ga="another-email" class="j-send-another-email button btn">Send Another</button></div></div>
+        </section>
+      </div>
+      <div class="j-embed-tab embed-tab">
+        <section class="j-share-embed section share-embed">
+          <textarea id="share-embed-link" class="j-share-embed-link" readonly="" data-ga="link"></textarea>
+          <div class="share-embed-options">
+            <div class="embed-use-ssl" title="Check only if the site on which the embed code will be placed begins with &#39;https://&#39;">
+              <input type="checkbox" name="use-ssl" class="j-embed-use-ssl-cbox embed-use-ssl-cbox" data-ga="ssl">
+              <span>Generate embed code for https site</span>
+            </div>
+            <div class="embed-size">
+              <span class="title">Size (px):</span>
+              <select class="j-embed-size-picker embed-size-picker" id="embed-size-picker" data-ga="size-picker"></select>
+            </div>
+            <div class="embed-start">
+              <span class="title">Start on Slide:</span>
+              <input class="j-embed-start-picker embed-start-picker" id="embed-start-picker" pattern="\d+" data-ga="start-picker" value="1">
+            </div>
+            <div class="embed-show-related">
+              <input type="checkbox" name="related-content" checked="checked" class="j-embed-related-cbox embed-related-cbox" data-ga="related">
+              <span>Show related presentations at end</span>
+            </div>
+          </div>
+        </section>
+        <hr class="divider">
+        <section class="section share-wp">
+          <span>Shortcode for WordPress.com blogs</span>
+            [ <a href="http://help.slideshare.com/entries/20117147-can-i-embed-slideshare-presentations-in-wordpress-blogs-or-which-embed-code-should-i-use-for-my-word" target="_blank" rel="nofollow">?</a> ]
+          <input type="text" name="embed-code" id="share-embed-wp" value="" readonly="readonly" class="j-share-embed-wp text quiet h-wpembedcode" data-ga="wp-link">
+        </section>
+      </div>
+    </div>
+  </div>
+</div><!-- share modal -->
+
+</div><!-- last screen ends here -->
+
+        </div>
+
+        
+
+        
+
+        <aside class="h-related-more-tab j-related-more-tab" style="">
+          <div class="mediumRectangleAd h-medium-rectangle-ad" style="margin:0 0 10px">
+            <div class="h-top-right-div j-top-right-div" id="topRightAd"><script type="text/javascript"> slideshare_object._adQueue.push({ tile : 5, zone : 'slideview', dart_code: '%3Bkw%3DCompiler%3Bkw%3DLinux%3Bkw%3DLinux%2Bkernel%3Bkw%3DCommand-line%2Binterface%3Bkw%3DKernel%3Bkw%3DLoadable%2Bkernel%2Bmodule%3Bkw%3DMake%2B%28software%29%3Bkw%3DModprobe%3Bcat%3Dtechnology%3Bcat%3Deducation', width: 300, height: 250, appendTo: 'topRightAd'}); </script></div>
+            <a id="slideview_ad_top_right" href="http://www.slideshare.net/VandanaSalve/kernel-module-programming#" rel="nofollow" class="removeAd j-cta_remove_ad_fancy j-tooltip h-ad-remove-top-right hide" title="Remove this advertisement">×</a>
+          </div>
+
+            <ul class="tabs">
+                <li title="" class="active j-related-slideshows h-related-tab"><a href="http://www.slideshare.net/VandanaSalve/kernel-module-programming#">Related</a></li>
+                <li class="h-more-tab j-more-slideshows"><a href="http://www.slideshare.net/VandanaSalve/kernel-module-programming#" data-original-title="More by Vandana Salve" class="j-tooltip" rel="nofollow">More</a></li>
+            </ul>
+            
+            <ul class="notranslate relatedContent thumbnailGrid h-related-slideshows j-tab-content activeContent" id="relatedList">
+<li>
+                    <a href="http://www.slideshare.net/kodjoa1/ch02-14474286" title="Ch02">
+                        <span class="thumbWrapper">
+                          <span>
+                            <img class="h-thumbnail" src="./Kernel module programming_files/thumbnail.png" alt="Ch02" original="http://cdn.slidesharecdn.com/ss_thumbnails/ch02-120926160200-phpapp01-thumbnail-2.jpg?cb=1348693388" width="120">
+                          </span>
+                        </span>
+                        <span class="h-related-title">Ch02</span>
+                        <span class="h-related-views view-count">262&nbsp;views</span>
+                    </a>
+                    <a href="javascript:void();" data-ssid="14474286" class="h-favorite j-favorite favorite-cta" rel="nofollow" style="">Like</a>
+                    <a href="javascript:void();" data-ssid="14474286" class="h-favorited j-favorited favorite-cta" rel="nofollow" style="display:none">Liked</a>
+                </li>
+
+<li>
+                    <a href="http://www.slideshare.net/murali_purushothaman/studienarb-linux-kerneldev" title="Studienarb linux kernel-dev">
+                        <span class="thumbWrapper">
+                          <span>
+                            <img class="h-thumbnail" src="./Kernel module programming_files/thumbnail.png" alt="Studienarb linux kernel-dev" original="http://cdn.slidesharecdn.com/ss_thumbnails/studienarb-linuxkerneldev-130227113333-phpapp01-thumbnail-2.jpg?cb=1361991888" width="120">
+                          </span>
+                        </span>
+                        <span class="h-related-title">Studienarb linux kernel-dev</span>
+                        <span class="h-related-views view-count">90&nbsp;views</span>
+                    </a>
+                    <a href="javascript:void();" data-ssid="16810973" class="h-favorite j-favorite favorite-cta" rel="nofollow" style="">Like</a>
+                    <a href="javascript:void();" data-ssid="16810973" class="h-favorited j-favorited favorite-cta" rel="nofollow" style="display:none">Liked</a>
+                </li>
+
+<li>
+                    <a href="http://www.slideshare.net/sudhir1223/linuxkernelmodule" title="Linux_kernelmodule ">
+                        <span class="thumbWrapper">
+                          <span>
+                            <img class="h-thumbnail" src="./Kernel module programming_files/thumbnail.png" alt="Linux_kernelmodule " original="http://cdn.slidesharecdn.com/ss_thumbnails/lkm2-6-130319040820-phpapp01-thumbnail-2.jpg?cb=1363684184" width="120">
+                          </span>
+                        </span>
+                        <span class="h-related-title">Linux_kernelmodule </span>
+                        <span class="h-related-views view-count">219&nbsp;views</span>
+                    </a>
+                    <a href="javascript:void();" data-ssid="17352087" class="h-favorite j-favorite favorite-cta" rel="nofollow" style="">Like</a>
+                    <a href="javascript:void();" data-ssid="17352087" class="h-favorited j-favorited favorite-cta" rel="nofollow" style="display:none">Liked</a>
+                </li>
+
+<li>
+                    <a href="http://www.slideshare.net/gnunify/linux-kernel-development" title="Linux Kernel Development">
+                        <span class="thumbWrapper">
+                          <span>
+                            <img class="h-thumbnail" src="./Kernel module programming_files/thumbnail.png" alt="Linux Kernel Development" original="http://cdn.slidesharecdn.com/ss_thumbnails/linux-kernel-development-22001-thumbnail-2.jpg?cb=1170902420" width="120">
+                          </span>
+                        </span>
+                        <span class="h-related-title">Linux Kernel Development</span>
+                        <span class="h-related-views view-count">12409&nbsp;views</span>
+                    </a>
+                    <a href="javascript:void();" data-ssid="22723" class="h-favorite j-favorite favorite-cta" rel="nofollow" style="">Like</a>
+                    <a href="javascript:void();" data-ssid="22723" class="h-favorited j-favorited favorite-cta" rel="nofollow" style="display:none">Liked</a>
+                </li>
+
+<li>
+                    <a href="http://www.slideshare.net/mukulbhardwaj/basic-linux-internals" title="Basic Linux Internals">
+                        <span class="thumbWrapper">
+                          <span>
+                            <img class="h-thumbnail" src="./Kernel module programming_files/thumbnail.png" alt="Basic Linux Internals" original="http://cdn.slidesharecdn.com/ss_thumbnails/presentation1-100818022110-phpapp02-thumbnail-2.jpg?cb=1282118035" width="120">
+                          </span>
+                        </span>
+                        <span class="h-related-title">Basic Linux Internals</span>
+                        <span class="h-related-views view-count">23639&nbsp;views</span>
+                    </a>
+                    <a href="javascript:void();" data-ssid="4996964" class="h-favorite j-favorite favorite-cta" rel="nofollow" style="">Like</a>
+                    <a href="javascript:void();" data-ssid="4996964" class="h-favorited j-favorited favorite-cta" rel="nofollow" style="display:none">Liked</a>
+                </li>
+
+<li>
+                    <a href="http://www.slideshare.net/DngNguyn5/linux-kernel-module-programming-guide" title="Linux kernel module programming guide">
+                        <span class="thumbWrapper">
+                          <span>
+                            <img class="h-thumbnail" src="./Kernel module programming_files/thumbnail.png" alt="Linux kernel module programming guide" original="http://cdn.slidesharecdn.com/ss_thumbnails/linuxkernelmoduleprogrammingguide-101215134521-phpapp02-thumbnail-2.jpg?cb=1292443217" width="120">
+                          </span>
+                        </span>
+                        <span class="h-related-title">Linux kernel module programming guide</span>
+                        <span class="h-related-views view-count">2230&nbsp;views</span>
+           </a></li></ul></aside></div></section></body></html>

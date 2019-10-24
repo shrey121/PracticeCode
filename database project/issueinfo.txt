@@ -1,0 +1,65 @@
+create procedure issueinfo(in id int)
+begin
+
+declare tbid int default 0;
+declare tbname varchar(20) default '';
+declare tedition int default 0;
+declare tyearpub int default 0;
+declare taid varchar(10) default '';
+declare tidate date;
+declare trdate date;
+declare tuid varchar(10);
+declare tfine int default 0;
+declare tavail int default 1;
+declare f int default 0;
+declare getmyvalue cursor for select bid, bname, edition, yearpub, avail from ttab where btypeid=id;
+declare continue handler for not found set f=1;
+
+create or replace view ttab as
+select bt.btypeid, b.bid, bt.bname, b.edition, b.yearpub, b.avail from book b, btype bt where bt.btypeid=b.btypeid;
+
+create temporary table sresult
+(boid int,
+sname varchar(20),
+sedition int,
+sypub int,
+said varchar(10),
+sidate date,
+srdate date,
+suid varchar(10),
+sfine int);
+
+open getmyvalue;
+
+myloop:loop
+fetch getmyvalue into tbid, tbname, tedition, tyearpub, tavail;
+
+if (f=1) then
+leave myloop;
+end if;
+
+if (tavail=0) then
+select aid from issueby where btypeid=id and bid=tbid into taid;
+select idate from issueby where btypeid=id and bid=tbid into tidate;
+select rdate from issueby where btypeid=id and bid=tbid into trdate;
+select uid from issueby where btypeid=id and bid=tbid into tuid;
+select fine from issueby where btypeid=id and bid=tbid into tfine;
+
+else
+set taid='-';
+set tidate='0000-00-00';
+set trdate='0000-00-00';
+set tuid='-';
+set tfine=0;
+
+end if;
+
+insert into sresult values
+(tbid,tbname,tedition,tyearpub,taid,tidate,trdate,tuid,tfine);
+
+end loop;
+close getmyvalue;
+select * from sresult;
+drop table sresult;
+drop view ttab;
+end#

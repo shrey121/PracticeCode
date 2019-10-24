@@ -1,0 +1,81 @@
+create procedure sby_id(in id int,type varchar(20))
+begin
+if(type like 'auth%')
+then
+select bt.btypeid, bt.bname, bt.avail, a.auname, p.pname from btype bt, author a, pub p, pubby pb, authorby ab where ab.auid=a.auid and p.pid=pb.pid and ab.btypeid=bt.btypeid and pb.btypeid=bt.btypeid and ab.btypeid=pb.btypeid and bt.pid=p.pid and a.auid=id;
+elseif(type like 'pub%')
+then 
+select bt.btypeid, bt.bname, bt.avail, a.auname, p.pname from btype bt, author a, pub p, pubby pb, authorby ab where ab.auid=a.auid and p.pid=pb.pid and ab.btypeid=bt.btypeid and pb.btypeid=bt.btypeid and ab.btypeid=pb.btypeid and bt.pid=p.pid and p.pid=id;
+elseif(type like 'b%')
+then
+select bt.btypeid, bt.bname, bt.avail, a.auname, p.pname from btype bt, author a, pub p, pubby pb, authorby ab where ab.auid=a.auid and p.pid=pb.pid and ab.btypeid=bt.btypeid and pb.btypeid=bt.btypeid and ab.btypeid=pb.btypeid and bt.pid=p.pid and bt.btypeid=id;
+elseif(type like '%')
+then
+select bt.btypeid, bt.bname, bt.avail, a.auname, p.pname from btype bt, author a, pub p, pubby pb, authorby ab where ab.auid=a.auid and p.pid=pb.pid and ab.btypeid=bt.btypeid and pb.btypeid=bt.btypeid and ab.btypeid=pb.btypeid and bt.pid=p.pid;
+end if;
+end#
+**************************************************************************************
+
+create procedure sby_id()
+begin
+
+declare tbtypeid1 int default 0;
+declare tbtypeid2 int default 0;
+declare tbname varchar(20) default '';
+declare tavail int default 0;
+declare tauname1 varchar(20) default '';
+declare tauname2 varchar(20) default '-';
+declare tauname3 varchar(20) default '-';
+declare tpname varchar(20) default '';
+declare done varchar(10) default 'false';
+declare getmyvalue cursor for select btypeid,bname,avail,auname,pname from temptab;
+declare continue handler for not found set done = 'true';
+
+create or replace view temptab as
+select bt.btypeid, bt.bname, bt.avail, a.auname, p.pname from btype bt, author a, pub p, pubby pb, authorby ab where ab.auid=a.auid and p.pid=pb.pid and ab.btypeid=bt.btypeid and pb.btypeid=bt.btypeid and ab.btypeid=pb.btypeid and bt.pid=p.pid;
+
+create temporary table showresult 
+(sbtypeid int,
+sbname varchar(20),
+savail int,
+sa1 varchar(20),
+sa2 varchar(20),
+sa3 varchar(20),
+spname varchar(20));
+
+open getmyvalue;
+
+myloop:loop
+fetch getmyvalue into tbtypeid1,tbname,tavail,tauname1,tpname;
+if (done like 't%') then
+leave myloop;
+end if;
+
+ if (tbtypeid1=tbtypeid2)
+then
+if (tauname2='-')
+then
+set tauname2=tauname1;
+update showresult set sa2=tauname2 where sbtypeid=tbtypeid1;
+else
+update showresult set sa3=tauname1 where sbtypeid=tbtypeid1;
+end if;
+
+else 
+set tauname2='-';
+set tauname3='-';
+
+insert into showresult values
+(tbtypeid1,tbname,tavail,tauname1,tauname2,tauname3,tpname);
+
+end if;
+set tbtypeid2=tbtypeid1;
+
+end loop;
+
+close getmyvalue;
+select * from showresult;
+drop table showresult;
+drop view temptab;
+
+end#

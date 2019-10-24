@@ -1,0 +1,33 @@
+//id1 is btypeid and id2 is bid 
+//15-11-2013
+
+create procedure returnbook(in id1 int,id2 int)
+begin
+declare issue int default 0;
+declare user varchar(10) default '';
+declare no int default 0;
+declare temp int default 0;
+if((select count(*) from issueby where btypeid=id1 and bid=id2)>0)
+then
+select uid from issueby where btypeid=id1 and bid=id2 into user;
+if (user like 'S%')
+then
+select bissueno from student where sid=user into issue;
+set issue=issue-1;
+update student set bissueno=issue where sid=user;
+select fine from student where sid=user into temp;
+set temp=temp-(select fine from issueby where btypeid=id1 and bid=id2);
+update student set fine=temp where sid=user;
+elseif(user like 'T%')
+then
+select bissueno from teacher where tid=user into issue;
+set issue=issue-1;
+update teacher set bissueno=issue where tid=user;
+end if;
+select avail from btype where btypeid=id1 into no;
+set no=no+1;
+update btype set avail=no where btypeid=id1;
+update book set avail=1 where btypeid=id1 and bid=id2;
+delete from issueby where btypeid=id1 and bid=id2;
+end if;
+end#

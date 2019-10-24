@@ -1,0 +1,62 @@
+SEARCH BY BTYPEID
+
+create procedure searchby_btype(in id int,in viewer varchar(20))
+BEGIN
+IF(viewer LIKE 'T%' OR viewer LIKE 'S%')
+then 
+select b.btypeid,b.bname,b.avail,b.rackloc,b.subject,a.auname from btype as b,author as a,authorby as ab where b.btypeid=ab.btypeid and ab.auid=a.auid and id=b.btypeid;
+ELSE
+select b.btypeid,b.bname,b.avail,b.quant,b.rackloc,b.subject,a.auname from btype as b,author as a,authorby as ab where b.btypeid=ab.btypeid and ab.auid=a.auid and id=b.btypeid;
+END IF;
+END#
+
+SEARCH BY NAME OF BOOK,AUTHOR OR PUBLISER
+
+create procedure search(in type varchar(20),in name varchar(20),in viewer varchar(20))
+BEGIN
+if(type LIKE 'book')
+then
+call searchby_bname(name,viewer);
+END IF;
+IF(type LIKE 'author')
+then 
+call searchby_authname(name,viewer);
+ENd IF;
+If(type LIKE 'publisher')
+then
+call searchby_pubname(name,viewer);
+END IF;
+END#
+
+
+create procedure searchby_bname(in name varchar(20),in viewer varchar(20))
+BEGIN
+IF(viewer LIKE 'T%' OR viewer LIKE 'S%')
+then 
+select b.btypeid,b.bname,b.avail,b.rackloc,b.subject,a.auname from btype as b,author as a,authorby as ab where b.btypeid=ab.btypeid and ab.auid=a.auid and b.bname LIKE concat('%',name,'%');
+ELSE
+select b.btypeid,b.bname,b.avail,b.quant,b.rackloc,b.subject,a.auname from btype as b,author as a,authorby as ab where b.btypeid=ab.btypeid and ab.auid=a.auid and b.bname LIKE concat('%',name,'%');
+END IF;
+END#
+
+create procedure searchby_authname(in name varchar(20),in viewer varchar(20))
+BEGIN
+IF(viewer LIKE 'T%' OR viewer LIKE 'S%')
+then 
+select b.btypeid,b.bname,b.avail,b.rackloc,b.subject,a.auname from btype as b,author as a,authorby as ab where b.btypeid=ab.btypeid and ab.auid=a.auid and a.auname LIKE concat('%',name,'%');
+ELSE
+select b.btypeid,b.bname,b.avail,b.quant,b.rackloc,b.subject,a.auname from btype as b,author as a,authorby as ab where b.btypeid=ab.btypeid and ab.auid=a.auid and a.auname LIKE concat('%',name,'%');
+END IF;
+END#
+
+
+create procedure searchby_pubname(in name varchar(20),in viewer varchar(20))
+BEGIN
+IF(viewer LIKE 'T%' OR viewer LIKE 'S%')
+then 
+select b.btypeid,b.bname,b.avail,b.rackloc,b.subject,p.pname from btype as b,pub as p,pubby as pb where b.btypeid=pb.btypeid and pb.pid=p.pid and p.pname LIKE concat('%',name,'%');
+ELSE
+select b.btypeid,b.bname,b.avail,b.quant,b.rackloc,b.subject,p.pname from btype as b,pub as p,pubby as pb where b.btypeid=pb.btypeid and pb.pid=p.pid and p.pname LIKE concat('%',name,'%');
+END IF;
+END#
+

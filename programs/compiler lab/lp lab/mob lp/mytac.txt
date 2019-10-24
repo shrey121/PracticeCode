@@ -1,0 +1,10 @@
+p=m-1
+j=n
+u=n
+p=p+1
+j=j-1
+if p<j goto 9
+a=u2
+goto 4
+p=u3
+goto 4

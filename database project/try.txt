@@ -1,0 +1,115 @@
+create procedure ibook(in btid int,in id int,in uid varchar(20),in aid int)
+BEGIN
+declare a int;
+declare idate date;
+declare rdate date;
+set idate=(select current_date());
+set rdate=idate+15;
+select avail into a from book where btypeid=btid and id=bid;
+if(a>0)
+then
+insert into issueby values(btid,id,uid,idate,rdate,0,aid);
+update book set avail=avail-1 where btypeid=btid and bid=id;
+update btype set avail=avail-1 where btypeid=btid;
+IF(uid LIKE 'S%')
+then 
+update student set bissueno=bissueno+1 where sid=uid;
+END IF;
+IF(uid LIKE 'T%')
+then 
+update teacher set bissueno=bissueno+1 where tid=uid;
+END IF;
+else
+select 'BOOK NOT AVAILABLE';
+END IF;
+END#
+
+call ibook(1,2,'S01',1);
+
+
+call insert_book(1,2,2000,'trilogy','S.CHAND',4,'eng','meluha','nagas','vayu')#
+
+create procedure insert_book(in id int,in editn int,in year int,in bname varchar(20),in pnam varchar(20),in rack int,in sub varchar(20),in author varchar(20),in a2 varchar(20),in a3 varchar(20))
+BEGIN
+declare a int;
+declare b int;
+declare c int;
+IF((select count(*) from pub where pname=pnam)>0)
+then
+set c=(select count(*) from book where id=btypeid)+1;
+set b=(select pid from pub where pname=pnam);
+IF((select count(*) from btype where btypeid=id)>0)
+then
+call insertbook(id,c,editn,year);
+else
+insert into btype values(id,bname,b,c,c,rack,sub);
+IF((select count(*) from authorby where btypeid=id)=0)	
+then		
+IF((select count(*)from author where auname=author)=0)	
+then
+set a=(select count(*) from author)+1;
+call insert_author(author);
+ELSE								
+set a=(select auid from author where auname=author);		
+END IF;								
+insert into authorby values(id,a);
+END IF;
+IF (a2 NOT LIKE '-')
+then 
+IF((select count(*) from author where auname=a2)=0)
+then
+set a=(select count(*) from author)+1;	
+call insert_author(a2);
+ELSE
+set a=(select auid from author where auname=a2);
+END IF;
+insert into authorby values(id,a);
+END IF;
+IF (a3 NOT LIKE '-')
+then
+IF((select count(*) from author where auname=a3)=0)
+then
+set a=(select count(*) from author)+1;	
+call insert_author(a3);
+ELSE
+set a=(select auid from author where auname=a3);
+END IF;
+insert into authorby values(id,a);
+END IF;
+insert into pubby values(id,b);
+insert into book values(id,c,editn,year,1);
+END IF;
+ELSE 
+select 'ERROR!!BOOK WITHOUT REGISTERED PUBLISHER!!';
+END IF;
+END#		
+
+
+
+
+
+//insert publisher
+create procedure insert_pub(in pname varchar(20),in ptitle varchar(20),in pdealer varchar(20))
+BEGIN,
+declare pid int;
+set pid=(select count(*) from pub)+1;
+insert into pub values(pid,pname,ptitle,pdealer);
+END#
+
+
+//inserting into book table
+create procedure insertbook(in id int,in c int,in editn int,in year int)
+BEGIN
+insert into book values(id,c,editn,year,1);
+update btype set quant=c where id=btypeid;
+update btype set avail=avail+1 where id=btypeid;
+END#
+
+//insert author
+create procedure insert_author(in author varchar(20))
+BEGIN
+declare a int;								
+set a=(select count(*) from author)+1;				
+insert into author values(a,author);
+END#	
+	

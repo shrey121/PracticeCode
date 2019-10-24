@@ -1,0 +1,2378 @@
+<!DOCTYPE html>
+<!-- saved from url=(0057)http://www.slideshare.net/geekaholic/kernel-configuration -->
+<html prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# slideshare: http://ogp.me/ns/fb/slideshare#" lang="en"><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# slideshare-dev: http://ogp.me/ns/fb/slideshare-dev#"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script src="./Kernel Configuration and Compilation_files/cb=gapi.loaded_0" async=""></script><script id="LR1" type="text/javascript" async="" src="./Kernel Configuration and Compilation_files/client.js"></script><script type="text/javascript" async="" src="./Kernel Configuration and Compilation_files/beacon.js"></script><script type="text/javascript" async="" src="./Kernel Configuration and Compilation_files/ga.js"></script><script id="twitter-wjs" src="./Kernel Configuration and Compilation_files/widgets.js"></script><script type="text/javascript" async="" src="./Kernel Configuration and Compilation_files/plusone.js" gapi_processed="true"></script><script id="facebook-jssdk" async="" src="./Kernel Configuration and Compilation_files/all.js"></script>
+   <meta charset="utf-8">
+   <!--
+   __________.__SlideShare_______               __
+   \______   \__| ____ \______   \ ____   _____/  |_
+    |    |  _/  |/ ___\ |    |  _//  _ \ /  _ \   __\
+    |    |   \  / /_/  >|    |   (  <_> |  <_> )  |
+    |______  /__\___  / |______  /\____/ \____/|__|
+           \/  /_____/         \/
+   -->
+
+  
+  
+  <!-- SL:start:notranslate -->
+  <title>Kernel Configuration and Compilation</title>
+  <!-- SL:end:notranslate -->
+  <meta name="viewport" content="width=1024">
+  <!-- SL:start:notranslate -->
+  <meta name="description" content="Presentation on configuring the compiling the Linux kernel">
+  <meta name="thumbnail" content="http://cdn.slidesharecdn.com/ss_thumbnails/kernel-configuration-1205664458826041-3-thumbnail-2.jpg?cb=1205653660">
+  <!-- SL:end:notranslate -->
+
+  <!--[if !IE]>-->
+  <link rel="dns-prefetch" href="http://www.slideshare.net/">
+  <link rel="dns-prefetch" href="http://public.slidesharecdn.com/">
+  <link rel="dns-prefetch" href="http://image.slidesharecdn.com/">
+  <link rel="dns-prefetch" href="http://cdn.slidesharecdn.com/">
+  <link rel="dns-prefetch" href="http://cdn01.smartling.com/">
+  <!--<![endif]-->
+
+  <!--[if IE 9]>
+  <link rel="prefetch" href="//www.slideshare.net">
+  <link rel="prefetch" href="//public.slidesharecdn.com">
+  <link rel="prefetch" href="//image.slidesharecdn.com">
+  <link rel="prefetch" href="//cdn.slidesharecdn.com">
+  <link rel="prefetch" href="//cdn01.smartling.com">
+  <![endif]-->
+
+  <script type="text/javascript" async="" src="./Kernel Configuration and Compilation_files/combined_loggedin.js"></script><script src="./Kernel Configuration and Compilation_files/combined_presentation_init.js"></script><style type="text/css">.fb_hidden{position:absolute;top:-10000px;z-index:10001}
+.fb_invisible{display:none}
+.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}
+.fb_reset > div{overflow:hidden}
+.fb_link img{border:none}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}
+.fb_dialog_advanced{padding:10px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px}
+.fb_dialog_content{background:#fff;color:#333}
+.fb_dialog_close_icon{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif);cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px;top:8px\9;right:7px\9}
+.fb_dialog_mobile .fb_dialog_close_icon{top:5px;left:5px;right:auto}
+.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}
+.fb_dialog_close_icon:hover{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}
+.fb_dialog_close_icon:active{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent;_background-image:url(http://static.ak.fbcdn.net/rsrc.php/v2/yL/r/s816eWC-2sl.gif)}
+.fb_dialog_loader{background-color:#f2f2f2;border:1px solid #606060;font-size:24px;padding:20px}
+.fb_dialog_top_left,
+.fb_dialog_top_right,
+.fb_dialog_bottom_left,
+.fb_dialog_bottom_right{height:10px;width:10px;overflow:hidden;position:absolute}
+.fb_dialog_top_left{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 0;left:-10px;top:-10px}
+.fb_dialog_top_right{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -10px;right:-10px;top:-10px}
+.fb_dialog_bottom_left{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -20px;bottom:-10px;left:-10px}
+.fb_dialog_bottom_right{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ye/r/8YeTNIlTZjm.png) no-repeat 0 -30px;right:-10px;bottom:-10px}
+.fb_dialog_vert_left,
+.fb_dialog_vert_right,
+.fb_dialog_horiz_top,
+.fb_dialog_horiz_bottom{position:absolute;background:#525252;filter:alpha(opacity=70);opacity:.7}
+.fb_dialog_vert_left,
+.fb_dialog_vert_right{width:10px;height:100%}
+.fb_dialog_vert_left{margin-left:-10px}
+.fb_dialog_vert_right{right:0;margin-right:-10px}
+.fb_dialog_horiz_top,
+.fb_dialog_horiz_bottom{width:100%;height:10px}
+.fb_dialog_horiz_top{margin-top:-10px}
+.fb_dialog_horiz_bottom{bottom:0;margin-bottom:-10px}
+.fb_dialog_iframe{line-height:0}
+.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #3b5998;color:#fff;font-size:14px;font-weight:bold;margin:0}
+.fb_dialog_content .dialog_title > span{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/yd/r/Cou7n-nqK52.gif)
+no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}
+body.fb_hidden{-webkit-transform:none;height:100%;margin:0;overflow:visible;position:absolute;top:-10000px;left:0;width:100%}
+.fb_dialog.fb_dialog_mobile.loading{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/ya/r/3rhSv5V8j3o.gif)
+white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}
+.fb_dialog.fb_dialog_mobile.loading.centered{max-height:590px;min-height:590px;max-width:500px;min-width:500px}
+#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .45);position:absolute;left:0;top:0;width:100%;min-height:100%;z-index:10000}
+#fb-root #fb_dialog_ipad_overlay.hidden{display:none}
+.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}
+.fb_dialog_content .dialog_header{-webkit-box-shadow:white 0 1px 1px -1px inset;background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#738ABA), to(#2C4987));border-bottom:1px solid;border-color:#1d4088;color:#fff;font:14px Helvetica, sans-serif;font-weight:bold;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}
+.fb_dialog_content .dialog_header table{-webkit-font-smoothing:subpixel-antialiased;height:43px;width:100%
+}
+.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px
+}
+.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px
+}
+.fb_dialog_content .touchable_button{background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#4966A6),
+color-stop(0.5, #355492), to(#2A4887));border:1px solid #29447e;-webkit-background-clip:padding-box;-webkit-border-radius:3px;-webkit-box-shadow:rgba(0, 0, 0, .117188) 0 1px 1px inset,
+rgba(255, 255, 255, .167969) 0 1px 0;display:inline-block;margin-top:3px;max-width:85px;line-height:18px;padding:4px 12px;position:relative}
+.fb_dialog_content .dialog_header .touchable_button input{border:none;background:none;color:#fff;font:12px Helvetica, sans-serif;font-weight:bold;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}
+.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}
+.fb_dialog_content .dialog_content{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #555;border-bottom:0;border-top:0;height:150px}
+.fb_dialog_content .dialog_footer{background:#f2f2f2;border:1px solid #555;border-top-color:#ccc;height:40px}
+#fb_dialog_loader_close{float:left}
+.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}
+.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}
+.fb_iframe_widget{display:inline-block;position:relative}
+.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}
+.fb_iframe_widget iframe{position:absolute}
+.fb_iframe_widget_lift{z-index:1}
+.fb_hide_iframes iframe{position:relative;left:-10000px}
+.fb_iframe_widget_loader{position:relative;display:inline-block}
+.fb_iframe_widget_fluid{display:inline}
+.fb_iframe_widget_fluid span{width:100%}
+.fb_iframe_widget_loader iframe{min-height:32px;z-index:2;zoom:1}
+.fb_iframe_widget_loader .FB_Loader{background:url(http://static.ak.fbcdn.net/rsrc.php/v2/y9/r/jKEcVPZFk-2.gif) no-repeat;height:32px;width:32px;margin-left:-16px;position:absolute;left:50%;z-index:4}
+.fb_connect_bar_container div,
+.fb_connect_bar_container span,
+.fb_connect_bar_container a,
+.fb_connect_bar_container img,
+.fb_connect_bar_container strong{background:none;border-spacing:0;border:0;direction:ltr;font-style:normal;font-variant:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal;vertical-align:baseline}
+.fb_connect_bar_container{position:fixed;left:0 !important;right:0 !important;height:42px !important;padding:0 25px !important;margin:0 !important;vertical-align:middle !important;border-bottom:1px solid #333 !important;background:#3b5998 !important;z-index:99999999 !important;overflow:hidden !important}
+.fb_connect_bar_container_ie6{position:absolute;top:expression(document.compatMode=="CSS1Compat"? document.documentElement.scrollTop+"px":body.scrollTop+"px")}
+.fb_connect_bar{position:relative;margin:auto;height:100%;width:100%;padding:6px 0 0 0 !important;background:none;color:#fff !important;font-family:"lucida grande", tahoma, verdana, arial, sans-serif !important;font-size:13px !important;font-style:normal !important;font-variant:normal !important;font-weight:normal !important;letter-spacing:normal !important;line-height:1 !important;text-decoration:none !important;text-indent:0 !important;text-shadow:none !important;text-transform:none !important;white-space:normal !important;word-spacing:normal !important}
+.fb_connect_bar a:hover{color:#fff}
+.fb_connect_bar .fb_profile img{height:30px;width:30px;vertical-align:middle;margin:0 6px 5px 0}
+.fb_connect_bar div a,
+.fb_connect_bar span,
+.fb_connect_bar span a{color:#bac6da;font-size:11px;text-decoration:none}
+.fb_connect_bar .fb_buttons{float:right;margin-top:7px}
+.fb_edge_widget_with_comment{position:relative;*z-index:1000}
+.fb_edge_widget_with_comment span.fb_edge_comment_widget{position:absolute}
+.fb_edge_widget_with_comment span.fb_send_button_form_widget{z-index:1}
+.fb_edge_widget_with_comment span.fb_send_button_form_widget .FB_Loader{left:0;top:1px;margin-top:6px;margin-left:0;background-position:50% 50%;background-color:#fff;height:150px;width:394px;border:1px #666 solid;border-bottom:2px solid #283e6c;z-index:1}
+.fb_edge_widget_with_comment span.fb_send_button_form_widget.dark .FB_Loader{background-color:#000;border-bottom:2px solid #ccc}
+.fb_edge_widget_with_comment span.fb_send_button_form_widget.siderender
+.FB_Loader{margin-top:0}
+.fbpluginrecommendationsbarleft,
+.fbpluginrecommendationsbarright{position:fixed !important;bottom:0;z-index:999}
+.fbpluginrecommendationsbarleft{left:10px}
+.fbpluginrecommendationsbarright{right:10px}</style><script src="./Kernel Configuration and Compilation_files/userspace"></script><script type="text/javascript" src="./Kernel Configuration and Compilation_files/framework"></script></head><body class="sticky_navbar loggedIn" data-twttr-rendered="true"><iframe id="twttrHubFrameSecure" allowtransparency="true" frameborder="0" scrolling="no" tabindex="0" name="twttrHubFrameSecure" src="./Kernel Configuration and Compilation_files/hub(1).htm" style="position: absolute; top: -9999em; width: 10px; height: 10px;"></iframe><iframe id="twttrHubFrame" allowtransparency="true" frameborder="0" scrolling="no" tabindex="0" name="twttrHubFrame" src="./Kernel Configuration and Compilation_files/hub.htm" style="position: absolute; top: -9999em; width: 10px; height: 10px;"></iframe><div></div>
+  <link href="./Kernel Configuration and Compilation_files/sv-core.css" media="screen" rel="stylesheet" type="text/css">
+  <meta name="robots" content="index"><link rel="stylesheet" type="text/css" media="all" href="./Kernel Configuration and Compilation_files/combined.css">
+  <div></div>
+  
+  
+  <!--<link rel="stylesheet" media="all and (min-width: 748px) and (max-width: 977px)" href="grid-748.css">
+  <link rel="stylesheet" media="all and (min-width: 0px) and (max-width: 747px)" href="grid-300.css">-->
+  <link href="./Kernel Configuration and Compilation_files/combined_presentation.css" media="screen" rel="stylesheet" type="text/css">
+
+
+  <script type="text/javascript" id="page-load">
+  // <![CDATA[
+    var timer = (new Date()).getTime();
+    var _jspl = {}
+    _jspl.pageInitTime = timer;
+    var _ssPageMetrics = {};
+  // ]]>
+  </script>
+
+  <script type="text/javascript">
+  var jQl={q:[],dq:[],ready:function(a){typeof a=="function"&&jQl.q.push(a);return jQl},unq:function(){for(var a=0;a<jQl.q.length;a++)jQl.q[a]();jQl.q=[]},bId:null,boot:function(a){if(typeof window.jQuery.fn=="undefined"){if(!jQl.bId)jQl.bId=setInterval(function(){jQl.boot(a)},25)}else{jQl.bId&&clearInterval(jQl.bId);jQl.bId=0;jQl.unqjQdep();$(jQl.unq());typeof a=="function"&&a()}},booted:function(){return jQl.bId===0},loadjQ:function(a,c){setTimeout(function(){var b=document.createElement("script"); b.src=a;document.getElementsByTagName("head")[0].appendChild(b)},1);jQl.boot(c)},loadjQdep:function(a){jQl.loadxhr(a,jQl.qdep)},qdep:function(a){if(a)typeof window.jQuery.fn!=="undefined"&&!jQl.dq.length?jQl.rs(a):jQl.dq.push(a)},unqjQdep:function(){if(typeof window.jQuery.fn=="undefined")setTimeout(jQl.unqjQdep,50);else{for(var a=0;a<jQl.dq.length;a++)jQl.rs(jQl.dq[a]);jQl.dq=[]}},rs:function(a){var c=document.createElement("script");document.getElementsByTagName("head")[0].appendChild(c);c.text= a},loadxhr:function(a,c){var b;b=jQl.getxo();b.onreadystatechange=function(){b.readyState!=4||200!=b.status||c(b.responseText,a)};try{b.open("GET",a,true);b.send("")}catch(d){}},getxo:function(){var a=false;try{a=new XMLHttpRequest}catch(c){for(var b=["MSXML2.XMLHTTP.5.0","MSXML2.XMLHTTP.4.0","MSXML2.XMLHTTP.3.0","MSXML2.XMLHTTP","Microsoft.XMLHTTP"],d=0;d<b.length;++d){try{a=new ActiveXObject(b[d])}catch(e){continue}break}}finally{return a}}}; if(typeof window.jQuery=="undefined")var $=jQl.ready,jQuery=$;
+  </script>
+
+  <script type="text/javascript" id="page-json"><!--
+ var slideshare_object =  {"activities":{"favorites":{"total":6,"url":"/~/slideshow/favorites_list/308541.json","count":6}},"version_no":"1205653660","embeds_count":3,"top_nav":{"get_url":"/top_nav"},"jsplayer":{"embed_code":"\u003Ciframe src=\"http://www.slideshare.net/slideshow/embed_code/308541\" width=\"427\" height=\"356\" frameborder=\"0\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"no\" style=\"border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px\" allowfullscreen\u003E \u003C/iframe\u003E \u003Cdiv style=\"margin-bottom:5px\"\u003E \u003Cstrong\u003E \u003Ca href=\"https://www.slideshare.net/geekaholic/kernel-configuration\" title=\"Kernel Configuration and Compilation\" target=\"_blank\"\u003EKernel Configuration and Compilation\u003C/a\u003E \u003C/strong\u003E from \u003Cstrong\u003E\u003Ca href=\"http://www.slideshare.net/geekaholic\" target=\"_blank\"\u003EBud Siddhisena\u003C/a\u003E\u003C/strong\u003E \u003C/div\u003E","iframe_url":"http://www.slideshare.net/slideshow/embed_code/308541","video_slides_count":0,"container":"svPlayerId","html_ttffont_url_suffix":".js","meta_error_template":"\u003Cstyle type=\"text/css\"\u003E\n  .jsplayer-slide-error {\n    background-color: #000;\n    padding: 20% 0 13% !important;\n  }\n  .jsplayer-slide-error div {\n    text-align: center;\n  }\n  .jsplayer-slide-error img {\n    height: 79px !important;\n    margin: 0 0 10px;\n    width: 80px !important;\n  }\n  .jsplayer-slide-error .slide-error-body {\n    color: #eee;\n    font-family: 'Lucida Grande',Verdana, Arial, Helvetica, sans-serif;\n    padding: 0 !important;\n  }\n  .jsplayer-slide-error .slide-error-body p {\n    font-size: 0.8em;\n    line-height: 1.1em;\n    margin: 8px 0;\n  }   \n  .jsplayer-slide-error .slide-error-body input[type=button] {\n    margin: 7px 0 0;\n    padding: 7px 14px;\n  }\n\u003C/style\u003E\n\u003Cdiv class=\"jsplayer-slide-error\"\u003E\n  \u003Cdiv style=\"position:relative;\"\u003E\n    \u003Cimg src='//public.slidesharecdn.com/images/ssplayer/error_dudes-80x79.png' height=\"79\" width=\"80\" /\u003E\n    \u003Cdiv class=\"slide-error-body\"\u003E\n      \u003Cp\u003EWe have encountered an error.\u003C/p\u003E\n      \u003Cp\u003EPlease refresh the page.\u003C/p\u003E\n    \u003C/div\u003E\n  \u003C/div\u003E\n\u003C/div\u003E\n","lastscreen":{"related":[{"author":"Prasanna Kumar Reddy","views":240,"thumbnail":"//cdn.slidesharecdn.com/ss_thumbnails/guestosguide-131128102205-phpapp02-thumbnail.jpg?cb=1385655890","url":"/prasannakumarsreddy/guest-os-guide","author_login":"prasannakumarsreddy","title":"vmware Guest os guide"},{"author":"Rachel McGreevy","views":80,"thumbnail":"//cdn.slidesharecdn.com/ss_thumbnails/cm10195-131013102456-phpapp02-thumbnail.jpg?cb=1381677989","url":"/rachmcgreevy/cm10195-computer-systems-architecture","author_login":"rachmcgreevy","title":"CM10195 Computer Systems Architectu..."},{"author":"emertxe_RobertBosch","views":1700,"thumbnail":"//cdn.slidesharecdn.com/ss_thumbnails/linuxsystems-131003054709-phpapp01-thumbnail.jpg?cb=1380797749","url":"/emertxe_RobertBosch/linux-systems","author_login":"emertxe_RobertBosch","title":"Linux systems_FOCAS Training"},{"author":"Shubham Chaudhary","views":53,"thumbnail":"//cdn.slidesharecdn.com/ss_thumbnails/git-131002035316-phpapp01-thumbnail.jpg?cb=1380704064","url":"/iShubhamCh/git-26777439","author_login":"iShubhamCh","title":"Git"},{"author":"Dell Enterprise","views":2064,"thumbnail":"//cdn.slidesharecdn.com/ss_thumbnails/4930803-thumbnail.jpg?cb=1288119736","url":"/dellenterprise/best-practices-for-deployment-of-oracle-asm-on-dell","author_login":"dellenterprise","title":"Best Practices for Deployment of Or..."},{"author":"Dell Enterprise","views":3404,"thumbnail":"//cdn.slidesharecdn.com/ss_thumbnails/bestpracticesfordeploymentoforacleasmwithdellequallogicpsiscsistoragesystem-100721080759-phpapp01-thumbnail.jpg?cb=1320312167","url":"/dellenterprise/best-practices-for-deployment-of-oracle-asm-with-dell-equal-logic-ps-iscsi-storage-system","author_login":"dellenterprise","title":"Best Practices for Deployment of Or..."},{"author":"Mohammed Safwat","views":14941,"thumbnail":"//cdn.slidesharecdn.com/ss_thumbnails/itl-090611025733-phpapp01-thumbnail.jpg?cb=1244707106","url":"/mohammed_safwat/introduction-to-linux-os","author_login":"mohammed_safwat","title":"Introduction to Linux OS"},{"author":"Raja Gopal Rao Vi...","views":215,"thumbnail":"//cdn.slidesharecdn.com/ss_thumbnails/qlikviewserverreferencemanualeng-131017103641-phpapp02-thumbnail.jpg?cb=1382024416","url":"/rvishnudas1/qlik-view-server-reference-manual-eng","author_login":"rvishnudas1","title":"Qlik view server reference manual eng"},{"author":"home","views":2487,"thumbnail":"//cdn.slidesharecdn.com/ss_thumbnails/introduceplay-120418061222-phpapp02-thumbnail.jpg?cb=1334748371","url":"/tuyen03a128/introduce-play","author_login":"tuyen03a128","title":"Introduce play"},{"author":"Bonitasoft","views":503,"thumbnail":"//cdn.slidesharecdn.com/ss_thumbnails/developafirstprocessapplication251013-131031154523-phpapp02-thumbnail.jpg?cb=1383252519","url":"/BonitaSoft/develop-a-first-process-application","author_login":"BonitaSoft","title":"Develop a first business process ap..."},{"author":"l xf","views":19092,"thumbnail":"//cdn.slidesharecdn.com/ss_thumbnails/asynchronous-io-programming1322-thumbnail.jpg?cb=1225432115","url":"/Arbow/asynchronous-io-programming","author_login":"Arbow","title":"Asynchronous Io Programming"},{"author":"Peter Robinett","views":21097,"thumbnail":"//cdn.slidesharecdn.com/ss_thumbnails/android-development-workshop-v2-1228043706544191-8-thumbnail.jpg?cb=1228356394","url":"/pr1001/android-development-workshop-presentation","author_login":"pr1001","title":"Android Development Workshop"}],"url":"http://www.slideshare.net/geekaholic/kernel-configuration"},"referer":"https://www.google.co.in/","timestamp":1205653660,"track_slide_enable":1,"fullscreen_url":"/fullscreen/geekaholic/kernel-configuration","slideview_url":"/geekaholic/kernel-configuration","id":308541,"image_ready":true,"spinner_url":"//public.slidesharecdn.com/images/ssplayer/loading_bigfoot.gif?bb6a018640","iframe_code":"\u003Ciframe src=\"{iframe_url}\" width=\"{width}\" height=\"{height}\" frameborder=\"0\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"no\" style=\"border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px\" allowfullscreen\u003E \u003C/iframe\u003E \u003Cdiv style=\"margin-bottom:5px\"\u003E \u003Cstrong\u003E \u003Ca href=\"https://www.slideshare.net/geekaholic/kernel-configuration\" title=\"Kernel Configuration and Compilation\" target=\"_blank\"\u003EKernel Configuration and Compilation\u003C/a\u003E \u003C/strong\u003E from \u003Cstrong\u003E\u003Ca href=\"http://www.slideshare.net/geekaholic\" target=\"_blank\"\u003EBud Siddhisena\u003C/a\u003E\u003C/strong\u003E \u003C/div\u003E","has_audio":false,"hosted_in":"slideview","disable_share":false,"wp_code":"[slideshare id=308541\u0026doc=kernel-configuration-1205664458826041-3]","preload_after_pageload":true,"spinner_url_fullscreen":"//public.slidesharecdn.com/images/ssplayer/loading_white.gif?5889cf60da","beacon_url":"stats.slideshare.net/1.gif","use_ssl":false,"replayscreen":{"html":"\u003Ca href=\"#\" class=\"replayScreenReplay\" \u003EView again\u003C/a\u003E"},"pin_image_url":"http://cdn.slidesharecdn.com/ss_thumbnails/kernel-configuration-1205664458826041-3-thumbnail-4.jpg?cb=1205653660","has_lead":false,"author_id":2064463,"sharescreen":{"slideshow_id":308541,"user_name":"Shamim Biswas","url":"http://www.slideshare.net/geekaholic/kernel-configuration","html":"\u003Cdiv class=\"shareScreen\"\u003E\n  \u003Ca href=\"#\" class=\"close\"\u003E\u0026times;\u003C/a\u003E\n  \u003Cul class=\"shareMethods\"\u003E\n    \u003Cli class=\"embed\"\u003E\n      \u003Clabel for=\"embed-code\"\u003EEmbed\u003C/label\u003E\n      \u003Cinput type='text' class=\"shareScreenEmbedCode\" value=\"code\" name=\"embed-code\" /\u003E\n    \u003C/li\u003E\n    \u003Cli class=\"url last\"\u003E\n      \u003Clabel for=\"embed-url\"\u003EURL\u003C/label\u003E\n      \u003Cinput type='text' class=\"shareScreenSSUrl\" value=\"code\" name=\"embed-url\" /\u003E\n\t\u003C/li\u003E\n  \u003C/ul\u003E\n  \u003Cform class=\"emailShare\"\u003E\n    \u003Cfieldset\u003E\n      \u003Clegend\u003EEmail this\u003C/legend\u003E\n      \u003Cinput type=\"hidden\" class=\"shareDefaultMessage\" value=\"I think you will find this useful.\" /\u003E\n      \u003Cul\u003E\n        \u003Cli\u003E\n          \u003Clabel for=\"name\"\u003EYour name\u003C/label\u003E\n          \u003Cinput class='shareScreenFromName' type=\"text\" value=\"\" /\u003E\n        \u003C/li\u003E\n        \u003Cli\u003E\n          \u003Clabel for=\"mailID\"\u003EEmail to\u003C/label\u003E\n          \u003Cinput class=\"shareScreenMailID\" type=\"text\" value=\"\" /\u003E\n        \u003C/li\u003E\n        \u003Cli class=\"submit\"\u003E\n          \u003Clabel\u003E\u0026nbsp;\u003C/label\u003E\n          \u003Cinput class=\"shareSprite\" type=\"submit\" value=\"\" /\u003E\n        \u003C/li\u003E        \n      \u003C/ul\u003E\n      \u003C/fieldset\u003E\n  \u003C/form\u003E\n\u003C/div\u003E\u003C!-- shareScreen ends here --\u003E","title":"Kernel Configuration and Comp..."},"player_type":"presentation","twitter_recommended_users":"@geekaholic","ppt_location":"kernel-configuration-1205664458826041-3","embed_sizes":{"presets":{"preset2":{"size":{"height":355,"width":425},"displaySize":{"height":38,"width":50}},"preset3":{"size":{"height":420,"width":510},"displaySize":{"height":45,"width":60}},"preset4":{"size":{"height":485,"width":595},"displaySize":{"height":53,"width":70}},"preset1":{"size":{"height":290,"width":340},"displaySize":{"height":30,"width":40}}},"config":{"defaultPreset":"preset2"}},"twitter_share_text":"Kernel Configuration and Compilation by @geekaholic #compiling #configuration","bucket_location":"//html.slidesharecdn.com/kernel-configuration-1205664458826041-3/","fullscreen_bgcolor":"jsplBgColorWhite","page":1,"show_related_content":"1","image_bucket_location":"//image.slidesharecdn.com/kernel-configuration-1205664458826041-3","disable_eagerload":false,"is_only_private":false,"player_bgcolor":"jsplBgColorBigfoot","html_eotfont_url_suffix":"-eot.js","slide_error_template":"\u003Cstyle type=\"text/css\"\u003E\n  .jsplayer-slide-error {\n    background-color: #000;\n    padding: 20% 0 13% !important;\n  }\n  .jsplayer-slide-error div {\n    text-align: center;\n  }\n  .jsplayer-slide-error img {\n    height: 79px !important;\n    margin: 0 0 10px;\n    width: 80px !important;\n  }\n  .jsplayer-slide-error .slide-error-body {\n    color: #eee;\n    font-family: 'Lucida Grande',Verdana, Arial, Helvetica, sans-serif;\n    padding: 0 !important;\n  }\n  .jsplayer-slide-error .slide-error-body p {\n    font-size: 0.8em;\n    line-height: 1.1em;\n    margin: 7px 0 11px;\n  }\n  .jsplayer-slide-error .slide-error-body input[type=button] {\n    margin: 7px 0 0;\n    padding: 7px 14px;\n  }\n\u003C/style\u003E\n\u003Cdiv class=\"jsplayer-slide-error\"\u003E\n  \u003Cdiv style=\"position:relative;\"\u003E\n    \u003Cimg src='//public.slidesharecdn.com/images/ssplayer/error_dudes-80x79.png' height=\"79\" width=\"80\" /\u003E\n    \u003Cdiv class=\"slide-error-body\"\u003E\n      \u003Cp\u003EWe were unable to load the slide.\u003C/p\u003E\n      \u003Cinput class=\"btn btn-large\" type=\"button\" value=\"Reload slide\" /\u003E\n    \u003C/div\u003E\n  \u003C/div\u003E\n\u003C/div\u003E\n","share_text":"Kernel Configuration and Compilation by Bud Siddhisena via slideshare","shareoptions":{"linkedin_share":"http://www.slideshare.net/share/linkedin/308541/SlideShare:%20Kernel%20Configuration%20and%20Compilation","facebook_like_button":"\u003Ciframe class=\"fb-like\" src=\"//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.slideshare.net%2Fgeekaholic%2Fkernel-configuration\u0026amp;width=50\u0026amp;height=21\u0026amp;colorscheme=light\u0026amp;layout=button_count\u0026amp;action=like\u0026amp;show_faces=false\u0026amp;send=false\u0026amp;appId=2490221586\" scrolling=\"no\" frameborder=\"0\" style=\"border:none; overflow:hidden; width:50px; height:25px;\" allowTransparency=\"true\"\u003E\u003C/iframe\u003E","html":"\u003C!-- \u003Cscript\u003E\n(function(){  var FBInitParams = {\n    appId  : '2490221586',\n    status : true, // check login status\n    cookie : true, // enable cookies to allow the server to access the session\n    xfbml  : true, // parse XFBML\n    oauth  : true,  // to enable OAuth 2.0\n    channelUrl  : '//public.slidesharecdn.com/channel.html'\n  };\n  if(typeof(FB) === \"object\"){\n    window.setTimeout(function(){\n      FB.XFBML.parse();\n      FB.Event.subscribe('edge.create',fbLike);\n    },50);\n  }else{\n    window.fbAsyncInit = function() {\n      FB.init(FBInitParams);\n      FB.Event.subscribe('edge.create',fbLike);\n    }\n  }\n})();\n\u003C/script\u003E --\u003E\n\n\u003Cdiv class=\"shareoptions\"\u003E\n  \u003Cul class=\"thirdPartyShare\"\u003E\n  \t\u003Cli\u003E\u003Ca href=\"#\" class=\"shareSprite Twitter\"\u003E\u0026nbsp; \u003C/a\u003E\u003C/li\u003E\n    \u003Cli\u003E\u003Ca href=\"#\" class=\"shareSprite Linkedin\"\u003E\u0026nbsp; \u003C/a\u003E\u003C/li\u003E\n    \u003Cli\u003E\u003Ca href=\"#\" class=\"fb-like\"/\u003E\u003C/li\u003E\n  \u003C/ul\u003E\n\u003C/div\u003E\n","googleplus_share":"http://plus.google.com/share?url=http%3A%2F%2Fwww.slideshare.net%2Fgeekaholic%2Fkernel-configuration","twitter_share":"http://www.slideshare.net/share/tweet/308541/Kernel%20Configuration%20and%20Compilation%20by%20@geekaholic","facebook_share":"http://www.slideshare.net/share/facebook/308541/Check%20out%20this%20SlideShare%20presentation%20:%20Kernel%20Configuration%20and%20Compilation"},"inpage_full_screen":true,"mode":"image","has_video":false,"toolbar_html":"\u003C!--[if IE 7]\u003E\n  \u003Cstyle\u003E\n    .toolbar .navActions { position: relative; top: -28px; }\n    div.toolbar .nav {margin-left : 37%; }\n  \u003C/style\u003E\n\u003C![endif]--\u003E\n  \u003Ca href=\"#\" class=\"sprite btnViewOnSS\" title=\"View on SlideShare\"\u003E\u0026nbsp;\u003C/a\u003E\u003C!-- view on SS --\u003E\n  \u003Cdiv class=\"nav\"\u003E\n    \u003Ca href=\"#btnFirst\" class=\"btnFirst\" title=\"First Slide\" rel=\"nofollow\"\u003E\u0026laquo;\u003C/a\u003E\n    \u003Ca href=\"#btnPrevious\" class=\"btnPrevious\" title=\"Previous Slide\" rel=\"nofollow\"\u003E\u0026lsaquo;\u003C/a\u003E\n    \u003Ca href=\"#btnNext\" class=\"btnNext\" title=\"Next Slide\" rel=\"nofollow\"\u003E\u0026rsaquo;\u003C/a\u003E\n    \u003Ca href=\"#btnLast\" class=\"btnLast\" title=\"Last Slide\" rel=\"nofollow\"\u003E\u0026raquo;\u003C/a\u003E\n  \u003C/div\u003E\n  \u003Cdiv class=\"navActions\"\u003E\n    \u003Ca href=\"#\" class=\"btnFullScreen\" title=\"View Fullscreen\" rel=\"nofollow\"\u003E\u0026nbsp;\u003C/a\u003E\n    \u003Ca href=\"#\" class=\"btnLeaveFullScreen\" title=\"Exit Fullscreen\" rel=\"nofollow\"\u003E\u0026nbsp;\u003C/a\u003E\n    \u003Clabel class=\"goToSlideLabel\"\u003E\u003Cinput type=\"text\" name=\"goToSlide\" value=\"1\" /\u003E\u003Cspan\u003E/123\u003C/span\u003E\u003C/label\u003E\n  \u003C/div\u003E\n","show_image_player":true,"is_private":false,"share_cta":{"html":"\u003Cdiv class=\"action-btns-container\"\u003E\n\n  \u003Ca rel=\"nofollow\" href=\"#\" title=\"Share this presentation\" class=\"action-btn share j-share\" data-ssid=\"00\"\u003E\n    \u003Cspan class=\"action-btn-icon\"\u003E\u003C/span\u003E\n    \u003Cspan class=\"action-btn-text\"\u003EShare\u003C/span\u003E\n  \u003C/a\u003E\n\n\u003C/div\u003E\n"},"start_slide":1,"slide_count":19,"stripped_title":"kernel-configuration"},"key":false,"totalSlides":19,"useHttp":1,"sharing_more":{"url":"http://www.slideshare.net/~/slideshow/sharing_more/308541.html"},"pvt":0,"downloads":{"sp_isdwnl":true,"allow":true},"userimage_placeholder":"//public.slidesharecdn.com/images/user-48x48.png","startSlide":1,"relative_static_origin_server":"//public.slidesharecdn.com/","show_ads":{},"favorites":{"create_url":"/favorite/create","delete_url":"/favorite/delete","update_url":"/favorite/update/FAVID"},"doc":"kernel-configuration-1205664458826041-3","presentationId":308541,"beacon_url":"stats.slideshare.net/1.gif","cached_template_url":"//public.slidesharecdn.com/get_cacheable_template","slideshow_placeholder":"//public.slidesharecdn.com/images/thumbnail.png","facebook_app_id":2490221586,"li_bar":{"get_url":"/li_bar"},"flagging":{"flagged_value":null,"update_url":"http://www.slideshare.net/main/flag?slideshow_id=308541"},"contacts":{"create_url":"/contact/create?contactee=CONTACTEE\u0026contacter=52784412\u0026frm_source=slideview","delete_url":"/contact/delete?contactee=2064463\u0026contacter=52784412\u0026frm_source=slideview"},"gam_cat_name":"technology","stats":{"url":"http://www.slideshare.net/~/slideshow/stats/308541.json"},"fb_app_name":"slideshare","slideshow":{"iframe_url":"http://www.slideshare.net/slideshow/embed_code/308541","facade_slide_url":"http://image.slidesharecdn.com/kernel-configuration-1205664458826041-3/95/slide-1-728.jpg?cb=1205653660","id":"308541","allow_embeds":true,"iframe_code":"\u003Ciframe src=\"{iframe_url}\" width=\"{width}\" height=\"{height}\" frameborder=\"0\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"no\" style=\"border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px\" allowfullscreen\u003E \u003C/iframe\u003E \u003Cdiv style=\"margin-bottom:5px\"\u003E \u003Cstrong\u003E \u003Ca href=\"https://www.slideshare.net/geekaholic/kernel-configuration\" title=\"Kernel Configuration and Compilation\" target=\"_blank\"\u003EKernel Configuration and Compilation\u003C/a\u003E \u003C/strong\u003E from \u003Cstrong\u003E\u003Ca href=\"http://www.slideshare.net/geekaholic\" target=\"_blank\"\u003EBud Siddhisena\u003C/a\u003E\u003C/strong\u003E \u003C/div\u003E","total_slides":19,"wp_code":"[slideshare id=308541\u0026doc=kernel-configuration-1205664458826041-3]","user_login":"geekaholic","pin_image_url":"http://cdn.slidesharecdn.com/ss_thumbnails/kernel-configuration-1205664458826041-3-thumbnail-4.jpg?cb=1205653660","form_is_blocking":false,"user_name":"Bud Siddhisena","is_author_premium":false,"zeroclipboard_url":"http://static.slidesharecdn.com/ZeroClipboard.swf","embed_sizes":{"presets":{"preset2":{"size":{"height":355,"width":425},"displaySize":{"height":38,"width":50}},"preset3":{"size":{"height":420,"width":510},"displaySize":{"height":45,"width":60}},"preset4":{"size":{"height":485,"width":595},"displaySize":{"height":53,"width":70}},"preset1":{"size":{"height":290,"width":340},"displaySize":{"height":30,"width":40}}},"config":{"defaultPreset":"preset2"}},"form_after_slide_number":null,"view_action_state":"unpublished","is_audio":false,"show_related_content":"1","ss_url":"http://www.slideshare.net/geekaholic/kernel-configuration","type":"presentation","title":"Kernel Configuration and Compilation","fullscreen_bg_color":"White"},"preview":"no","stripped_title":"kernel-configuration","user":{"name":"Shamim Biswas","fb_access_token":"CAAAAAJRtxBIBAPKVL8YTgJ0tM8DfztKnXZCEXRBQOtnlRfAuTcXN1qRRz5KRVDRZA0XqANojr1HQMyH6jp1ZAf3IX1M44k0p73Lk353oc2IBUI5RqyVrxC7V4dRdrmagVGtI2Ia6bFWZCbKsRkPjOrChvGBXZAHOc2iRZB9f9Dlzks92dor6fH","enable_boomerang":false,"member_type":"member","id":52784412,"is_opengraph_user":true,"owner":false,"fb_userid":"100000179948219","pro":false,"loggedin":true,"occupation":null,"su":false,"can_remove_contact":null,"user_group":"user","login":"shamimbiswas752","organization":"Jamia Millia Islamia","opengraph_permissions":{"view":true,"comment":true,"download":true,"follow":true,"favorite":true,"upload":true},"photo_url":"//cdn.slidesharecdn.com/profile-photo-shamimbiswas752-48x48.jpg?cb=1389080114","commenter":false,"email":"sha_coolbuddy@yahoo.co.in"},"show_branding":1,"default_tab":".svMoreAuthor","category":{"featured":0},"related_type":"related","asset_id":"5ae8683e04b8def680841795d0f05d4803f4fc7b","dev":false,"is_free_author":false,"comments":{"captcha_url":"http://s3.amazonaws.com/ss-captchas/","unsubscribe_url":"/comment/unsubscribe/308541","destroy_url":"/comment/destroy","spam_url":"/comment/mark_spam","ajaxurl":"/~/slideshow/comments/308541.json","slideview_template":"\u003Cli\u003E\n                    \u003Ca href=\"#\" rel=\"nofollow\" title=\"Commenter Title\" class=\"notranslate commenter h-commenter j-author-photo\"\u003E\n                        \u003Cimg original=\"/images/user-48x48.png\" width=\"48\" height=\"48\" alt=\"Full Name\" src=\"/images/user-48x48.png\" class=\"nickname\" /\u003E\n                        \u003Cstrong class=\"h-username j-username notranslate\"\u003EFull Name\u003C/strong\u003E\u003Cspan class=\"bioStub notranslate\"\u003E\u003Cspan class=\"h-commenter-role\"\u003E\u003C/span\u003E\u003Cspan class=\"h-commenter-org\"\u003E\u003C/span\u003E\u003C/span\u003E\n                    \u003C/a\u003E\n                    \u003Cspan class=\"commentText h-comment-text notranslate\"\u003E\n                        Comment goes here.\n                    \u003C/span\u003E\n                    \u003Cspan class=\"commentMeta h-comment-meta\"\u003E\n                      \u003Cspan class=\"commentTimestamp h-timestamp\"\u003E12 hours ago\u003C/span\u003E\n                      \u003Cspan class=\"commentActions h-comment-actions hide\"\u003E\n                        \u003Cbutton class=\"j-reply btn btn-mini\"\u003EReply\u003C/button\u003E\n                        \u003Cbutton class=\"action-edit btn btn-mini\"\u003EEdit\u003C/button\u003E\n                        \u003Cbutton class=\"action-delete btn btn-mini\"\u003EDelete\u003C/button\u003E\n                        \u003Cbutton class=\"action-spam btn btn-mini\"\u003ESpam\u003C/button\u003E\n                        \u003Cbutton class=\"action-block btn btn-mini\"\u003EBlock\u003C/button\u003E\n                      \u003C/span\u003E\n                    \u003C/span\u003E\n                    \u003Cdiv id=\"confirmDialog\" class=\"alertMessage blockMessage warning\"\u003E\n                        \u003Cspan class=\"title\"\u003EAre you sure you want to\u003C/span\u003E\n                        \u003Cbutton id=\"yes\" class=\"btn btn-mini\"\u003EYes\u003C/button\u003E\n                        \u003Cbutton id=\"no\" class=\"btn btn-mini\"\u003ENo\u003C/button\u003E\n                    \u003C/div\u003E\n                    \u003Cdiv id=\"messageDialog\" class=\"alertMessage blockMessage warning\"\u003E\n                        Your message goes here\n                    \u003C/div\u003E\n\n                    \u003Cspan class=\"j-loading hide\"\u003E \u003Cimg width=\"21\" height=\"5\" alt=\"Processing\u0026hellip;\" src=\"\u003C%= $slideshare_conf['static-origin-server'] %\u003Eimages/indicator.gif\" /\u003E \u003C/span\u003E\n\n                \u003C/li\u003E","create_url":"/comment/create","total_count":0,"update_url":"/comment/update"}}; var user_info =  {"name":"Shamim Biswas","id":52784412,"fb_access_token":"CAAAAAJRtxBIBAPKVL8YTgJ0tM8DfztKnXZCEXRBQOtnlRfAuTcXN1qRRz5KRVDRZA0XqANojr1HQMyH6jp1ZAf3IX1M44k0p73Lk353oc2IBUI5RqyVrxC7V4dRdrmagVGtI2Ia6bFWZCbKsRkPjOrChvGBXZAHOc2iRZB9f9Dlzks92dor6fH","is_pro":false,"has_uploads":false,"is_opengraph_user":true,"is_fbuser":true,"fb_userid":"100000179948219","loggedin":true,"su":false,"login":"shamimbiswas752","opengraph_permissions":{"view":true,"download":true,"comment":true,"follow":true,"upload":true,"favorite":true},"userGroup":"member"}; 
+//--></script>
+  <script type="text/javascript" id="adQueue"><!--
+ if(!slideshare_object.delayedLIAd){ slideshare_object._adQueue = []; } 
+//--></script>
+  <script type="text/javascript">
+//<![CDATA[
+jQl.loadjQ("//public.slidesharecdn.com/slideview/scripts/combined_presentation_init.js?5ae8683e04b8def680841795d0f05d4803f4fc7b");
+//]]>
+</script>
+  <script type="text/javascript" id="ga-init">
+  // <![CDATA[
+    window._gaq = [];
+    window._gaq.push(['_trackEvent', 'bigfoot_slideview', 'pageload', slideshare_object.gam_cat_name, undefined, true]);
+    window._sstq && _sstq.push(['track', 'player_share_cta', 'slideview_pageload']);
+    if(slideshare_object.user.member_type === "non-member"){
+      window._gaq.push(['_trackEvent', 'bigfoot_slideview', 'loggedout_pageload', slideshare_object.gam_cat_name, undefined, true]);
+    }
+  // ]]>
+  </script>
+  <script id="h-qu-experiment-instrumentation"></script>
+  <script type="text/javascript" id="rails_environment"><!--
+ slideshare_object.deploy_environment = 'production';
+//--></script>
+
+  
+
+
+  <!--[if lt IE 9]><script src="//public.slidesharecdn.com/javascripts/plugins/html5.js"></script><![endif]-->
+
+  <script type="text/javascript">
+//<![CDATA[
+var smtId = "ab5bb963d";
+var smtDefaultStyles = false;
+var smtRedirect = true;
+var smtProt = (("https:" == document.location.protocol) ? "https://" : "http://");
+
+var smtPreRender = function(data) {
+  for (i in data) {
+    if (data[i].code === "en-us") {
+      data[i].name = "English";
+    }
+  }
+};
+
+var smtRedirectMapper = function(locale, sites) {
+  if (/^es/i.test(locale)){ //disable redirect to spanish site
+    return null;
+  }
+  if (locale in sites) {
+    return sites[locale];
+  }
+  if (/^fr/i.test(locale)) {
+    return sites['fr-fr'] || null;
+  }
+  if (/^de/i.test(locale)) {
+    return sites['de-de'] || null;
+  }
+  return null;
+};
+
+document.write(unescape("%3Cscript src='" + smtProt + "cdn01.smartling.com/ls/"+ smtId +".js' type='text/javascript'%3E%3C/script%3E"));
+
+//]]>
+</script><script src="./Kernel Configuration and Compilation_files/ab5bb963d.js" type="text/javascript"></script>
+
+  <link rel="Shortcut Icon" href="http://public.slidesharecdn.com/images/favicon.ico">
+  <link href="./Kernel Configuration and Compilation_files/Kernel Configuration and Compilation.htm" rel="canonical">
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="http://www.slideshare.net/rss/latest">
+  <link rel="search" type="application/opensearchdescription+xml" href="http://www.slideshare.net/search/opensearch.xml" title="SlideShare Search">
+  <link href="http://www.slideshare.net/api/oembed/2?format=json&url=http://www.slideshare.net/geekaholic/kernel-configuration" type="application/json+oembed" rel="alternate" title="Slideshow oEmbed Profile">
+  <link href="http://www.slideshare.net/api/oembed/2?format=xml&url=http://www.slideshare.net/geekaholic/kernel-configuration" type="text/xml+oembed" rel="alternate" title="Slideshow oEmbed Profile">
+  <link href="http://www.slideshare.net/mobile/geekaholic/kernel-configuration" rel="alternate" media="handheld">
+  
+  <!-- fb open graph meta tags -->
+  <meta name="fb_app_id" content="2490221586" property="fb:app_id" class="fb_og_meta">
+  <meta name="og_type" content="slideshare:presentation" property="og:type" class="fb_og_meta">
+  <meta name="og_url" content="http://www.slideshare.net/geekaholic/kernel-configuration" property="og:url" class="fb_og_meta">
+  <meta name="og_image" content="http://cdn.slidesharecdn.com/ss_thumbnails/kernel-configuration-1205664458826041-3-thumbnail-4.jpg?cb=1205653660" property="og:image" class="fb_og_meta">
+  <!-- SL:start:notranslate -->
+  <meta name="og_title" content="Kernel Configuration and Compilation" property="og:title" class="fb_og_meta">
+  <meta name="og_description" content="Presentation on configuring the compiling the Linux kernel" property="og:description" class="fb_og_meta">
+  <!-- SL:end:notranslate -->
+  <meta name="slideshow_published_time" content="2008-03-16T07:47:40Z" property="slideshare:published" class="fb_og_meta">
+  <meta name="slideshow_author" content="http://www.slideshare.net/geekaholic" property="slideshare:author" class="fb_og_meta">
+  <meta name="slideshow_view_count" content="10775" property="slideshare:view_count" class="fb_og_meta">
+  <meta name="slideshow_embed_count" content="3" property="slideshare:embed_count" class="fb_og_meta">
+  <meta name="slideshow_comment_count" content="0" property="slideshare:comment_count" class="fb_og_meta">
+  <meta name="slideshow_download_count" content="480" property="slideshare:download_count" class="fb_og_meta">
+  <meta name="slideshow_created_at" content="2008-03-16 07:47:40 UTC" property="slideshare:created_at" class="fb_og_meta">
+  <meta name="slideshow_updated_at" content="2008-03-16 07:47:40 UTC" property="slideshare:updated_at" class="fb_og_meta">
+  <meta name="slideshow_featured_on" content="" property="slideshare:featured_on" class="fb_og_meta">
+  <meta name="slideshow_favorites_count" content="6" property="slideshare:favorites_count" class="fb_og_meta">
+  <meta name="slideshow_category" content="" property="slideshare:category" class="fb_og_meta">
+
+  <!-- SL:start:notranslate -->
+  <meta name="twitter:card" value="player">
+  <meta name="twitter:site" value="@slideshare">
+  <meta name="twitter:player" value="https://www.slideshare.net/slideshow/embed_code/308541" class="twitter_player">
+  <meta name="twitter:player:width" value="342">
+  <meta name="twitter:player:height" value="291">
+  <meta name="twitter:title" value="Kernel Configuration and Compilation" class="twitter_title">
+  <meta name="twitter:image" value="http://cdn.slidesharecdn.com/ss_thumbnails/kernel-configuration-1205664458826041-3-thumbnail-4.jpg?cb=1205653660" class="twitter_image">
+  <!-- SL:end:notranslate -->
+
+  
+
+  
+    <div class="li-global-msg-container hide">    <div class="li-global-msg" style="display: block; ">
+      <div class="container">
+        <p>
+          Connect your LinkedIn account to SlideShare to get the best of both worlds
+          <a class="li-connect" id="li-login" href="http://www.slideshare.net/liconnect/ss_campaign"><span class="li-icon"></span>Connect</a>
+          <a href="http://www.slideshare.net/geekaholic/kernel-configuration#" class="li-close">×</a>
+        </p>
+      </div>
+    </div>
+</div>
+
+    <!-- Navbar -->
+    <div id="main_navbar" class="navbar new_navbar mobile-hide">
+  <div class="navbar-inner">
+    <div class="container">
+      
+      <!-- Logo -->
+
+      <div class="logo-wrapper" itemscope="" itemtype="http://schema.org/Organization">
+        <a class="sprite-brand" href="http://www.slideshare.net/?ss" itemprop="url" id="j-slideshare-logo" rel="tooltip" data-ga="homepage" data-original-title="Homepage">
+          <img itemprop="logo" src="./Kernel Configuration and Compilation_files/logo.png" width="185" height="38" alt="SlideShare">
+        </a>
+      </div>
+
+      <ul class="nav">
+
+        <!-- Updates -->
+
+          <li>
+            <a href="http://www.slideshare.net/shamimbiswas752/newsfeed" class="j-icon_NoNotification no-notification" data-ga="my_newsfeed" data-original-title="">
+              Updates <span class="count">0</span>
+            </a>
+            <a href="http://www.slideshare.net/shamimbiswas752/newsfeed" class="hide j-icon_Notification yes-notification" data-ga="my_newsfeed" data-original-title="">
+              Updates <span class="count">0</span>
+            </a>
+          </li>
+
+        <li class="nav_divider"></li>
+
+        <!-- Explore -->
+
+        <li class="dropdown" id="browse">
+            <a href="http://www.slideshare.net/featured" class="dropdown-toggle" data-toggle="dropdown">Explore&nbsp;<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li>
+                    <a href="http://www.slideshare.net/featured" data-ga="featured">Featured</a>
+                </li>
+                <li>
+                    <a href="http://www.slideshare.net/popular/week" data-ga="popular">Popular</a>
+                </li>
+                <li>
+                    <a href="http://www.slideshare.net/most-liked/week" data-ga="most_liked">Most Liked</a>
+                </li>
+                <li>
+                    <a href="http://www.slideshare.net/featured/media/infographics" data-ga="infographics">Infographics</a>
+                </li>
+                <li>
+                    <a href="http://www.slideshare.net/popular/media/videos/week" data-ga="videos">Videos</a>
+                </li>
+            </ul>
+        </li>
+
+        <li class="nav_divider"></li>
+
+        <!-- Search -->
+
+        <form class="navbar-search pull-left" method="get" action="http://www.slideshare.net/search/slideshow" data-ga="search_submit">
+          <input type="submit" class="iconTemp-search iconTemp-gray hide-text">
+          <input name="searchfrom" type="hidden" value="header">
+          <input class="search-query" value="" name="q" id="search_query_top" type="text" placeholder="Search" autocomplete="off" data-ga="search">
+          <div class="suggestionContainer"></div>
+        </form>
+      </ul>
+
+      <div id="topNavLinks-11" class="pull-right">
+          <!-- New navbar -->
+
+   <ul class="nav pull-right" id="login_link">
+
+    <!-- Upload button -->
+
+    <li>
+      <span>
+        <a id="upload-link" href="http://www.slideshare.net/upload" class="btn btn-primary void_fancybox" data-ga="upload">Upload</a>
+      </span>
+    </li>
+
+       <li>
+          <a id="go-pro" href="http://www.slideshare.net/business/premium/plans?cmp_src=general&cmp_src_from=main_nav" class="goPro j-tooltip" onclick="window._gaq = _gaq || []; _gaq.push([&#39;_trackEvent&#39;, &#39;top_nav&#39;,&#39;topnav&#39;,&#39;business-index&#39;]);" data-ga="go_pro" data-original-title="Upgrade to SlideShare PRO">
+              Go <span class="goProLabel">Pro</span>
+          </a>
+       </li>
+
+
+
+
+        <!-- User drop down (user image) -->
+
+       <li class="dropdown " id="user-drop-down">
+        <a href="http://www.slideshare.net/shamimbiswas752" class="topnav-dropdown-userImage" data-ga="user_profile">
+            <img src="./Kernel Configuration and Compilation_files/profile-photo-shamimbiswas752-48x48.jpg" alt="Shamim Biswas" width="32" height="32">
+        </a>
+        <a href="http://www.slideshare.net/geekaholic/kernel-configuration#user-drop-down" class="dropdown-toggle-caret topnav-dropdown-carret" data-toggle="dropdown"><b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu">
+          <li class="j-public-profile">
+            <a href="http://www.slideshare.net/shamimbiswas752" data-ga="user_profile">
+              <span class="notranslate">Shamim Biswas</span>
+              <small class="metadata">View my profile page</small>
+            </a>
+           </li>
+           <li class="divider"></li>
+           <li><a class="j-uploads" href="http://www.slideshare.net/shamimbiswas752/edit_my_uploads" data-ga="my_uploads"><i class="iconTemp-upload"></i> My Uploads</a></li>
+           <li><a class="j-edit-profile" href="http://www.slideshare.net/shamimbiswas752/edit_myinformation" data-ga="edit_profile"><i class="iconTemp-cog"></i> Account Settings</a></li>
+           <li class="divider"></li>
+           <li><a class="j-analytics" href="http://www.slideshare.net/features?cmp_src=analytics&cmp_src_from=main_nav" data-ga="analytics"><i class="iconTemp-signal"></i> Analytics</a></li>
+           <li><a class="j-pro-dashboard" href="http://www.slideshare.net/features?cmp_src=general&cmp_src_from=pro_dashboard" data-ga="pro_dashboard"><i class="iconTemp-th-large"></i> PRO dashboard</a></li>
+           <li><a class="j-logout" href="https://www.slideshare.net/logout" data-ga="logout"><i class="icon-logout"></i> Logout</a></li>
+           <li class="divider"></li>
+           <li><a class="j-help" href="http://help.slideshare.com/" data-ga="support"><i class="iconTemp-question-sign"></i> Support</a></li>
+         </ul>
+       </li>
+
+  </ul>
+
+    <script type="text/javascript" charset="utf-8">
+      var user_object = {"name":"Shamim Biswas","id":52784412,"fb_access_token":"CAAAAAJRtxBIBAPKVL8YTgJ0tM8DfztKnXZCEXRBQOtnlRfAuTcXN1qRRz5KRVDRZA0XqANojr1HQMyH6jp1ZAf3IX1M44k0p73Lk353oc2IBUI5RqyVrxC7V4dRdrmagVGtI2Ia6bFWZCbKsRkPjOrChvGBXZAHOc2iRZB9f9Dlzks92dor6fH","is_pro":false,"has_uploads":false,"is_opengraph_user":true,"is_fbuser":true,"fb_userid":"100000179948219","loggedin":true,"su":false,"login":"shamimbiswas752","opengraph_permissions":{"view":true,"download":true,"comment":true,"follow":true,"upload":true,"favorite":true},"userGroup":"member"};
+      for(var key in user_object) {
+        slideshare_object.user[key] = user_object[key];
+      }
+      if(typeof(slideshare_object.setupTopnavMenu) === 'function') {
+        slideshare_object.setupTopnavMenu();
+      }
+    </script>
+
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div id="fb-root" class=" fb_reset"><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div></div></div><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe name="fb_xdm_frame_http" frameborder="0" allowtransparency="true" scrolling="no" id="fb_xdm_frame_http" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tab-index="-1" src="./Kernel Configuration and Compilation_files/xd_arbiter.htm" style="border: none;"></iframe><iframe name="fb_xdm_frame_https" frameborder="0" allowtransparency="true" scrolling="no" id="fb_xdm_frame_https" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tab-index="-1" src="./Kernel Configuration and Compilation_files/xd_arbiter(1).htm" style="border: none;"></iframe></div></div></div>
+    
+
+    <section>
+
+        
+        <div class="sectionElements container">
+        
+        
+        
+        <div id="h-modal-flash"></div>
+        <div style="width: 728px;" class="playerWrapper">
+            <div class="actions">
+                <ul class="ssActions h-tools">
+                    <li class="action-share public-only"><a href="http://www.slideshare.net/geekaholic/kernel-configuration#" rel="nofollow" class="sprite iconEmail j-tooltip" data-original-title="Email this presentation to your contacts">Email</a></li>
+                    <li class="action-addfav public-only"><a href="http://www.slideshare.net/geekaholic/kernel-configuration#" rel="nofollow" class="sprite iconFav j-tooltip j-favorite" data-original-title="Like this">Like</a></li>
+
+                    <li class="action-fav public-only" style="display:none">
+                    <a href="http://www.slideshare.net/geekaholic/kernel-configuration#" class="sprite removeFav delete iconFavOn j-tooltip" rel="nofollow" data-original-title="You have liked this">Liked <strong>×</strong></a>
+                      <span class="j-favPulse fav-pulse"></span>
+                    </li>
+                    
+                    <li style="" class="action-download"><a data-target="#login_modal" data-href="" href="http://www.slideshare.net/shamimbiswas752/savedfiles?s_title=kernel-configuration&user_login=geekaholic" rel="nofollow" class="sprite iconDownload j-tooltip j-download" data-original-title="Save this presentation">Save</a></li>
+                    
+                    <li class="hide h-private-notice last"><span class="iconPrivate" title="Private Content">Private Content</span></li>
+                    <li class="action-embed h-action-embed"><a href="http://www.slideshare.net/geekaholic/kernel-configuration#" rel="nofollow" class="sprite iconEmbed j-tooltip" data-original-title="Embed this presentation">Embed</a></li>
+                    <li class="expandedOverlay action-embed-code embedPanel h-embed-allow" style="display:none">Loading embed code…</li>
+                  <li class="expandedOverlay action-addfav-new public-only" style="display:none">
+                    <a class="close cancel">×</a>
+                    <i class="linkedin-picture"></i>
+                    <p class="linkedin-shared">This activity has also been shared with your LinkedIn network</p>
+                    <span rel="tooltip" data-original-title="You can undo LinkedIn share from the activity feed on your LinkedIn profile."><a class="iconTemp-question-sign" href="http://www.slideshare.net/geekaholic/kernel-configuration#"></a></span>&nbsp;<a class="muted text-info" href="http://www.linkedin.com/" target="_blank">Undo LinkedIn share</a>&nbsp;<a href="http://www.slideshare.net/geekaholic/kernel-configuration#" class="fav-settings"><i class="iconTemp-cog"></i>Settings</a>
+                  </li>
+
+                  <li class="expandedOverlay action-unverified-download public-only" style="display:none">
+                     <p>
+                        We have emailed the verification/download link to <strong>"<span class="user-email">sha_coolbuddy@yahoo.co.in</span>"</strong>.
+                        <br>
+                        Login to your email and click the link to download the file directly.
+                      </p>
+                      <form class="changeEmail change-unverified-email">
+                        <fieldset>
+                        <legend>To request the link at a different email address, update it here.</legend>
+                        <input name="unverified-email" value="sha_coolbuddy@yahoo.co.in" class="text unverified-email">
+                        <input type="submit" class="submit btn" value="Update">
+                        <a class="ilink cancel" href="http://www.slideshare.net/geekaholic/kernel-configuration#" rel="nofollow">Close</a><br>
+                        <span class="change-unverified-email-validate" style="display:none">Validation messages.</span>
+                        <span class="change-unverified-email-win" style="display:none;color:#0A0">Success message.</span>
+                        <span class="change-unverified-email-fail" style="display:none;color:#A00">Fail message.</span>
+                        </fieldset>
+                      </form>
+                      <p style="margin:0"><span class="hint">Check your bulk/spam folders if you can't find our mail.</span></p>
+                    </li>
+
+                  <li style="display:none" class="expandedOverlay action-leads-contact">
+                    
+                  </li>
+                  <li class="expandedOverlay j-menu-loading" style="display: none;">
+                    <div class="svLightBox"><span class="h-loading">Loading <img alt="Loading…" src="./Kernel Configuration and Compilation_files/indicator.gif" height="5" width="21" style="margin:0;float:none;vertical-align:middle"></span>
+                    </div>
+                  </li>
+                </ul>
+                
+            </div>
+
+            
+            <div class="h-js-player"><!-- For slideview page , combined js for player is now combined with slideview javascripts for logged out users-->
+ 
+
+<div class="player lightPlayer fluidImage presentation_player" id="svPlayerId" style="overflow: hidden;">
+  <div class="stage" style="height: 478px; max-height: 478px; line-height: 478px;">
+    <a class="exit-fullscreen j-exit-fullscreen"></a>
+    <div class="slide_container tall_img jsplBgColorBigfoot">
+            <div data-index="1" class="slide" slidenumber="1" style="min-height: 0px;">
+              <img class="slide_image" src="./Kernel Configuration and Compilation_files/slide-1-1024.jpg" data-normal="http://image.slidesharecdn.com/kernel-configuration-1205664458826041-3/95/slide-1-728.jpg?cb=1205653660" data-full="http://image.slidesharecdn.com/kernel-configuration-1205664458826041-3/95/slide-1-1024.jpg?cb=1205653660" data-small="http://image.slidesharecdn.com/kernel-configuration-1205664458826041-3/85/slide-1-320.jpg?cb=1205653660">
+            </div>
+            <div data-index="2" class="slide" slidenumber="2" style="min-height: 0px;">
+              <img class="slide_image" src="./Kernel Configuration and Compilation_files/slide-2-1024.jpg" data-normal="http://image.slidesharecdn.com/kernel-configuration-1205664458826041-3/95/slide-2-728.jpg?cb=1205653660" data-full="http://image.slidesharecdn.com/kernel-configuration-1205664458826041-3/95/slide-2-1024.jpg?cb=1205653660" data-small="http://image.slidesharecdn.com/kernel-configuration-1205664458826041-3/85/slide-2-320.jpg?cb=1205653660">
+            </div>
+            <div data-index="3" class="slide" slidenumber="3" style="min-height: 0px;">
+              <img class="slide_image" src="./Kernel Configuration and Compilation_files/slide-3-1024.jpg" data-normal="http://image.slidesharecdn.com/kernel-configuration-1205664458826041-3/95/slide-3-728.jpg?cb=1205653660" data-full="http://image.slidesharecdn.com/kernel-configuration-1205664458826041-3/95/slide-3-1024.jpg?cb=1205653660" data-small="http://image.slidesharecdn.com/kernel-configuration-1205664458826041-3/85/slide-3-320.jpg?cb=1205653660">
+            </div>
+            <div data-index="4" class="slide" slidenumber="4" style="min-height: 0px;">
+              <img class="slide_image" src="./Kernel Configuration and Compilation_files/slide-4-1024.jpg" data-normal="http://image.slidesharecdn.com/kernel-configuration-1205664458826041-3/95/slide-4-728.jpg?cb=1205653660" data-full="http://image.slidesharecdn.com/kernel-configuration-1205664458826041-3/95/slide-4-1024.jpg?cb=1205653660" data-small="http://image.slidesharecdn.com/kernel-configuration-1205664458826041-3/85/slide-4-320.jpg?cb=1205653660">
+            </div>
+            <div data-index="5" class="slide" slidenumber="5" style="min-height: 0px;">
+              <img class="slide_image" src="./Kernel Configuration and Compilation_files/slide-5-1024.jpg" data-normal="http://image.slidesharecdn.com/kernel-configuration-1205664458826041-3/95/slide-5-728.jpg?cb=1205653660" data-full="http://image.slidesharecdn.com/kernel-configuration-1205664458826041-3/95/slide-5-1024.jpg?cb=1205653660" data-small="http://image.slidesharecdn.com/kernel-configuration-1205664458826041-3/85/slide-5-320.jpg?cb=1205653660">
+            </div>
+            <div data-index="6" class="slide" slidenumber="6" style="min-height: 0px;">
+              <img class="slide_image" src="./Kernel Configuration and Compilation_files/slide-6-1024.jpg" data-normal="http://image.slidesharecdn.com/kernel-configuration-1205664458826041-3/95/slide-6-728.jpg?cb=1205653660" data-full="http://image.slidesharecdn.com/kernel-configuration-1205664458826041-3/95/slide-6-1024.jpg?cb=1205653660" data-small="http://image.slidesharecdn.com/kernel-configuration-1205664458826041-3/85/slide-6-320.jpg?cb=1205653660">
+            </div>
+            <div data-index="7" class="slide" slidenumber="7" style="min-height: 0px;">
+              <img class="slide_image" src="./Kernel Configuration and Compilation_files/slide-7-1024.jpg" data-normal="http://image.slidesharecdn.com/kernel-configuration-1205664458826041-3/95/slide-7-728.jpg?cb=1205653660" data-full="http://image.slidesharecdn.com/kernel-configuration-1205664458826041-3/95/slide-7-1024.jpg?cb=1205653660" data-small="http://image.slidesharecdn.com/kernel-configuration-1205664458826041-3/85/slide-7-320.jpg?cb=1205653660">
+            </div>
+            <div data-index="8" class="slide" slidenumber="8" style="min-height: 0px;">
+              <img class="slide_image" src="./Kernel Configuration and Compilation_files/slide-8-1024.jpg" data-normal="http://image.slidesharecdn.com/kernel-configuration-1205664458826041-3/95/slide-8-728.jpg?cb=1205653660" data-full="http://image.slidesharecdn.com/kernel-configuration-1205664458826041-3/95/slide-8-1024.jpg?cb=1205653660" data-small="http://image.slidesharecdn.com/kernel-configuration-1205664458826041-3/85/slide-8-320.jpg?cb=1205653660">
+            </div>
+            <div data-index="9" class="slide" slidenumber="9" style="min-height: 0px;">
+              <img class="slide_image" src="./Kernel Configuration and Compilation_files/slide-9-1024.jpg" data-normal="http://image.slidesharecdn.com/kernel-configuration-1205664458826041-3/95/slide-9-728.jpg?cb=1205653660" data-full="http://image.slidesharecdn.com/kernel-configuration-1205664458826041-3/95/slide-9-1024.jpg?cb=1205653660" data-small="http://image.slidesharecdn.com/kernel-configuration-1205664458826041-3/85/slide-9-320.jpg?cb=1205653660">
+            </div>
+            <div data-index="10" class="slide" slidenumber="10" style="min-height: 0px;">
+              <img class="slide_image" src="./Kernel Configuration and Compilation_files/slide-10-1024.jpg" data-normal="http://image.slidesharecdn.com/kernel-configuration-1205664458826041-3/95/slide-10-728.jpg?cb=1205653660" data-full="http://image.slidesharecdn.com/kernel-configuration-1205664458826041-3/95/slide-10-1024.jpg?cb=1205653660" data-small="http://image.slidesharecdn.com/kernel-configuration-1205664458826041-3/85/slide-10-320.jpg?cb=1205653660">
+            </div>
+            <div data-index="11" class="slide" slidenumber="11" style="min-height: 0px;">
+              <img class="slide_image" src="./Kernel Configuration and Compilation_files/slide-11-1024.jpg" data-normal="http://image.slidesharecdn.com/kernel-configuration-1205664458826041-3/95/slide-11-728.jpg?cb=1205653660" data-full="http://image.slidesharecdn.com/kernel-configuration-1205664458826041-3/95/slide-11-1024.jpg?cb=1205653660" data-small="http://image.slidesharecdn.com/kernel-configuration-1205664458826041-3/85/slide-11-320.jpg?cb=1205653660">
+            </div>
+            <div data-index="12" class="slide" slidenumber="12" style="min-height: 0px;">
+              <img class="slide_image" src="./Kernel Configuration and Compilation_files/slide-12-1024.jpg" data-normal="http://image.slidesharecdn.com/kernel-configuration-1205664458826041-3/95/slide-12-728.jpg?cb=1205653660" data-full="http://image.slidesharecdn.com/kernel-configuration-1205664458826041-3/95/slide-12-1024.jpg?cb=1205653660" data-small="http://image.slidesharecdn.com/kernel-configuration-1205664458826041-3/85/slide-12-320.jpg?cb=1205653660">
+            </div>
+            <div data-index="13" class="slide" slidenumber="13" style="min-height: 0px;">
+              <img class="slide_image" src="./Kernel Configuration and Compilation_files/slide-13-1024.jpg" data-normal="http://image.slidesharecdn.com/kernel-configuration-1205664458826041-3/95/slide-13-728.jpg?cb=1205653660" data-full="http://image.slidesharecdn.com/kernel-configuration-1205664458826041-3/95/slide-13-1024.jpg?cb=1205653660" data-small="http://image.slidesharecdn.com/kernel-configuration-1205664458826041-3/85/slide-13-320.jpg?cb=1205653660">
+            </div>
+            <div data-index="14" class="slide" slidenumber="14" style="min-height: 0px;">
+              <img class="slide_image" src="./Kernel Configuration and Compilation_files/slide-14-1024.jpg" data-normal="http://image.slidesharecdn.com/kernel-configuration-1205664458826041-3/95/slide-14-728.jpg?cb=1205653660" data-full="http://image.slidesharecdn.com/kernel-configuration-1205664458826041-3/95/slide-14-1024.jpg?cb=1205653660" data-small="http://image.slidesharecdn.com/kernel-configuration-1205664458826041-3/85/slide-14-320.jpg?cb=1205653660">
+            </div>
+            <div data-index="15" class="slide" slidenumber="15" style="min-height: 0px;">
+              <img class="slide_image" src="./Kernel Configuration and Compilation_files/slide-15-1024.jpg" data-normal="http://image.slidesharecdn.com/kernel-configuration-1205664458826041-3/95/slide-15-728.jpg?cb=1205653660" data-full="http://image.slidesharecdn.com/kernel-configuration-1205664458826041-3/95/slide-15-1024.jpg?cb=1205653660" data-small="http://image.slidesharecdn.com/kernel-configuration-1205664458826041-3/85/slide-15-320.jpg?cb=1205653660">
+            </div>
+            <div data-index="16" class="slide" slidenumber="16" style="min-height: 0px;">
+              <img class="slide_image" src="./Kernel Configuration and Compilation_files/slide-16-1024.jpg" data-normal="http://image.slidesharecdn.com/kernel-configuration-1205664458826041-3/95/slide-16-728.jpg?cb=1205653660" data-full="http://image.slidesharecdn.com/kernel-configuration-1205664458826041-3/95/slide-16-1024.jpg?cb=1205653660" data-small="http://image.slidesharecdn.com/kernel-configuration-1205664458826041-3/85/slide-16-320.jpg?cb=1205653660">
+            </div>
+            <div data-index="17" class="slide" slidenumber="17" style="min-height: 0px;">
+              <img class="slide_image" src="./Kernel Configuration and Compilation_files/slide-17-1024.jpg" data-normal="http://image.slidesharecdn.com/kernel-configuration-1205664458826041-3/95/slide-17-728.jpg?cb=1205653660" data-full="http://image.slidesharecdn.com/kernel-configuration-1205664458826041-3/95/slide-17-1024.jpg?cb=1205653660" data-small="http://image.slidesharecdn.com/kernel-configuration-1205664458826041-3/85/slide-17-320.jpg?cb=1205653660">
+            </div>
+            <div data-index="18" class="slide" slidenumber="18" style="min-height: 0px;">
+              <img class="slide_image" src="./Kernel Configuration and Compilation_files/slide-18-728.jpg" data-normal="http://image.slidesharecdn.com/kernel-configuration-1205664458826041-3/95/slide-18-728.jpg?cb=1205653660" data-full="http://image.slidesharecdn.com/kernel-configuration-1205664458826041-3/95/slide-18-1024.jpg?cb=1205653660" data-small="http://image.slidesharecdn.com/kernel-configuration-1205664458826041-3/85/slide-18-320.jpg?cb=1205653660">
+            </div>
+            <div data-index="19" class="slide show" slidenumber="19" style="min-height: 0px;">
+              <img class="slide_image" src="./Kernel Configuration and Compilation_files/slide-19-1024.jpg" data-normal="http://image.slidesharecdn.com/kernel-configuration-1205664458826041-3/95/slide-19-728.jpg?cb=1205653660" data-full="http://image.slidesharecdn.com/kernel-configuration-1205664458826041-3/95/slide-19-1024.jpg?cb=1205653660" data-small="http://image.slidesharecdn.com/kernel-configuration-1205664458826041-3/85/slide-19-320.jpg?cb=1205653660">
+            </div>
+    </div>
+  </div><div class="leftpoint pointly"></div><div class="rightpoint pointly"></div> <!-- end stage -->
+    <div class="toolbar_wrapper">
+      <div class="toolbar normal">
+        <!--[if IE 7]>
+  <style>
+    .toolbar .navActions { position: relative; top: -28px; }
+    div.toolbar .nav {margin-left : 37%; }
+  </style>
+<![endif]-->
+  <a href="http://www.slideshare.net/geekaholic/kernel-configuration#" class="sprite btnViewOnSS" title="View on SlideShare" style="display: none;">&nbsp;</a><!-- view on SS -->
+  <div class="nav">
+    <a href="http://www.slideshare.net/geekaholic/kernel-configuration#btnFirst" class="btnFirst" title="First Slide" rel="nofollow">«</a>
+    <a href="http://www.slideshare.net/geekaholic/kernel-configuration#btnPrevious" class="btnPrevious" title="Previous Slide" rel="nofollow">‹</a>
+    <a href="http://www.slideshare.net/geekaholic/kernel-configuration#btnNext" class="btnNext" title="Next Slide" rel="nofollow">›</a>
+    <a href="http://www.slideshare.net/geekaholic/kernel-configuration#btnLast" class="btnLast" title="Last Slide" rel="nofollow">»</a>
+  </div>
+  <div class="navActions">
+    <a href="http://www.slideshare.net/geekaholic/kernel-configuration#" class="btnFullScreen" title="View Fullscreen" rel="nofollow" style="display: block;">&nbsp;</a>
+    <a href="http://www.slideshare.net/geekaholic/kernel-configuration#" class="btnLeaveFullScreen" title="Exit Fullscreen" rel="nofollow" style="display: none;">&nbsp;</a>
+    <label class="goToSlideLabel"><input type="text" name="goToSlide" value="1"><span>/19</span></label>
+  </div>
+
+      </div>
+    </div>
+    <div class="image_maps"></div>
+<div class="action-btns-container" style="display: none;">
+
+  <a rel="nofollow" href="http://www.slideshare.net/geekaholic/kernel-configuration#" title="Share this presentation" class="action-btn share j-share" data-ssid="00">
+    <span class="action-btn-icon"></span>
+    <span class="action-btn-text">Share</span>
+  </a>
+
+</div></div>
+<script type="text/javascript">
+
+  $(document).ready(function() {
+    var ele = $('#svPlayerId');
+    
+    player = new SSPlayer(slideshare_object.jsplayer);
+    $(player).bind('slidechanged', function(e){
+      if(typeof(loadDataForSlide) === 'function'){
+      loadDataForSlide(e.ssData.index);
+     }
+    });
+
+    /* Infographics experiment */
+
+    setupInfographicPlayer = function() {
+      // Add proper class to the player
+      $(".player").addClass("infographic_player");
+
+      var $toolBar = $(".toolbar_wrapper");
+      var $topToolBar = $(".playerWrapper .actions");
+      var $toolBarClone = $toolBar.clone(true);
+
+      // Tweak bottom toolbar
+      $toolBar.children(".toolbar").empty().height(10).css({
+        "border-radius" : "0 0 3px 3px",
+        "border-bottom" : "none"
+      });
+
+      // Tweak new toolbar
+      $toolBarClone.find(".toolbar").css({
+        "background" : "none",
+        "border-top" : "none"
+      });
+      $toolBarClone.find(".nav").remove();
+      $toolBarClone.find(".goToSlideLabel").remove();
+
+      // Tweak top toolbar
+      $topToolBar.height(34);
+      $topToolBar.children(".ssActions").css({
+        "float"      : "left",
+        "margin-top" : "8px"
+      });
+
+      // Add new toolbar
+      $topToolBar.append($toolBarClone);
+
+      // Add exit fullscreen button, show it on mousemove, hide it after 2 seconds
+      var exitFullscreenOverlay = $("<div><div></div></div>").addClass("exit_fullscreen_overlay").appendTo($(".stage"));
+
+      exitFullscreenOverlay.on("click", function() {
+        $(".btnLeaveFullScreen").trigger("click");
+      });
+
+      var countdown;
+      var startCountDown = function() {
+        countdown = setTimeout(function() {
+          exitFullscreenOverlay.removeClass("show");
+        }, 2000);
+      }
+      $(".player").mousemove(function() {
+        exitFullscreenOverlay.addClass("show");
+        clearTimeout(countdown);
+        startCountDown();
+      })
+
+      // Set max height to prevent zooming from growing the player viewport
+      $(window).load(function() {
+        $(".stage").css({
+          "max-height" : $(".slide").first().height() + "px"
+        });
+      });
+    }
+
+    if (false && player.config.show_image_player && player.config.player_type === "document" && slideshare_object.totalSlides === 1) {
+      setupInfographicPlayer();
+    }
+  });
+</script>
+
+</div>
+            
+
+        </div>
+
+        <div id="lastScreen" class="hide">
+          <div class="lastScreen">
+  <div class="jsplLastScreenOverlay j-last-screen-overlay"></div>
+  <div class="pro-overlay j-lastscreen">
+    <div class="proSharingText">Like this presentation? Why not share!</div>
+    <ul class="lastActions j-last-screen-actions">
+      <li class="share-cta j-share-cta lastscreen-share-cta"><a class="share-btn"><span class="lastScreen-sprite"></span>Share</a></li>
+      <li class="email-cta j-email-cta"><a class="email-btn"><span class="lastScreen-sprite"></span>Email</a></li>
+      <li class="replay last">
+        <a class="replay-btn lastScreenReplay j-tooltip j-last-screen-replay" data-original-title="View again">
+          <span class="lastScreen-sprite">&nbsp;</span>
+        </a>
+      </li>
+      <li class="close-btn lastScreen-sprite j-lastscreen-close">
+        <a>&nbsp;</a>
+      </li>
+    </ul>
+    <div class="related-presentations j-lastscreen-related">
+      <ul class="presentation-list">
+        <li>
+         <a href="http://www.slideshare.net/prasannakumarsreddy/guest-os-guide" title="vmware Guest os guide">
+           <img src="./Kernel Configuration and Compilation_files/guestosguide-131128102205-phpapp02-thumbnail.jpg" alt="vmware Guest os guide">
+           <span class="presentation-meta">
+             <span class="title">vmware Guest os guide</span>
+             <span class="author">by&nbsp;Prasanna Kumar Reddy</span>
+             <span class="view-count">240&nbsp;views</span>
+           </span>
+         </a>
+        </li>
+        <li>
+         <a href="http://www.slideshare.net/rachmcgreevy/cm10195-computer-systems-architecture" title="CM10195 Computer Systems Architectu...">
+           <img src="./Kernel Configuration and Compilation_files/cm10195-131013102456-phpapp02-thumbnail.jpg" alt="CM10195 Computer Systems Architectu...">
+           <span class="presentation-meta">
+             <span class="title">CM10195 Computer Systems Architectu...</span>
+             <span class="author">by&nbsp;Rachel McGreevy</span>
+             <span class="view-count">80&nbsp;views</span>
+           </span>
+         </a>
+        </li>
+        <li>
+         <a href="http://www.slideshare.net/emertxe_RobertBosch/linux-systems" title="Linux systems_FOCAS Training">
+           <img src="./Kernel Configuration and Compilation_files/linuxsystems-131003054709-phpapp01-thumbnail.jpg" alt="Linux systems_FOCAS Training">
+           <span class="presentation-meta">
+             <span class="title">Linux systems_FOCAS Training</span>
+             <span class="author">by&nbsp;emertxe_RobertBosch</span>
+             <span class="view-count">1700&nbsp;views</span>
+           </span>
+         </a>
+        </li>
+        <li>
+         <a href="http://www.slideshare.net/iShubhamCh/git-26777439" title="Git">
+           <img src="./Kernel Configuration and Compilation_files/git-131002035316-phpapp01-thumbnail.jpg" alt="Git">
+           <span class="presentation-meta">
+             <span class="title">Git</span>
+             <span class="author">by&nbsp;Shubham Chaudhary</span>
+             <span class="view-count">53&nbsp;views</span>
+           </span>
+         </a>
+        </li>
+        <li>
+         <a href="http://www.slideshare.net/dellenterprise/best-practices-for-deployment-of-oracle-asm-on-dell" title="Best Practices for Deployment of Or...">
+           <img src="./Kernel Configuration and Compilation_files/4930803-thumbnail.jpg" alt="Best Practices for Deployment of Or...">
+           <span class="presentation-meta">
+             <span class="title">Best Practices for Deployment of Or...</span>
+             <span class="author">by&nbsp;Dell Enterprise</span>
+             <span class="view-count">2064&nbsp;views</span>
+           </span>
+         </a>
+        </li>
+        <li>
+         <a href="http://www.slideshare.net/dellenterprise/best-practices-for-deployment-of-oracle-asm-with-dell-equal-logic-ps-iscsi-storage-system" title="Best Practices for Deployment of Or...">
+           <img src="./Kernel Configuration and Compilation_files/bestpracticesfordeploymentoforacleasmwithdellequallogicpsiscsistoragesystem-100721080759-phpapp01-thumbnail.jpg" alt="Best Practices for Deployment of Or...">
+           <span class="presentation-meta">
+             <span class="title">Best Practices for Deployment of Or...</span>
+             <span class="author">by&nbsp;Dell Enterprise</span>
+             <span class="view-count">3404&nbsp;views</span>
+           </span>
+         </a>
+        </li>
+        <li>
+         <a href="http://www.slideshare.net/mohammed_safwat/introduction-to-linux-os" title="Introduction to Linux OS">
+           <img src="./Kernel Configuration and Compilation_files/itl-090611025733-phpapp01-thumbnail.jpg" alt="Introduction to Linux OS">
+           <span class="presentation-meta">
+             <span class="title">Introduction to Linux OS</span>
+             <span class="author">by&nbsp;Mohammed Safwat</span>
+             <span class="view-count">14941&nbsp;views</span>
+           </span>
+         </a>
+        </li>
+        <li>
+         <a href="http://www.slideshare.net/rvishnudas1/qlik-view-server-reference-manual-eng" title="Qlik view server reference manual eng">
+           <img src="./Kernel Configuration and Compilation_files/qlikviewserverreferencemanualeng-131017103641-phpapp02-thumbnail.jpg" alt="Qlik view server reference manual eng">
+           <span class="presentation-meta">
+             <span class="title">Qlik view server reference manual eng</span>
+             <span class="author">by&nbsp;Raja Gopal Rao Vi...</span>
+             <span class="view-count">215&nbsp;views</span>
+           </span>
+         </a>
+        </li>
+        <li>
+         <a href="http://www.slideshare.net/tuyen03a128/introduce-play" title="Introduce play">
+           <img src="./Kernel Configuration and Compilation_files/introduceplay-120418061222-phpapp02-thumbnail.jpg" alt="Introduce play">
+           <span class="presentation-meta">
+             <span class="title">Introduce play</span>
+             <span class="author">by&nbsp;home</span>
+             <span class="view-count">2487&nbsp;views</span>
+           </span>
+         </a>
+        </li>
+        <li>
+         <a href="http://www.slideshare.net/BonitaSoft/develop-a-first-process-application" title="Develop a first business process ap...">
+           <img src="./Kernel Configuration and Compilation_files/developafirstprocessapplication251013-131031154523-phpapp02-thumbnail.jpg" alt="Develop a first business process ap...">
+           <span class="presentation-meta">
+             <span class="title">Develop a first business process ap...</span>
+             <span class="author">by&nbsp;Bonitasoft</span>
+             <span class="view-count">503&nbsp;views</span>
+           </span>
+         </a>
+        </li>
+        <li>
+         <a href="http://www.slideshare.net/Arbow/asynchronous-io-programming" title="Asynchronous Io Programming">
+           <img src="./Kernel Configuration and Compilation_files/asynchronous-io-programming1322-thumbnail.jpg" alt="Asynchronous Io Programming">
+           <span class="presentation-meta">
+             <span class="title">Asynchronous Io Programming</span>
+             <span class="author">by&nbsp;l xf</span>
+             <span class="view-count">19092&nbsp;views</span>
+           </span>
+         </a>
+        </li>
+        <li>
+         <a href="http://www.slideshare.net/pr1001/android-development-workshop-presentation" title="Android Development Workshop">
+           <img src="./Kernel Configuration and Compilation_files/android-development-workshop-v2-1228043706544191-8-thumbnail.jpg" alt="Android Development Workshop">
+           <span class="presentation-meta">
+             <span class="title">Android Development Workshop</span>
+             <span class="author">by&nbsp;Peter Robinett</span>
+             <span class="view-count">21097&nbsp;views</span>
+           </span>
+         </a>
+        </li>
+      </ul>
+    </div>
+
+  </div> <!-- end of div class pro-overlay -->
+    <div class="j-modal-share modal-share mobile-hide" style="display: none;" id="last-screen-modal-share" data-ga-track-category="" data-ga-track-action="">
+  <div class="j-modal-popup modal-popup">
+    <div class="j-modal-close modal-close"></div>
+    <div class="j-modal-content modal-content" id="modal-content" data-slideshowid="">
+      <header class="j-tabs tabs">
+        <a id="button-share-tab" class="selected j-button-share-tab">Share</a>
+        <a id="button-embed-tab" class="j-button-embed-tab">Embed</a>
+        <hr class="divider">
+      </header>
+      <div class="j-share-tab share-tab">
+        <section class="section share-social">
+          <div>
+            <ul class="j-share-social-list share-social-list">
+              <li class="linkedin">
+                <div class="social-hover">
+                  <a class="share-link" rel="nofollow" data-url="http://www.slideshare.net/geekaholic/kernel-configuration" data-text="Kernel Configuration and Compilation by Bud Siddhisena via slideshare">LinkedIn</a>
+                </div>
+              </li>
+              <li class="facebook">
+                <div class="social-hover">
+                  <a class="share-link" rel="nofollow" data-url="http://www.slideshare.net/geekaholic/kernel-configuration">Facebook</a>
+                </div>
+              </li>
+              <li class="twitter">
+                <div class="social-hover">
+                  <a class="share-link" rel="nofollow" data-url="http://www.slideshare.net/geekaholic/kernel-configuration" data-text="Kernel Configuration and Compilation by @geekaholic #compiling #configuration" data-related="@geekaholic" data-via="SlideShare">Twitter</a>
+                </div></li>
+              <li class="wordpress">
+                <div class="social-hover">
+                  <a rel="nofollow">Wordpress</a>
+                </div>
+              </li>
+              <li class="googleplus">
+                <div class="social-hover">
+                  <a class="share-link" rel="nofollow" data-url="http://www.slideshare.net/geekaholic/kernel-configuration">Google</a>
+                </div>
+              </li>
+              <li class="pinterest">
+                <div class="social-hover">
+                  <a class="share-link" rel="nofollow" data-url="http://www.slideshare.net/geekaholic/kernel-configuration" data-media="http://cdn.slidesharecdn.com/ss_thumbnails/kernel-configuration-1205664458826041-3-thumbnail-4.jpg?cb=1205653660" data-description="Kernel Configuration and Compilation by Bud Siddhisena via slideshare" data-pin-do="buttonPin" data-pin-config="above">Pinterest</a>
+                </div>
+              </li>
+              <li class="reddit">
+                <div class="social-hover">
+                  <a rel="nofollow" data-url="http://www.slideshare.net/geekaholic/kernel-configuration">Reddit</a>
+                </div>
+              </li>
+              <li class="scoopit">
+                <div class="social-hover">
+                  <a rel="nofollow" data-url="http://www.slideshare.net/geekaholic/kernel-configuration">ScoopIt</a>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="share-link-container">
+            <input type="input" class="j-share-link-url" id="share-link-url" data-ga="link" readonly="">
+          </div>
+        </section>
+        <hr class="divider">
+        <section class="section share-email">
+          <header>
+            <h3>Email Presentation</h3>
+            <span class="j-email-flash email-flash"></span>
+          </header>
+          <form id="share-email-form" class="j-share-email-form">
+            <input id="share-email-to" data-ga="to" class="j-share-email-to j-email-clear" name="recipients" type="email" placeholder="Recipient Email or Username" required="">
+            <input id="share-email-name" data-ga="name" class="j-share-email-name j-email-clear" name="name" type="text" placeholder="Your Name" required="">
+            <textarea id="share-email-msg" data-ga="msg" class="j-share-email-msg j-email-clear" name="msg" placeholder="I think you will find this useful."></textarea>
+            <div class="share-email-expand">
+              <div id="add-msg" class="j-add-msg" data-ga="add-msg">Add Message</div>
+              <input id="share-email-send" data-ga="send" class="j-share-email-send button" type="submit" value="Send">
+            </div>
+          </form>
+          <div id="email-sent" class="j-email-sent section"><div>
+            <span class="success-text">Email Sent!</span>
+            <button id="send-another-email" data-ga="another-email" class="j-send-another-email button btn">Send Another</button></div></div>
+        </section>
+      </div>
+      <div class="j-embed-tab embed-tab">
+        <section class="j-share-embed section share-embed">
+          <textarea id="share-embed-link" class="j-share-embed-link" readonly="" data-ga="link"></textarea>
+          <div class="share-embed-options">
+            <div class="embed-use-ssl" title="Check only if the site on which the embed code will be placed begins with &#39;https://&#39;">
+              <input type="checkbox" name="use-ssl" class="j-embed-use-ssl-cbox embed-use-ssl-cbox" data-ga="ssl">
+              <span>Generate embed code for https site</span>
+            </div>
+            <div class="embed-size">
+              <span class="title">Size (px):</span>
+              <select class="j-embed-size-picker embed-size-picker" id="embed-size-picker" data-ga="size-picker"></select>
+            </div>
+            <div class="embed-start">
+              <span class="title">Start on Slide:</span>
+              <input class="j-embed-start-picker embed-start-picker" id="embed-start-picker" pattern="\d+" data-ga="start-picker" value="1">
+            </div>
+            <div class="embed-show-related">
+              <input type="checkbox" name="related-content" checked="checked" class="j-embed-related-cbox embed-related-cbox" data-ga="related">
+              <span>Show related presentations at end</span>
+            </div>
+          </div>
+        </section>
+        <hr class="divider">
+        <section class="section share-wp">
+          <span>Shortcode for WordPress.com blogs</span>
+            [ <a href="http://help.slideshare.com/entries/20117147-can-i-embed-slideshare-presentations-in-wordpress-blogs-or-which-embed-code-should-i-use-for-my-word" target="_blank" rel="nofollow">?</a> ]
+          <input type="text" name="embed-code" id="share-embed-wp" value="" readonly="readonly" class="j-share-embed-wp text quiet h-wpembedcode" data-ga="wp-link">
+        </section>
+      </div>
+    </div>
+  </div>
+</div><!-- share modal -->
+
+</div><!-- last screen ends here -->
+
+        </div>
+
+        
+
+        
+
+        <aside style="" class="h-related-more-tab j-related-more-tab">
+          
+
+            <ul class="tabs">
+                <li title="" class="active j-related-slideshows h-related-tab"><a href="http://www.slideshare.net/geekaholic/kernel-configuration#">Related</a></li>
+                <li class="h-more-tab j-more-slideshows"><a href="http://www.slideshare.net/geekaholic/kernel-configuration#" data-original-title="More by Bud Siddhisena" rel="nofollow" class="j-tooltip">More</a></li>
+            </ul>
+            
+            <ul id="relatedList" class="notranslate relatedContent thumbnailGrid h-related-slideshows j-tab-content activeContent" style="height: 4902px;">
+<li>
+                    <a href="http://www.slideshare.net/prasannakumarsreddy/guest-os-guide" title="vmware Guest os guide">
+                        <span class="thumbWrapper">
+                          <span>
+                            <img src="./Kernel Configuration and Compilation_files/guestosguide-131128102205-phpapp02-thumbnail-2.jpg" width="120" alt="vmware Guest os guide" class="h-thumbnail" original="http://cdn.slidesharecdn.com/ss_thumbnails/guestosguide-131128102205-phpapp02-thumbnail-2.jpg?cb=1385655890" style="display: block;">
+                          </span>
+                        </span>
+                        <span class="h-related-title">vmware Guest os guide</span>
+                        <span class="h-related-views view-count">240&nbsp;views</span>
+                    </a>
+                    <a style="" href="javascript:void();" rel="nofollow" data-ssid="28713083" class="h-favorite j-favorite favorite-cta">Like</a>
+                    <a style="display:none" href="javascript:void();" rel="nofollow" data-ssid="28713083" class="h-favorited j-favorited favorite-cta">Liked</a>
+                </li>
+
+<li>
+                    <a href="http://www.slideshare.net/rachmcgreevy/cm10195-computer-systems-architecture" title="CM10195 Computer Systems Architecture 2 Revision Notes">
+                        <span class="thumbWrapper">
+                          <span>
+                            <img src="./Kernel Configuration and Compilation_files/cm10195-131013102456-phpapp02-thumbnail-2.jpg" width="120" alt="CM10195 Computer Systems Architecture 2 Revision Notes" class="h-thumbnail" original="http://cdn.slidesharecdn.com/ss_thumbnails/cm10195-131013102456-phpapp02-thumbnail-2.jpg?cb=1381677989" style="display: block;">
+                          </span>
+                        </span>
+                        <span class="h-related-title">CM10195 Computer Systems Architecture 2 Revision Notes</span>
+                        <span class="h-related-views view-count">80&nbsp;views</span>
+                    </a>
+                    <a style="" href="javascript:void();" rel="nofollow" data-ssid="27144757" class="h-favorite j-favorite favorite-cta">Like</a>
+                    <a style="display:none" href="javascript:void();" rel="nofollow" data-ssid="27144757" class="h-favorited j-favorited favorite-cta">Liked</a>
+                </li>
+
+<li>
+                    <a href="http://www.slideshare.net/emertxe_RobertBosch/linux-systems" title="Linux systems_FOCAS Training">
+                        <span class="thumbWrapper">
+                          <span>
+                            <img src="./Kernel Configuration and Compilation_files/linuxsystems-131003054709-phpapp01-thumbnail-2.jpg" width="120" alt="Linux systems_FOCAS Training" class="h-thumbnail" original="http://cdn.slidesharecdn.com/ss_thumbnails/linuxsystems-131003054709-phpapp01-thumbnail-2.jpg?cb=1380797749" style="display: block;">
+                          </span>
+                        </span>
+                        <span class="h-related-title">Linux systems_FOCAS Training</span>
+                        <span class="h-related-views view-count">1700&nbsp;views</span>
+                    </a>
+                    <a style="" href="javascript:void();" rel="nofollow" data-ssid="26820167" class="h-favorite j-favorite favorite-cta">Like</a>
+                    <a style="display:none" href="javascript:void();" rel="nofollow" data-ssid="26820167" class="h-favorited j-favorited favorite-cta">Liked</a>
+                </li>
+
+<li>
+                    <a href="http://www.slideshare.net/iShubhamCh/git-26777439" title="Git">
+                        <span class="thumbWrapper">
+                          <span>
+                            <img src="./Kernel Configuration and Compilation_files/git-131002035316-phpapp01-thumbnail-2.jpg" width="120" alt="Git" class="h-thumbnail" original="http://cdn.slidesharecdn.com/ss_thumbnails/git-131002035316-phpapp01-thumbnail-2.jpg?cb=1380704064" style="display: block;">
+                          </span>
+                        </span>
+                        <span class="h-related-title">Git</span>
+                        <span class="h-related-views view-count">53&nbsp;views</span>
+                    </a>
+                    <a style="" href="javascript:void();" rel="nofollow" data-ssid="26777439" class="h-favorite j-favorite favorite-cta">Like</a>
+                    <a style="display:none" href="javascript:void();" rel="nofollow" data-ssid="26777439" class="h-favorited j-favorited favorite-cta">Liked</a>
+                </li>
+
+<li>
+                    <a href="http://www.slideshare.net/dellenterprise/best-practices-for-deployment-of-oracle-asm-on-dell" title="Best Practices for Deployment of Oracle ASM on Dell">
+                        <span class="thumbWrapper">
+                          <span>
+                            <img src="./Kernel Configuration and Compilation_files/4930803-thumbnail-2.jpg" width="120" alt="Best Practices for Deployment of Oracle ASM on Dell" class="h-thumbnail" original="http://cdn.slidesharecdn.com/ss_thumbnails/4930803-thumbnail-2.jpg?cb=1288119736" style="display: block;">
+                          </span>
+                        </span>
+                        <span class="h-related-title">Best Practices for Deployment of Oracle ASM on Dell</span>
+                        <span class="h-related-views view-count">2064&nbsp;views</span>
+                    </a>
+                    <a style="" href="javascript:void();" rel="nofollow" data-ssid="4930803" class="h-favorite j-favorite favorite-cta">Like</a>
+                    <a style="display:none" href="javascript:void();" rel="nofollow" data-ssid="4930803" class="h-favorited j-favorited favorite-cta">Liked</a>
+                </li>
+
+<li>
+                    <a href="http://www.slideshare.net/dellenterprise/best-practices-for-deployment-of-oracle-asm-with-dell-equal-logic-ps-iscsi-storage-system" title="Best Practices for Deployment of Oracle® ASM with Dell™ EqualLogic™ PS iSCSI Storage System">
+                        <span class="thumbWrapper">
+                          <span>
+                            <img src="./Kernel Configuration and Compilation_files/bestpracticesfordeploymentoforacleasmwithdellequallogicpsiscsistoragesystem-100721080759-phpapp01-thumbnail-2.jpg" width="120" alt="Best Practices for Deployment of Oracle® ASM with Dell™ EqualLogic™ PS iSCSI Storage System" class="h-thumbnail" original="http://cdn.slidesharecdn.com/ss_thumbnails/bestpracticesfordeploymentoforacleasmwithdellequallogicpsiscsistoragesystem-100721080759-phpapp01-thumbnail-2.jpg?cb=1320312167" style="display: block;">
+                          </span>
+                        </span>
+                        <span class="h-related-title">Best Practices for Deployment of Oracle® ASM with Dell™ EqualLogic™ PS iSCS…</span>
+                        <span class="h-related-views view-count">3404&nbsp;views</span>
+                    </a>
+                    <a style="" href="javascript:void();" rel="nofollow" data-ssid="4805326" class="h-favorite j-favorite favorite-cta">Like</a>
+                    <a style="display:none" href="javascript:void();" rel="nofollow" data-ssid="4805326" class="h-favorited j-favorited favorite-cta">Liked</a>
+                </li>
+
+<li>
+                    <a href="http://www.slideshare.net/mohammed_safwat/introduction-to-linux-os" title="Introduction to Linux OS">
+                        <span class="thumbWrapper">
+                          <span>
+                            <img src="./Kernel Configuration and Compilation_files/itl-090611025733-phpapp01-thumbnail-2.jpg" width="120" alt="Introduction to Linux OS" class="h-thumbnail" original="http://cdn.slidesharecdn.com/ss_thumbnails/itl-090611025733-phpapp01-thumbnail-2.jpg?cb=1244707106" style="display: block;">
+                          </span>
+                        </span>
+                        <span class="h-related-title">Introduction to Linux OS</span>
+                        <span class="h-related-views view-count">14941&nbsp;views</span>
+                    </a>
+                    <a style="" href="javascript:void();" rel="nofollow" data-ssid="1566513" class="h-favorite j-favorite favorite-cta">Like</a>
+                    <a style="display:none" href="javascript:void();" rel="nofollow" data-ssid="1566513" class="h-favorited j-favorited favorite-cta">Liked</a>
+                </li>
+
+<li>
+                    <a href="http://www.slideshare.net/rvishnudas1/qlik-view-server-reference-manual-eng" title="Qlik view server reference manual eng">
+                        <span class="thumbWrapper">
+                          <span>
+                            <img src="./Kernel Configuration and Compilation_files/qlikviewserverreferencemanualeng-131017103641-phpapp02-thumbnail-2.jpg" width="120" alt="Qlik view server reference manual eng" class="h-thumbnail" original="http://cdn.slidesharecdn.com/ss_thumbnails/qlikviewserverreferencemanualeng-131017103641-phpapp02-thumbnail-2.jpg?cb=1382024416" style="display: block;">
+                          </span>
+                        </span>
+                        <span class="h-related-title">Qlik view server reference manual eng</span>
+                        <span class="h-related-views view-count">215&nbsp;views</span>
+                    </a>
+                    <a style="" href="javascript:void();" rel="nofollow" data-ssid="27300169" class="h-favorite j-favorite favorite-cta">Like</a>
+                    <a style="display:none" href="javascript:void();" rel="nofollow" data-ssid="27300169" class="h-favorited j-favorited favorite-cta">Liked</a>
+                </li>
+
+<li>
+                    <a href="http://www.slideshare.net/tuyen03a128/introduce-play" title="Introduce play">
+                        <span class="thumbWrapper">
+                          <span>
+                            <img src="./Kernel Configuration and Compilation_files/introduceplay-120418061222-phpapp02-thumbnail-2.jpg" width="120" alt="Introduce play" class="h-thumbnail" original="http://cdn.slidesharecdn.com/ss_thumbnails/introduceplay-120418061222-phpapp02-thumbnail-2.jpg?cb=1334748371" style="display: block;">
+                          </span>
+                        </span>
+                        <span class="h-related-title">Introduce play</span>
+                        <span class="h-related-views view-count">2487&nbsp;views</span>
+                    </a>
+                    <a style="" href="javascript:void();" rel="nofollow" data-ssid="12586929" class="h-favorite j-favorite favorite-cta">Like</a>
+                    <a style="display:none" href="javascript:void();" rel="nofollow" data-ssid="12586929" class="h-favorited j-favorited favorite-cta">Liked</a>
+                </li>
+
+<li>
+                    <a href="http://www.slideshare.net/BonitaSoft/develop-a-first-process-application" title="Develop a first business process application">
+                        <span class="thumbWrapper">
+                          <span>
+                            <img src="./Kernel Configuration and Compilation_files/thumbnail.png" width="120" alt="Develop a first business process application" class="h-thumbnail" original="http://cdn.slidesharecdn.com/ss_thumbnails/developafirstprocessapplication251013-131031154523-phpapp02-thumbnail-2.jpg?cb=1383252519">
+                          </span>
+                        </span>
+                        <span class="h-related-title">Develop a first business process application</span>
+                        <span class="h-related-views view-count">503&nbsp;views</span>
+                    </a>
+                    <a style="" href="javascript:void();" rel="nofollow" data-ssid="27790432" class="h-favorite j-favorite favorite-cta">Like</a>
+                    <a style="display:none" href="javascript:void();" rel="nofollow" data-ssid="27790432" class="h-favorited j-favorited favorite-cta">Liked</a>
+                </li>
+
+<li>
+                    <a href="http://www.slideshare.net/Arbow/asynchronous-io-programming" title="Asynchronous Io Programming">
+                        <span class="thumbWrapper">
+                          <span>
+                            <img src="./Kernel Configuration and Compilation_files/thumbnail.png" width="120" alt="Asynchronous Io Programming" class="h-thumbnail" original="http://cdn.slidesharecdn.com/ss_thumbnails/asynchronous-io-programming1322-thumbnail-2.jpg?cb=1225432115">
+                          </span>
+                        </span>
+                        <span class="h-related-title">Asynchronous Io Programming</span>
+                        <span class="h-related-views view-count">19092&nbsp;views</span>
+                    </a>
+                    <a style="" href="javascript:void();" rel="nofollow" data-ssid="64870" class="h-favorite j-favorite favorite-cta">Like</a>
+                    <a style="display:none" href="javascript:void();" rel="nofollow" data-ssid="64870" class="h-favorited j-favorited favorite-cta">Liked</a>
+                </li>
+
+<li>
+                    <a href="http://www.slideshare.net/pr1001/android-development-workshop-presentation" title="Android Development Workshop">
+                        <span class="thumbWrapper">
+                          <span>
+                            <img src="./Kernel Configuration and Compilation_files/thumbnail.png" width="120" alt="Android Development Workshop" class="h-thumbnail" original="http://cdn.slidesharecdn.com/ss_thumbnails/android-development-workshop-v2-1228043706544191-8-thumbnail-2.jpg?cb=1228356394">
+                          </span>
+                        </span>
+                        <span class="h-related-title">Android Development Workshop</span>
+                        <span class="h-related-views view-count">21097&nbsp;views</span>
+                    </a>
+                    <a style="" href="javascript:void();" rel="nofollow" data-ssid="802117" class="h-favorite j-favorite favorite-cta">Like</a>
+                    <a style="display:none" href="javascript:void();" rel="nofollow" data-ssid="802117" class="h-favorited j-favorited favorite-cta">Liked</a>
+                </li>
+
+<li>
+                    <a href="http://www.slideshare.net/prasath8186/php-essentials-7313044" title="PHP Essentials">
+                        <span class="thumbWrapper">
+                          <span>
+                            <img src="./Kernel Configuration and Compilation_files/thumbnail.png" width="120" alt="PHP Essentials" class="h-thumbnail" original="http://cdn.slidesharecdn.com/ss_thumbnails/phpessentials-110318225820-phpapp02-thumbnail-2.jpg?cb=1300507159">
+                          </span>
+                        </span>
+                        <span class="h-related-title">PHP Essentials</span>
+                        <span class="h-related-views view-count">2041&nbsp;views</span>
+                    </a>
+                    <a style="" href="javascript:void();" rel="nofollow" data-ssid="7313044" class="h-favorite j-favorite favorite-cta">Like</a>
+                    <a style="display:none" href="javascript:void();" rel="nofollow" data-ssid="7313044" class="h-favorited j-favorited favorite-cta">Liked</a>
+                </li>
+
+<li>
+                    <a href="http://www.slideshare.net/grifinder/operating-system-3926038" title="Operating System">
+                        <span class="thumbWrapper">
+                          <span>
+                            <img src="./Kernel Configuration and Compilation_files/thumbnail.png" width="120" alt="Operating System" class="h-thumbnail" original="http://cdn.slidesharecdn.com/ss_thumbnails/os-100501001605-phpapp02-thumbnail-2.jpg?cb=1272690999">
+                          </span>
+                        </span>
+                        <span class="h-related-title">Operating System</span>
+                        <span class="h-related-views view-count">71939&nbsp;views</span>
+                    </a>
+                    <a style="" href="javascript:void();" rel="nofollow" data-ssid="3926038" class="h-favorite j-favorite favorite-cta">Like</a>
+                    <a style="display:none" href="javascript:void();" rel="nofollow" data-ssid="3926038" class="h-favorited j-favorited favorite-cta">Liked</a>
+                </li>
+
+<li>
+                    <a href="http://www.slideshare.net/Jaseemabid/blackfreedom-terrific-presentation" title="Blackfreedom , terrific presentation">
+                        <span class="thumbWrapper">
+                          <span>
+                            <img src="./Kernel Configuration and Compilation_files/thumbnail.png" width="120" alt="Blackfreedom , terrific presentation" class="h-thumbnail" original="http://cdn.slidesharecdn.com/ss_thumbnails/blackfreedomterrificpresentation-110607023030-phpapp01-thumbnail-2.jpg?cb=1385010414">
+                          </span>
+                        </span>
+                        <span class="h-related-title">Blackfreedom , terrific presentation</span>
+                        <span class="h-related-views view-count">321&nbsp;views</span>
+                    </a>
+                    <a style="" href="javascript:void();" rel="nofollow" data-ssid="8230684" class="h-favorite j-favorite favorite-cta">Like</a>
+                    <a style="display:none" href="javascript:void();" rel="nofollow" data-ssid="8230684" class="h-favorited j-favorited favorite-cta">Liked</a>
+                </li>
+
+<li>
+                    <a href="http://www.slideshare.net/WUSTLlibraries/word2007-tipstricks" title="Word 2007: Tips, Trick, and New Features">
+                        <span class="thumbWrapper">
+                          <span>
+                            <img src="./Kernel Configuration and Compilation_files/thumbnail.png" width="120" alt="Word 2007: Tips, Trick, and New Features" class="h-thumbnail" original="http://cdn.slidesharecdn.com/ss_thumbnails/word2007tipstricks-101124145117-phpapp02-thumbnail-2.jpg?cb=1290632068">
+                          </span>
+                        </span>
+                        <span class="h-related-title">Word 2007: Tips, Trick, and New Features</span>
+                        <span class="h-related-views view-count">4055&nbsp;views</span>
+                    </a>
+                    <a style="" href="javascript:void();" rel="nofollow" data-ssid="5893867" class="h-favorite j-favorite favorite-cta">Like</a>
+                    <a style="display:none" href="javascript:void();" rel="nofollow" data-ssid="5893867" class="h-favorited j-favorited favorite-cta">Liked</a>
+                </li>
+
+<li>
+                    <a href="http://www.slideshare.net/socialmediadna/vpd-riotreview-24250405" title="Vancouver Police Dept riot-review">
+                        <span class="thumbWrapper">
+                          <span>
+                            <img src="./Kernel Configuration and Compilation_files/thumbnail.png" width="120" alt="Vancouver Police Dept riot-review" class="h-thumbnail" original="http://cdn.slidesharecdn.com/ss_thumbnails/vpd-riot-review-130715094311-phpapp01-thumbnail-2.jpg?cb=1373899417">
+                          </span>
+                        </span>
+                        <span class="h-related-title">Vancouver Police Dept riot-review</span>
+                        <span class="h-related-views view-count">826&nbsp;views</span>
+                    </a>
+                    <a style="" href="javascript:void();" rel="nofollow" data-ssid="24250405" class="h-favorite j-favorite favorite-cta">Like</a>
+                    <a style="display:none" href="javascript:void();" rel="nofollow" data-ssid="24250405" class="h-favorited j-favorited favorite-cta">Liked</a>
+                </li>
+
+<li>
+                    <a href="http://www.slideshare.net/Victorslideshare/final-report-macondo-well-blowout-boemre" title="Final Report Macondo Well Blowout - BOEMRE">
+                        <span class="thumbWrapper">
+                          <span>
+                            <img src="./Kernel Configuration and Compilation_files/thumbnail.png" width="120" alt="Final Report Macondo Well Blowout - BOEMRE" class="h-thumbnail" original="http://cdn.slidesharecdn.com/ss_thumbnails/finalreportmacondowellblowout-boemre-111123211833-phpapp01-thumbnail-2.jpg?cb=1322118243">
+                          </span>
+                        </span>
+                        <span class="h-related-title">Final Report Macondo Well Blowout - BOEMRE</span>
+                        <span class="h-related-views view-count">3131&nbsp;views</span>
+                    </a>
+                    <a style="" href="javascript:void();" rel="nofollow" data-ssid="10300141" class="h-favorite j-favorite favorite-cta">Like</a>
+                    <a style="display:none" href="javascript:void();" rel="nofollow" data-ssid="10300141" class="h-favorited j-favorited favorite-cta">Liked</a>
+                </li>
+
+<li>
+                    <a href="http://www.slideshare.net/ironcove/when-dragons-attack-tibetan-hacking" title="When Dragons Attack - Tibetan hacking">
+                        <span class="thumbWrapper">
+                          <span>
+                            <img src="./Kernel Configuration and Compilation_files/thumbnail.png" width="120" alt="When Dragons Attack - Tibetan hacking" class="h-thumbnail" original="http://cdn.slidesharecdn.com/ss_thumbnails/whendragonsattack-1235089850531827-1-thumbnail-2.jpg?cb=1235089867">
+                          </span>
+                        </span>
+                        <span class="h-related-title">When Dragons Attack - Tibetan hacking</span>
+                        <span class="h-related-views view-count">2350&nbsp;views</span>
+                    </a>
+                    <a style="" href="javascript:void();" rel="nofollow" data-ssid="1048975" class="h-favorite j-favorite favorite-cta">Like</a>
+                    <a style="display:none" href="javascript:void();" rel="nofollow" data-ssid="1048975" class="h-favorited j-favorited favorite-cta">Liked</a>
+                </li>
+
+<li>
+                    <a href="http://www.slideshare.net/galleman/how-to-build-a-credible-performance-measurement-baseline-2426274" title="How To Build A Credible Performance Measurement Baseline">
+                        <span class="thumbWrapper">
+                          <span>
+                            <img src="./Kernel Configuration and Compilation_files/thumbnail.png" width="120" alt="How To Build A Credible Performance Measurement Baseline" class="h-thumbnail" original="http://cdn.slidesharecdn.com/ss_thumbnails/alleman-howtobuildacredibleperformancemeasurementbaselinev32003compatibilitymode-091104225745-phpapp02-thumbnail-2.jpg?cb=1257397088">
+                          </span>
+                        </span>
+                        <span class="h-related-title">How To Build A Credible Performance Measurement Baseline</span>
+                        <span class="h-related-views view-count">12279&nbsp;views</span>
+                    </a>
+                    <a style="" href="javascript:void();" rel="nofollow" data-ssid="2426274" class="h-favorite j-favorite favorite-cta">Like</a>
+                    <a style="display:none" href="javascript:void();" rel="nofollow" data-ssid="2426274" class="h-favorited j-favorited favorite-cta">Liked</a>
+                </li>
+
+<li>
+                    <a href="http://www.slideshare.net/KatherineREALTOR/buyers-guide-from-your-realtor-katherine-barclay-28622391" title="Buyers guide from your REALTOR Katherine Barclay">
+                        <span class="thumbWrapper">
+                          <span>
+                            <img src="./Kernel Configuration and Compilation_files/thumbnail.png" width="120" alt="Buyers guide from your REALTOR Katherine Barclay" class="h-thumbnail" original="http://cdn.slidesharecdn.com/ss_thumbnails/buyers-20guide-20from-20your-20realtor-20katherine-20barclay-131125212248-phpapp01-thumbnail-2.jpg?cb=1385436264">
+                          </span>
+                        </span>
+                        <span class="h-related-title">Buyers guide from your REALTOR Katherine Barclay</span>
+                        <span class="h-related-views view-count">127&nbsp;views</span>
+                    </a>
+                    <a style="" href="javascript:void();" rel="nofollow" data-ssid="28622391" class="h-favorite j-favorite favorite-cta">Like</a>
+                    <a style="display:none" href="javascript:void();" rel="nofollow" data-ssid="28622391" class="h-favorited j-favorited favorite-cta">Liked</a>
+                </li>
+
+<li>
+                    <a href="http://www.slideshare.net/jderienzo/nist-sp-80053r3controlsandenhancements" title="RMF STEP 2: SELECT (NIST 800-53 Rev. 3 Controls, Enhancements and Supplemental Guidance)">
+                        <span class="thumbWrapper">
+                          <span>
+                            <img src="./Kernel Configuration and Compilation_files/thumbnail.png" width="120" alt="RMF STEP 2: SELECT (NIST 800-53 Rev. 3 Controls, Enhancements and Supplemental Guidance)" class="h-thumbnail" original="http://cdn.slidesharecdn.com/ss_thumbnails/nistsp800-53r3controlsandenhancements-131125171510-phpapp02-thumbnail-2.jpg?cb=1386208020">
+                          </span>
+                        </span>
+                        <span class="h-related-title">RMF STEP 2: SELECT (NIST 800-53 Rev. 3 Controls, Enhancements and Supplemental G…</span>
+                        <span class="h-related-views view-count">109&nbsp;views</span>
+                    </a>
+                    <a style="" href="javascript:void();" rel="nofollow" data-ssid="28616363" class="h-favorite j-favorite favorite-cta">Like</a>
+                    <a style="display:none" href="javascript:void();" rel="nofollow" data-ssid="28616363" class="h-favorited j-favorited favorite-cta">Liked</a>
+                </li>
+
+<li>
+                    <a href="http://www.slideshare.net/Blakes_Law_LLP/blakes-doing-business-in-quebec" title="Blakes: Doing Business in Quebec">
+                        <span class="thumbWrapper">
+                          <span>
+                            <img src="./Kernel Configuration and Compilation_files/thumbnail.png" width="120" alt="Blakes: Doing Business in Quebec" class="h-thumbnail" original="http://cdn.slidesharecdn.com/ss_thumbnails/2011blakesdoingbusinessinquebecen-130508095441-phpapp01-thumbnail-2.jpg?cb=1368025207">
+                          </span>
+                        </span>
+                        <span class="h-related-title">Blakes: Doing Business in Quebec</span>
+                        <span class="h-related-views view-count">1556&nbsp;views</span>
+                    </a>
+                    <a style="" href="javascript:void();" rel="nofollow" data-ssid="20805134" class="h-favorite j-favorite favorite-cta">Like</a>
+                    <a style="display:none" href="javascript:void();" rel="nofollow" data-ssid="20805134" class="h-favorited j-favorited favorite-cta">Liked</a>
+                </li>
+
+<li>
+                    <a href="http://www.slideshare.net/sixfoot4garth/six-foot4-shareholder-wealth-white-paper-27607699" title="Sixfoot4 Shareholder wealth white paper">
+                        <span class="thumbWrapper">
+                          <span>
+                            <img src="./Kernel Configuration and Compilation_files/thumbnail.png" width="120" alt="Sixfoot4 Shareholder wealth white paper" class="h-thumbnail" original="http://cdn.slidesharecdn.com/ss_thumbnails/sixfoot4shareholderwealthwhitepaper-131026232729-phpapp02-thumbnail-2.jpg?cb=1382850384">
+                          </span>
+                        </span>
+                        <span class="h-related-title">Sixfoot4 Shareholder wealth white paper</span>
+                        <span class="h-related-views view-count">220&nbsp;views</span>
+                    </a>
+                    <a style="" href="javascript:void();" rel="nofollow" data-ssid="27607699" class="h-favorite j-favorite favorite-cta">Like</a>
+                    <a style="display:none" href="javascript:void();" rel="nofollow" data-ssid="27607699" class="h-favorited j-favorited favorite-cta">Liked</a>
+                </li>
+
+<li>
+                    <a href="http://www.slideshare.net/DidacusJules/st-lucias-survival-options-nobel-week-2012" title="St Lucia&#39;s Survival Options - Nobel Week 2012 Feature Address">
+                        <span class="thumbWrapper">
+                          <span>
+                            <img src="./Kernel Configuration and Compilation_files/thumbnail.png" width="120" alt="St Lucia&#39;s Survival Options - Nobel Week 2012 Feature Address" class="h-thumbnail" original="http://cdn.slidesharecdn.com/ss_thumbnails/stluciassurvivaloptions-nobelweek2012-131027233834-phpapp02-thumbnail-2.jpg?cb=1382935356">
+                          </span>
+                        </span>
+                        <span class="h-related-title">St Lucia's Survival Options - Nobel Week 2012 Feature Address</span>
+                        <span class="h-related-views view-count">307&nbsp;views</span>
+                    </a>
+                    <a style="" href="javascript:void();" rel="nofollow" data-ssid="27632903" class="h-favorite j-favorite favorite-cta">Like</a>
+                    <a style="display:none" href="javascript:void();" rel="nofollow" data-ssid="27632903" class="h-favorited j-favorited favorite-cta">Liked</a>
+                </li>
+
+<li>
+                    <a href="http://www.slideshare.net/citrix/one-step-beyond-an-audience-with-the-citrix-ctos" title="One Step Beyond – An audience with the Citrix CTO’s">
+                        <span class="thumbWrapper">
+                          <span>
+                            <img src="./Kernel Configuration and Compilation_files/thumbnail.png" width="120" alt="One Step Beyond – An audience with the Citrix CTO’s" class="h-thumbnail" original="http://cdn.slidesharecdn.com/ss_thumbnails/ctopresentationcitrixshowfile04-130605163044-phpapp02-thumbnail-2.jpg?cb=1371139914">
+                          </span>
+                        </span>
+                        <span class="h-related-title">One Step Beyond – An audience with the Citrix CTO’s</span>
+                        <span class="h-related-views view-count">702&nbsp;views</span>
+                    </a>
+                    <a style="" href="javascript:void();" rel="nofollow" data-ssid="22508722" class="h-favorite j-favorite favorite-cta">Like</a>
+                    <a style="display:none" href="javascript:void();" rel="nofollow" data-ssid="22508722" class="h-favorited j-favorited favorite-cta">Liked</a>
+                </li>
+
+<li>
+                    <a href="http://www.slideshare.net/datarecoverytools4u/data-recovery-glossary-s" title="Data recovery glossary   s">
+                        <span class="thumbWrapper">
+                          <span>
+                            <img src="./Kernel Configuration and Compilation_files/thumbnail.png" width="120" alt="Data recovery glossary   s" class="h-thumbnail" original="http://cdn.slidesharecdn.com/ss_thumbnails/data-20recovery-20glossary-20-20s-131109024249-phpapp01-thumbnail-2.jpg?cb=1383986627">
+                          </span>
+                        </span>
+                        <span class="h-related-title">Data recovery glossary   s</span>
+                        <span class="h-related-views view-count">25&nbsp;views</span>
+                    </a>
+                    <a style="" href="javascript:void();" rel="nofollow" data-ssid="28063167" class="h-favorite j-favorite favorite-cta">Like</a>
+                    <a style="display:none" href="javascript:void();" rel="nofollow" data-ssid="28063167" class="h-favorited j-favorited favorite-cta">Liked</a>
+                </li>
+
+<li>
+                    <a href="http://www.slideshare.net/citrix/whats-new-in-sharefile-enterprise" title="Whats new in ShareFile Enterprise">
+                        <span class="thumbWrapper">
+                          <span>
+                            <img src="./Kernel Configuration and Compilation_files/thumbnail.png" width="120" alt="Whats new in ShareFile Enterprise" class="h-thumbnail" original="http://cdn.slidesharecdn.com/ss_thumbnails/syn206-whatsnewinsharefileenterprise-130606170053-phpapp01-thumbnail-2.jpg?cb=1370975935">
+                          </span>
+                        </span>
+                        <span class="h-related-title">Whats new in ShareFile Enterprise</span>
+                        <span class="h-related-views view-count">1323&nbsp;views</span>
+                    </a>
+                    <a style="" href="javascript:void();" rel="nofollow" data-ssid="22565723" class="h-favorite j-favorite favorite-cta">Like</a>
+                    <a style="display:none" href="javascript:void();" rel="nofollow" data-ssid="22565723" class="h-favorited j-favorited favorite-cta">Liked</a>
+                </li>
+
+<li>
+                    <a href="http://www.slideshare.net/ahmedzaichi/1-28139845" title="php secure">
+                        <span class="thumbWrapper">
+                          <span>
+                            <img src="./Kernel Configuration and Compilation_files/thumbnail.png" width="120" alt="php secure" class="h-thumbnail" original="http://cdn.slidesharecdn.com/ss_thumbnails/1-131111205704-phpapp01-thumbnail-2.jpg?cb=1384225102">
+                          </span>
+                        </span>
+                        <span class="h-related-title">php secure</span>
+                        <span class="h-related-views view-count">38&nbsp;views</span>
+                    </a>
+                    <a style="" href="javascript:void();" rel="nofollow" data-ssid="28139845" class="h-favorite j-favorite favorite-cta">Like</a>
+                    <a style="display:none" href="javascript:void();" rel="nofollow" data-ssid="28139845" class="h-favorited j-favorited favorite-cta">Liked</a>
+                </li>
+
+<li>
+                    <a href="http://www.slideshare.net/JPHowy/recording-voice-narration-with-audacity" title="Recording Voice Narration with Audacity">
+                        <span class="thumbWrapper">
+                          <span>
+                            <img src="./Kernel Configuration and Compilation_files/thumbnail.png" width="120" alt="Recording Voice Narration with Audacity" class="h-thumbnail" original="http://cdn.slidesharecdn.com/ss_thumbnails/recordingvoicenarrationwithaudacity-130813132502-phpapp02-thumbnail-2.jpg?cb=1384365273">
+                          </span>
+                        </span>
+                        <span class="h-related-title">Recording Voice Narration with Audacity</span>
+                        <span class="h-related-views view-count">163&nbsp;views</span>
+                    </a>
+                    <a style="" href="javascript:void();" rel="nofollow" data-ssid="25214903" class="h-favorite j-favorite favorite-cta">Like</a>
+                    <a style="display:none" href="javascript:void();" rel="nofollow" data-ssid="25214903" class="h-favorited j-favorited favorite-cta">Liked</a>
+                </li>
+
+<li>
+                    <a href="http://www.slideshare.net/cristimiu/br-6428n-usermanual" title="Br 6428n user-manual">
+                        <span class="thumbWrapper">
+                          <span>
+                            <img src="./Kernel Configuration and Compilation_files/thumbnail.png" width="120" alt="Br 6428n user-manual" class="h-thumbnail" original="http://cdn.slidesharecdn.com/ss_thumbnails/br-6428nusermanual-131205035205-phpapp01-thumbnail-2.jpg?cb=1386237143">
+                          </span>
+                        </span>
+                        <span class="h-related-title">Br 6428n user-manual</span>
+                        <span class="h-related-views view-count">137&nbsp;views</span>
+                    </a>
+                    <a style="" href="javascript:void();" rel="nofollow" data-ssid="28917634" class="h-favorite j-favorite favorite-cta">Like</a>
+                    <a style="display:none" href="javascript:void();" rel="nofollow" data-ssid="28917634" class="h-favorited j-favorited favorite-cta">Liked</a>
+                </li>
+
+<li>
+                    <a href="http://www.slideshare.net/jjwu6266/introducing-apple-iphone-5c" title="Introducing Apple iPhone 5c">
+                        <span class="thumbWrapper">
+                          <span>
+                            <img src="./Kernel Configuration and Compilation_files/thumbnail.png" width="120" alt="Introducing Apple iPhone 5c" class="h-thumbnail" original="http://cdn.slidesharecdn.com/ss_thumbnails/appleiphone5c-130925104655-phpapp02-thumbnail-2.jpg?cb=1380124163">
+                          </span>
+                        </span>
+                        <span class="h-related-title">Introducing Apple iPhone 5c</span>
+                        <span class="h-related-views view-count">483&nbsp;views</span>
+                    </a>
+                    <a style="" href="javascript:void();" rel="nofollow" data-ssid="26543426" class="h-favorite j-favorite favorite-cta">Like</a>
+                    <a style="display:none" href="javascript:void();" rel="nofollow" data-ssid="26543426" class="h-favorited j-favorited favorite-cta">Liked</a>
+                </li>
+
+<li>
+                    <a href="http://www.slideshare.net/RandyHigley/attica-r-higley" title="Review of &quot;Attica Prison Riot&quot; video (20th Century with Mike Wallace Uprising at Attica). ">
+                        <span class="thumbWrapper">
+                          <span>
+                            <img src="./Kernel Configuration and Compilation_files/thumbnail.png" width="120" alt="Review of &quot;Attica Prison Riot&quot; video (20th Century with Mike Wallace Uprising at Attica). " class="h-thumbnail" original="http://cdn.slidesharecdn.com/ss_thumbnails/attica-rhigley-130921024921-phpapp02-thumbnail-2.jpg?cb=1379749842">
+                          </span>
+                        </span>
+                        <span class="h-related-title">Review of "Attica Prison Riot" video (20th Century with Mike Wallace Uprising at…</span>
+                        <span class="h-related-views view-count">486&nbsp;views</span>
+                    </a>
+                    <a style="" href="javascript:void();" rel="nofollow" data-ssid="26405694" class="h-favorite j-favorite favorite-cta">Like</a>
+                    <a style="display:none" href="javascript:void();" rel="nofollow" data-ssid="26405694" class="h-favorited j-favorited favorite-cta">Liked</a>
+                </li>
+
+<li>
+                    <a href="http://www.slideshare.net/citrix/nextgeneration-desktop-and-app-delivery-with-xen-desktop-7-and-microsoft-system-center-2012" title="Next-generation Desktop and App Delivery with XenDesktop 7 and Microsoft System Center 2012">
+                        <span class="thumbWrapper">
+                          <span>
+                            <img src="./Kernel Configuration and Compilation_files/thumbnail.png" width="120" alt="Next-generation Desktop and App Delivery with XenDesktop 7 and Microsoft System Center 2012" class="h-thumbnail" original="http://cdn.slidesharecdn.com/ss_thumbnails/syn321next-generationdesktopandappdeliverywithxendesktop7andmicrosoftsystemcenter2012-130606170103-phpapp02-thumbnail-2.jpg?cb=1370975931">
+                          </span>
+                        </span>
+                        <span class="h-related-title">Next-generation Desktop and App Delivery with XenDesktop 7 and Microsoft System …</span>
+                        <span class="h-related-views view-count">1348&nbsp;views</span>
+                    </a>
+                    <a style="" href="javascript:void();" rel="nofollow" data-ssid="22565730" class="h-favorite j-favorite favorite-cta">Like</a>
+                    <a style="display:none" href="javascript:void();" rel="nofollow" data-ssid="22565730" class="h-favorited j-favorited favorite-cta">Liked</a>
+                </li>
+</ul>
+
+            
+
+            
+            <ul style="display:none" id="moreList" class="notranslate  moreContent thumbnailGrid h-author-slideshows j-tab-content"><li><div class="follow-in-sidebar h-follow-in-sidebar author">
+              <span class="h-author author-image"><img src="./Kernel Configuration and Compilation_files/profile-photo-geekaholic-48x48.jpg" width="40" height="40" alt="Bud Siddhisena" class="h-author-image"></span>
+              <div class="follow-cta-container">
+                <span class="title">
+                  <p class="h-author-name">Bud Siddhisena</p>
+                </span>
+                <span class="h-section-add-contact add-contact j-follow"><a data-contactee="2064463" href="http://www.slideshare.net/geekaholic/kernel-configuration#" rel="nofollow" class="btn btn-inverse h-follow">Follow</a></span>
+                <span class="hide indicator j-follow-progress h-follow-sidebar-progress"><img alt="Processing..." height="14" src="./Kernel Configuration and Compilation_files/video_buffer.gif" style="float:none;" width="14"></span>
+              </div>
+            </div></li>
+<li>
+                    <a href="http://www.slideshare.net/geekaholic/ux-talk-21705290" title="UX talk">
+                        <span class="thumbWrapper">
+                          <span>
+                            <img src="./Kernel Configuration and Compilation_files/thumbnail.png" width="120" alt="UX talk" class="h-thumbnail" original="http://cdn.slidesharecdn.com/ss_thumbnails/ux-talk-130522170735-phpapp01-thumbnail-2.jpg?cb=1369260491" style="">
+                          </span>
+                        </span>
+                        <span class="h-more-title">UX talk</span>
+                        <span class="h-more-views view-count">263&nbsp;views</span>
+                    </a>
+                    <a style="" href="javascript:void();" rel="nofollow" data-ssid="21705290" class="h-favorite j-favorite favorite-cta">Like</a>
+                    <a style="display:none" href="javascript:void();" rel="nofollow" data-ssid="21705290" class="h-favorited j-favorited favorite-cta">Liked</a>
+                </li>
+
+<li>
+                    <a href="http://www.slideshare.net/geekaholic/opensource-opportunity-12753477" title="Opensource opportunity">
+                        <span class="thumbWrapper">
+                          <span>
+                            <img src="./Kernel Configuration and Compilation_files/thumbnail.png" width="120" alt="Opensource opportunity" class="h-thumbnail" original="http://cdn.slidesharecdn.com/ss_thumbnails/opensourceopportunity-120501024025-phpapp01-thumbnail-2.jpg?cb=1335858429" style="">
+                          </span>
+                        </span>
+                        <span class="h-more-title">Opensource opportunity</span>
+                        <span class="h-more-views view-count">754&nbsp;views</span>
+                    </a>
+                    <a style="" href="javascript:void();" rel="nofollow" data-ssid="12753477" class="h-favorite j-favorite favorite-cta">Like</a>
+                    <a style="display:none" href="javascript:void();" rel="nofollow" data-ssid="12753477" class="h-favorited j-favorited favorite-cta">Liked</a>
+                </li>
+
+<li>
+                    <a href="http://www.slideshare.net/geekaholic/remembering-steve" title="Remembering steve">
+                        <span class="thumbWrapper">
+                          <span>
+                            <img src="./Kernel Configuration and Compilation_files/thumbnail.png" width="120" alt="Remembering steve" class="h-thumbnail" original="http://cdn.slidesharecdn.com/ss_thumbnails/remembersteve-111021004312-phpapp01-thumbnail-2.jpg?cb=1319884379" style="">
+                          </span>
+                        </span>
+                        <span class="h-more-title">Remembering steve</span>
+                        <span class="h-more-views view-count">5686&nbsp;views</span>
+                    </a>
+                    <a style="" href="javascript:void();" rel="nofollow" data-ssid="9803976" class="h-favorite j-favorite favorite-cta">Like</a>
+                    <a style="display:none" href="javascript:void();" rel="nofollow" data-ssid="9803976" class="h-favorited j-favorited favorite-cta">Liked</a>
+                </li>
+
+<li>
+                    <a href="http://www.slideshare.net/geekaholic/scale-apache-with-nginx" title="Scale Apache with Nginx">
+                        <span class="thumbWrapper">
+                          <span>
+                            <img src="./Kernel Configuration and Compilation_files/thumbnail.png" width="120" alt="Scale Apache with Nginx" class="h-thumbnail" original="http://cdn.slidesharecdn.com/ss_thumbnails/scale-apache-nginx-slides-110928081557-phpapp02-thumbnail-2.jpg?cb=1317215977" style="">
+                          </span>
+                        </span>
+                        <span class="h-more-title">Scale Apache with Nginx</span>
+                        <span class="h-more-views view-count">3560&nbsp;views</span>
+                    </a>
+                    <a style="" href="javascript:void();" rel="nofollow" data-ssid="9457572" class="h-favorite j-favorite favorite-cta">Like</a>
+                    <a style="display:none" href="javascript:void();" rel="nofollow" data-ssid="9457572" class="h-favorited j-favorited favorite-cta">Liked</a>
+                </li>
+
+<li>
+                    <a href="http://www.slideshare.net/geekaholic/introduction-to-firewalls-through-iptables" title="Introduction to firewalls through Iptables">
+                        <span class="thumbWrapper">
+                          <span>
+                            <img src="./Kernel Configuration and Compilation_files/thumbnail.png" width="120" alt="Introduction to firewalls through Iptables" class="h-thumbnail" original="http://cdn.slidesharecdn.com/ss_thumbnails/iptablesfirewall-110415090424-phpapp02-thumbnail-2.jpg?cb=1302876389" style="">
+                          </span>
+                        </span>
+                        <span class="h-more-title">Introduction to firewalls through Iptables</span>
+                        <span class="h-more-views view-count">2563&nbsp;views</span>
+                    </a>
+                    <a style="" href="javascript:void();" rel="nofollow" data-ssid="7639538" class="h-favorite j-favorite favorite-cta">Like</a>
+                    <a style="display:none" href="javascript:void();" rel="nofollow" data-ssid="7639538" class="h-favorited j-favorited favorite-cta">Liked</a>
+                </li>
+
+<li>
+                    <a href="http://www.slideshare.net/geekaholic/foss-and-security" title="FOSS and Security">
+                        <span class="thumbWrapper">
+                          <span>
+                            <img src="./Kernel Configuration and Compilation_files/thumbnail.png" width="120" alt="FOSS and Security" class="h-thumbnail" original="http://cdn.slidesharecdn.com/ss_thumbnails/foss-security-cert-090831073452-phpapp01-thumbnail-2.jpg?cb=1251722117" style="">
+                          </span>
+                        </span>
+                        <span class="h-more-title">FOSS and Security</span>
+                        <span class="h-more-views view-count">1250&nbsp;views</span>
+                    </a>
+                    <a style="" href="javascript:void();" rel="nofollow" data-ssid="1931360" class="h-favorite j-favorite favorite-cta">Like</a>
+                    <a style="display:none" href="javascript:void();" rel="nofollow" data-ssid="1931360" class="h-favorited j-favorited favorite-cta">Liked</a>
+                </li>
+
+<li>
+                    <a href="http://www.slideshare.net/geekaholic/secure-your-it-infrastructure-with-gnulinux" title="Secure your IT infrastructure  with GNU/Linux">
+                        <span class="thumbWrapper">
+                          <span>
+                            <img src="./Kernel Configuration and Compilation_files/thumbnail.png" width="120" alt="Secure your IT infrastructure  with GNU/Linux" class="h-thumbnail" original="http://cdn.slidesharecdn.com/ss_thumbnails/infrastructurelinux-090717105200-phpapp01-thumbnail-2.jpg?cb=1247845936" style="">
+                          </span>
+                        </span>
+                        <span class="h-more-title">Secure your IT infrastructure  with GNU/Linux</span>
+                        <span class="h-more-views view-count">1546&nbsp;views</span>
+                    </a>
+                    <a style="" href="javascript:void();" rel="nofollow" data-ssid="1735225" class="h-favorite j-favorite favorite-cta">Like</a>
+                    <a style="display:none" href="javascript:void();" rel="nofollow" data-ssid="1735225" class="h-favorited j-favorited favorite-cta">Liked</a>
+                </li>
+
+<li>
+                    <a href="http://www.slideshare.net/geekaholic/foss-gadgematics" title="Foss Gadgematics">
+                        <span class="thumbWrapper">
+                          <span>
+                            <img src="./Kernel Configuration and Compilation_files/thumbnail.png" width="120" alt="Foss Gadgematics" class="h-thumbnail" original="http://cdn.slidesharecdn.com/ss_thumbnails/foss-gadgematics-120521887441017-2-thumbnail-2.jpg?cb=1236597987" style="">
+                          </span>
+                        </span>
+                        <span class="h-more-title">Foss Gadgematics</span>
+                        <span class="h-more-views view-count">1741&nbsp;views</span>
+                    </a>
+                    <a style="" href="javascript:void();" rel="nofollow" data-ssid="301463" class="h-favorite j-favorite favorite-cta">Like</a>
+                    <a style="display:none" href="javascript:void();" rel="nofollow" data-ssid="301463" class="h-favorited j-favorited favorite-cta">Liked</a>
+                </li>
+</ul>
+
+            
+            
+
+        </aside>
+        </div><!-- .sectionElements -->
+    </section>
+
+    <article>
+        <div class="articleElements container">
+        <div class="articleCore">
+        <div>
+          <div class="author">
+            <a href="http://www.slideshare.net/geekaholic" title="geekaholic" class="notranslate h-author">
+              <img src="./Kernel Configuration and Compilation_files/profile-photo-geekaholic-48x48.jpg" width="50" height="50" alt="Bud Siddhisena" class="h-author-image photo">
+            </a>
+            <span class="j-follow"><a data-contactee="2064463" href="http://www.slideshare.net/geekaholic/kernel-configuration#" rel="nofollow" class="button h-follow">+ Follow</a></span>
+            <span class="hide indicator j-follow-progress h-follow-progress"><img alt="Processing..." height="5" src="./Kernel Configuration and Compilation_files/indicator(1).gif" style="float:none;" width="21"></span>
+          </div>
+
+          <div class="title">
+            <h1 class="h-slideshow-title notranslate">Kernel Configuration and Compilation</h1>
+            <h2>by <a href="http://www.slideshare.net/geekaholic?utm_campaign=profiletracking&utm_medium=sssite&utm_source=ssslideview" rel="author" class="j-tooltip h-author-name notranslate" data-original-title="geekaholic">Bud Siddhisena</a><span class="job-title-wrapper"><span>,&nbsp;</span><span class="job-title">Geek</span></span><span class="h-date-container"> on <em class="h-slideshow-created-at">Mar 16, 2008</em></span>
+            
+            </h2>
+            <ul class="author-social-links">
+              
+              <li class="linkedin">
+                <a target="_blank" href="http://www.linkedin.com/in/budsiddhisena" rel="nofollow" class="sprite">&nbsp;</a>
+              </li>
+              
+              <li class="twitter">
+                <a target="_blank" href="http://twitter.com/geekaholic" rel="nofollow" class="sprite">&nbsp;</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <ul class="basicStats">
+            <li><strong class="j-tooltip h-view-count notranslate" data-original-title="10775 views">10,775</strong> views</li>
+        </ul>
+
+
+        <p style="" class="description notranslate">Presentation on configuring the compiling the Linux kernel</p>
+        <div style="" class="descToggleMore">
+            <span class="pull-left totalSocial"></span>
+            <button class="j-desc-more btn btn-inverse" type="button">More…</button>
+        </div>
+
+        <p style="" class="descriptionExpanded notranslate">Presentation on configuring the compiling the Linux kernel</p>
+
+        <div style="" class="row detailedStats h-detail-stats">
+
+          <div class="performance-stats"><h3><span class="sprite iconAnalytics">Statistics</span></h3></div>
+
+          <div class="row stats-wrapper">
+            <div class="h-stats">
+              <div class="span info-stats">
+                <h3>Views</h3>
+                <dl class="statistics">
+                  <dt class="sprite iconViews">Total Views</dt> <dd class="notranslate views">10,775</dd>
+                  <dt class="sprite iconSSViews">Views on SlideShare</dt> <dd class="notranslate on-site">10,757</dd>
+                  <dt class="sprite iconEmbedViews">Embed Views</dt> <dd class="notranslate from-embed">18</dd>
+                </dl>
+              </div>
+
+              <div class="span info-stats">
+                <h3>Actions</h3>
+                <dl class="statistics">
+                  <dt class="sprite iconFav">Likes</dt> <dd class="notranslate favorites">6</dd>
+                  <dt class="sprite iconDownload">Downloads</dt> <dd class="notranslate downloads">480</dd>
+                  <dt class="sprite iconComment">Comments</dt> <dd class="notranslate comments">0</dd>
+                </dl>
+              </div>
+
+              <div class="span info-stats h-embed-wrapper">
+                <h3 class="h-embed-heading embedHeading"><span class="embed-count">3 Embeds</span> <span class="notranslate from-embed hint">18</span></h3>
+                <div class="h-embeds infoEmbeds">
+                  
+                  <table class="notranslate embedDetails">
+                    <tbody>
+<tr>
+                        <td class="url h-url">http://www.slideshare.net</td>
+                        <td class="count h-views">14</td>
+                      </tr>
+
+<tr>
+                        <td class="url h-url">http://www.linkedin.com</td>
+                        <td class="count h-views">3</td>
+                      </tr>
+
+<tr>
+                        <td class="url h-url">http://webcache.googleusercontent.com</td>
+                        <td class="count h-views">1</td>
+                      </tr>
+</tbody>
+                  </table>
+                </div>
+                
+                <img style="display: none; " src="./Kernel Configuration and Compilation_files/indicator(1).gif" class="j-waiting-embeds">
+              </div>
+
+              
+
+              
+
+            </div>
+
+            </div>
+
+            <div class="h-generic info-generic">
+              <div class="span2">
+                <h3>Accessibility</h3>
+                <ul>
+                  <li class="h-view-text"><a class="j-text-version" href="http://www.slideshare.net/geekaholic/kernel-configuration#text-version">View text version</a></li>
+                </ul>
+              </div>
+              <div class="span2">
+                <h3 class="h-categories-label">Categories</h3>
+                <ul class="h-slideshow-categories">
+                  <li class="su-category"><a href="http://www.slideshare.net/category/technology">Technology</a></li>
+                  <li class="category"><a href="http://www.slideshare.net/category/" rel="nofollow"></a></li>
+                </ul>
+              </div>
+              <div class="span2">
+                <h3>Upload Details</h3>
+                <p>Uploaded via <a href="http://www.slideshare.net/" rel="nofollow" class="api-credit-text">SlideShare</a> <span class="h-as-text">as </span><a href="http://www.slideshare.net/" class="uploaded-as">Adobe PDF</a></p>
+              </div>
+              <div class="span2">
+                <h3>Usage Rights</h3>
+                <p class="license"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.5/" title="CC Attribution-NonCommercial-ShareAlike License"><img src="./Kernel Configuration and Compilation_files/CC_AttributionFinal.png" title="CC Attribution-NonCommercial-ShareAlike License" alt="CC Attribution-NonCommercial-ShareAlike License"><img src="./Kernel Configuration and Compilation_files/CC_NonCommFinal.png" title="CC Attribution-NonCommercial-ShareAlike License" alt="CC Attribution-NonCommercial-ShareAlike License"><img src="./Kernel Configuration and Compilation_files/CC_ShareAlikeFinal.png" title="CC Attribution-NonCommercial-ShareAlike License" alt="CC Attribution-NonCommercial-ShareAlike License"></a></p>
+              </div>
+              <!-- Flag begins here-->
+              <div class="span2">
+                <h3>Report content</h3>
+                <div class="flag flag-inappropriate">
+                  <a href="http://www.slideshare.net/geekaholic/kernel-configuration#" rel="nofollow" class="action-flag">
+                    <span class="j-tooltip flagged" data-original-title="This presentation has been flagged" style="display: none;">Flagged as inappropriate</span>
+                    <span class="j-tooltip flag" data-original-title="Flag this presentation as inappropriate">Flag as inappropriate</span>
+                  </a>
+                  <form action="http://www.slideshare.net/geekaholic/kernel-configuration#" method="post" accept-charset="utf-8" style="display:none">
+                    <fieldset>
+                      <legend>Flag as inappropriate</legend>
+                      <p>Select your reason for flagging this <span class="type-string-down">presentation</span> as inappropriate.</p>
+
+                      
+                      <select name="ia_value">
+                        <option value="0">None</option>
+                          <option value="1">Pornographic</option>
+                          <option value="3">Defamatory</option>
+                          <option value="4">Illegal/Unlawful</option>
+                                  <option value="6">Spam</option>
+                          <option value="5">Other Terms Of Service Violation</option>
+                          
+                          
+                          
+                          
+                        </select>
+
+                      <input type="submit" value="Flag" class="button action-submit">
+                      <a href="http://www.slideshare.net/geekaholic/kernel-configuration#" class="ilink action-cancel" rel="nofollow">Cancel</a>
+                    </fieldset>
+                  </form>
+                </div>
+                <!-- Other issues similar to flagging begins here -->
+                <div>
+                  <a href="http://www.slideshare.net/terms#dmca" rel="nofollow">File a copyright complaint</a>
+                </div>
+                <!-- End other issues -->
+              </div><!-- Flag ends here-->
+
+              <!-- SuperUser actions being here-->
+              <!-- SuperUser actions end here-->
+
+          </div>
+
+        </div>
+
+        <div style="" class="descToggle">
+            <button class="j-desc-less btn btn-inverse" type="button">Less</button>
+        </div>
+
+        </div><!-- .articleCore -->
+
+        </div><!-- .articleElements -->
+    </article>
+
+    <div class="assets container">
+        <div class="commentsNotes">
+            <ul class="tabs">
+                <li class="active h-comments-tab j-comments"><a class="j-comments-tab" href="http://www.slideshare.net/geekaholic/kernel-configuration#"><em class="h-comments-count">No comments yet</em></a></li>
+                <li class="j-notes" style="display: none;"><a class="j-notes-tab" href="http://www.slideshare.net/geekaholic/kernel-configuration#">Notes on Slide <em class="which-slide-value notranslate">19</em></a></li>
+            </ul>
+            <div class="commentsWrapper">
+            
+            <ul style="display: none;" id="commentsList" class="commentWrapper h-comment-list"></ul>
+            
+            
+            <form action="http://www.slideshare.net/geekaholic/kernel-configuration#" method="post" accept-charset="utf-8" id="postComment" class="postComment h-comment-post" style="display: block;">
+              <fieldset>
+
+                <div class="h-user-post-comment">
+                  <a href="http://www.slideshare.net/shamimbiswas752/newsfeed" rel="nofollow" title="shamimbiswas752" class="commenter h-commenter j-author-photo">
+                      <img src="./Kernel Configuration and Compilation_files/profile-photo-shamimbiswas752-48x48.jpg" width="48" height="48" alt="shamimbiswas752" original="//cdn.slidesharecdn.com/profile-photo-shamimbiswas752-48x48.jpg?cb=1389080114" class="nickname">
+                      <strong class="h-username j-username notranslate">Shamim Biswas</strong>
+                  </a>
+                </div>
+                <textarea cols="40" rows="4" class="h-post-comment-textarea j-post-comment-textarea"></textarea>
+                <!-- .h-non-user-message -->
+
+                <div class="h-user-message postCommentSubmit">
+
+                    <p style="" class="h-followup-comments">
+                      
+                      <label class="comments-subscribe checkbox">
+                        <input id="followupComments" checked="checked" type="checkbox"> Subscribe to comments
+                      </label>
+                      <input type="button" class="comments-unsubscribe button" value="Unsubscribe from comments" style="display: none;">
+                    </p>
+                  <input style="" value="Post Comment" type="submit" class="btn btn-inverse h-post-comment-button">
+                </div>
+              </fieldset>
+            </form>
+
+
+            <form action="http://www.slideshare.net/geekaholic/kernel-configuration#" method="post" accept-charset="utf-8" class="updateComment update-form">
+              <fieldset>
+                <legend>Edit your comment</legend>
+                <textarea cols="40" rows="4"></textarea>
+                <input class="btn btn-mini action-update" type="submit" value="Update">
+                <button class="btn btn-mini action-cancel">Cancel</button>
+              </fieldset>
+            </form>
+            </div>
+
+            <ul id="notesList" class="notranslate tabContent h-notes notesWrapper"><li class="quiet" style="display: none;"><br></li><li class="quiet" style="display: none;"><br></li><li class="quiet" style="display: none;"><br></li><li class="quiet" style="display: none;"><br></li><li class="quiet" style="display: none;"><br></li><li class="quiet" style="display: none;"><br></li><li class="quiet" style="display: none;"><br></li><li class="quiet" style="display: none;"><br></li><li class="quiet" style="display: none;"><br></li><li class="quiet" style="display: none;"><br></li><li class="quiet" style="display: none;"><br></li><li class="quiet" style="display: none;"><br></li><li class="quiet" style="display: none;"><br></li><li class="quiet" style="display: none;"><br></li><li class="quiet" style="display: none;"><br></li><li class="quiet" style="display: none;"><br></li><li class="quiet" style="display: none;"><br></li><li class="quiet" style="display: none;"><br></li><li class="quiet" style="display: none;"><br></li><li class="quiet" style="display: none;"><br></li><li class="quiet" style="display: none;"><br></li><li class="quiet" style="display: none;"><br></li><li class="quiet"><br></li></ul>
+        </div>
+
+        <!-- Favorites and Downloads start -->
+        <div class="favsDownloads">
+          <ul class="tabs">
+            <li class="active h-favorites-tab j-favorites"><a href="http://www.slideshare.net/geekaholic/kernel-configuration#favsList" rel="nofollow"><em class="h-favorites-count">6 Likes</em></a></li>
+            
+          </ul>
+          <ul id="favsList" class="favWrapper h-favs-list">
+<li>
+              <a href="http://www.slideshare.net/ivoqnev?utm_campaign=profiletracking&utm_medium=sssite&utm_source=ssslideshow" rel="nofollow" title="ivoqnev" class="notranslate favoriter h-favoriter">
+                <img src="./Kernel Configuration and Compilation_files/user-48x48.png" width="48" height="48" alt="ivoqnev" original="//cdn.slidesharecdn.com/profile-photo-ivoqnev-48x48.jpg?cb=1387456075" class="nickname">
+                <strong class="h-username ">Ivelin Yanev</strong><span class="bioStub"><span class="h-favoriter-role"></span><span class="h-favoriter-org"></span></span>
+              </a>
+              <span class="favTags h-tags notranslate"></span>
+              <span class="favoriteMeta">3 weeks ago</span>
+            </li>
+
+<li>
+              <a href="http://www.slideshare.net/jaseywang?utm_campaign=profiletracking&utm_medium=sssite&utm_source=ssslideshow" rel="nofollow" title="jaseywang" class="notranslate favoriter h-favoriter">
+                <img src="./Kernel Configuration and Compilation_files/user-48x48.png" width="48" height="48" alt="jaseywang" original="//cdn.slidesharecdn.com/profile-photo-jaseywang-48x48.jpg?cb=1385079699" class="nickname">
+                <strong class="h-username ">Jasey Wang</strong><span class="bioStub"><span class="h-favoriter-role">, Operations Engineer </span><span class="h-favoriter-org"></span></span>
+              </a>
+              <span class="favTags h-tags notranslate"></span>
+              <span class="favoriteMeta">1 year ago</span>
+            </li>
+
+<li>
+              <a href="http://www.slideshare.net/diriawan?utm_campaign=profiletracking&utm_medium=sssite&utm_source=ssslideshow" rel="nofollow" title="diriawan" class="notranslate favoriter h-favoriter">
+                <img src="./Kernel Configuration and Compilation_files/user-48x48.png" width="48" height="48" alt="diriawan" original="//public.slidesharecdn.com/images/user-48x48.png" class="nickname">
+                <strong class="h-username ">diriawan</strong><span class="bioStub"><span class="h-favoriter-role"></span><span class="h-favoriter-org"></span></span>
+              </a>
+              <span class="favTags h-tags notranslate">Tags <strong><a href="http://www.slideshare.net/tag/linux-kernel-config" rel="nofollow">linux kernel config</a></strong></span>
+              <span class="favoriteMeta">2 years ago</span>
+            </li>
+
+<li>
+              <a href="http://www.slideshare.net/peter69?utm_campaign=profiletracking&utm_medium=sssite&utm_source=ssslideshow" rel="nofollow" title="peter69" class="notranslate favoriter h-favoriter">
+                <img src="./Kernel Configuration and Compilation_files/user-48x48.png" width="48" height="48" alt="peter69" original="//public.slidesharecdn.com/images/user-48x48.png" class="nickname">
+                <strong class="h-username ">peter69</strong><span class="bioStub"><span class="h-favoriter-role"></span><span class="h-favoriter-org"></span></span>
+              </a>
+              <span class="favTags h-tags notranslate"></span>
+              <span class="favoriteMeta">3 years ago</span>
+            </li>
+
+<li>
+              <a href="http://www.slideshare.net/ptadicherla?utm_campaign=profiletracking&utm_medium=sssite&utm_source=ssslideshow" rel="nofollow" title="ptadicherla" class="notranslate favoriter h-favoriter">
+                <img src="./Kernel Configuration and Compilation_files/user-48x48.png" width="48" height="48" alt="ptadicherla" original="//public.slidesharecdn.com/images/user-48x48.png" class="nickname">
+                <strong class="h-username ">ptadicherla</strong><span class="bioStub"><span class="h-favoriter-role"></span><span class="h-favoriter-org"></span></span>
+              </a>
+              <span class="favTags h-tags notranslate">Tags <strong><a href="http://www.slideshare.net/tag/linux" rel="nofollow">linux</a></strong></span>
+              <span class="favoriteMeta">5 years ago</span>
+            </li>
+
+<li>
+              <a href="http://www.slideshare.net/happydgj?utm_campaign=profiletracking&utm_medium=sssite&utm_source=ssslideshow" rel="nofollow" title="happydgj" class="notranslate favoriter h-favoriter">
+                <img src="./Kernel Configuration and Compilation_files/user-48x48.png" width="48" height="48" alt="happydgj" original="//public.slidesharecdn.com/images/user-48x48.png" class="nickname">
+                <strong class="h-username ">happydgj</strong><span class="bioStub"><span class="h-favoriter-role"></span><span class="h-favoriter-org"></span></span>
+              </a>
+              <span class="favTags h-tags notranslate">Tags <strong><a href="http://www.slideshare.net/tag/linux" rel="nofollow">linux</a></strong></span>
+              <span class="favoriteMeta">5 years ago</span>
+            </li>
+</ul>
+          <div class="viewMore action-morefavs j-favs-more" style="display:none"><a rel="nofollow" class="btn btn-inverse" href="http://www.slideshare.net/geekaholic/kernel-configuration#">More…</a></div>
+          
+            
+        </div>
+
+        <!-- Favorites and Downloads end -->
+        <div class="notranslate transcript h-slideshow-transcript-bottom">
+            <a id="text-version" rel="nofollow"></a>
+            
+            <h2 class="h-slideshow-title">
+              <span class="slideshow-thumb">
+                <img src="./Kernel Configuration and Compilation_files/kernel-configuration-1205664458826041-3-thumbnail-2.jpg" width="60" height="37" alt="Kernel Configuration and Compilation">
+              </span>
+              <span class="presentation-title notranslate">Kernel Configuration and Compilation</span>
+              <span class="h-title-meta title-meta">Presentation Transcript</span>
+            </h2>
+            <ul class="transcripts h-transcripts"><li>1. Configuring&nbsp;the&nbsp;Kernel
+             By
+    Buddhika&nbsp;Siddhisena
+     Co­Founder&nbsp;&amp;&nbsp;CTO
+ THINKCube&nbsp;Systems&nbsp;Pvt.&nbsp;Ltd
+   &lt;bud&nbsp;at&nbsp;thinkcube.com&gt;
+  Member&nbsp;of&nbsp;LKLUG&nbsp;&amp;&nbsp;FOSS.LK
+    &lt;bud&nbsp;at&nbsp;babytux.org&gt;</li><li>2. &nbsp;Coverage
+
+
+
+   •   What is the kernel
+
+   •   Why customize?
+
+   •   Obtaining the kernel source
+
+   •   Quick compile HOWTO
+
+   •   Configuring the kernel
+
+   •   Loading/Unloading modules
+
+
+
+
+                                     2</li><li>3. What is the Kernel
+
+
+
+
+  •   What&nbsp;is&nbsp;the&nbsp;Kernel?
+      •   Linux&nbsp;is&nbsp;the&nbsp;Kernel
+      •   Developed&nbsp;by&nbsp;Linus&nbsp;Torvalds&nbsp;in1991
+      •   &nbsp;Modular&nbsp;kernel&nbsp;as&nbsp;opposed&nbsp;to&nbsp;a&nbsp;micro­kernel
+      •   Ported&nbsp;to&nbsp;more&nbsp;than&nbsp;20&nbsp;architectures
+      •   Over&nbsp;6M&nbsp;lines&nbsp;of&nbsp;code
+
+
+
+
+                                                         3</li><li>4. What is the Kernel
+
+
+
+
+                        read()
+         Program                      GNU&nbsp;C&nbsp;Library
+
+
+
+ User&nbsp;space                      syscall(SYS_read)
+
+
+
+ Kernel&nbsp;space
+                                 Virtual&nbsp;File&nbsp;System&nbsp;(vfs)
+                     Linux
+                     Kernel        Filesystem&nbsp;drivers
+
+                                  Block&nbsp;device&nbsp;drivers
+
+
+
+
+                                                             4</li><li>5. Why customize?
+
+
+ •   Most&nbsp;of&nbsp;the&nbsp;time&nbsp;you&nbsp;actually&nbsp;
+     dont!
+
+ •   Optimize&nbsp;to&nbsp;the&nbsp;hardware
+ •   Optimize&nbsp;for&nbsp;the&nbsp;situation&nbsp;
+     (desktop/server,low&nbsp;
+     memory,SMP,64bit,&nbsp;diskless)
+ •   Add&nbsp;an&nbsp;unofficial&nbsp;driver&nbsp;or&nbsp;feature
+ •   Upgrade&nbsp;the&nbsp;kernel&nbsp;to&nbsp;the&nbsp;latest&nbsp;
+     without&nbsp;waiting&nbsp;for&nbsp;your&nbsp;
+     distribution.
+
+
+
+                                           5</li><li>6. &nbsp;Obtaining&nbsp;the&nbsp;Linux&nbsp;Kernel&nbsp;source
+
+  •   Patched&nbsp;Kernel&nbsp;source&nbsp;can&nbsp;be&nbsp;obtained&nbsp;for&nbsp;your&nbsp;distro
+
+      •   e.g.:&nbsp;linux­source­2.6.16&nbsp;on&nbsp;debian
+
+  •   Vanilla&nbsp;kernels&nbsp;via&nbsp;kernel.org
+
+  •   Specially&nbsp;patched&nbsp;kernels&nbsp;such&nbsp;Andrew&nbsp;Morton's&nbsp;­mm&nbsp;patched&nbsp;
+      kernel&nbsp;and&nbsp;&nbsp;Alan&nbsp;Cox's&nbsp;­ac
+
+
+
+
+                                                               6</li><li>7. &nbsp;Quick&nbsp;kernel&nbsp;compile
+
+
+   •   You&nbsp;need&nbsp;to&nbsp;install&nbsp;the&nbsp;kernel&nbsp;development&nbsp;packages
+
+        •   e.g.:&nbsp;gcc,&nbsp;make,&nbsp;binutils,&nbsp;ncurses,&nbsp;qt
+
+   •   Extract&nbsp;the&nbsp;kernel&nbsp;source&nbsp;in&nbsp;/usr/src
+       linux:#&nbsp;tar&nbsp;jxvf&nbsp;/tmp/linux­2.6.16.8.tar.gz
+
+
+   •   Optionally&nbsp;create&nbsp;a&nbsp;symlink
+       linux:#&nbsp;ln&nbsp;
+       ­s&nbsp;/usr/src/linux­2.6.16.8&nbsp;/usr/src/linux
+
+
+
+   •   Quick&nbsp;configuration&nbsp;using&nbsp;an&nbsp;old&nbsp;configuration
+       linux:#&nbsp;cp&nbsp;/boot/config­2.6.14&nbsp;.config
+       linux:#&nbsp;make&nbsp;oldconfig
+
+   •   Compiling&nbsp;the&nbsp;kernel
+       linux:#&nbsp;make&nbsp;&amp;&amp;&nbsp;make&nbsp;install&nbsp;&amp;&amp;&nbsp;make&nbsp;modules_install
+
+                                                              7</li><li>8. &nbsp;Configuring&nbsp;the&nbsp;Kernel&nbsp;101
+ #&nbsp;make&nbsp;config
+
+                 OR
+ #&nbsp;make&nbsp;menuconfig
+
+
+
+
+                                   #&nbsp;make&nbsp;xconfig
+                              OR
+
+                                   OR&nbsp;If&nbsp;you&nbsp;are&nbsp;INSANE!
+                                   #&nbsp;vi&nbsp;.config
+
+
+
+
+                                                           8</li><li>9. &nbsp;Configuring&nbsp;the&nbsp;Kernel&nbsp;101
+
+   But WHAT if you make a MESS and want
+   to CLEAN UP?
+
+                              Just&nbsp;use&nbsp;Mr.&nbsp;Proper
+                              #&nbsp;make&nbsp;mrproper
+
+
+                              &nbsp;This&nbsp;will&nbsp;clear&nbsp;all&nbsp;pre­compiled&nbsp;
+                              binaries&nbsp;as&nbsp;well&nbsp;as&nbsp;remove&nbsp;the&nbsp;.config&nbsp;
+                              file
+                              #&nbsp;make&nbsp;clean
+
+                              &nbsp;Just&nbsp;clean&nbsp;all&nbsp;pre­compiled&nbsp;binaries
+
+
+
+
+                                                                      9</li><li>10. &nbsp;Configuring&nbsp;the&nbsp;Kernel&nbsp;101
+
+   Module or Built-in (Static)?
+                          &nbsp;Building&nbsp;drivers&nbsp;into&nbsp;the&nbsp;kernel&nbsp;makes&nbsp;
+                          the&nbsp;kernel&nbsp;FAT&nbsp;–&nbsp;require&nbsp;more&nbsp;memory&nbsp;
+                          and&nbsp;overall&nbsp;slower&nbsp;execution.
+
+                          YET&nbsp;certain&nbsp;drivers&nbsp;are&nbsp;better&nbsp;of&nbsp;being&nbsp;
+                          built­in&nbsp;(e.g:&nbsp;motherboard&nbsp;drivers)
+
+                     &nbsp;Building&nbsp;drivers&nbsp;as&nbsp;modules&nbsp;results&nbsp;in&nbsp;
+                     a&nbsp;thinner&nbsp;kernel&nbsp;that&nbsp;can&nbsp;load&nbsp;external&nbsp;
+                     modules&nbsp;as&nbsp;an&nbsp;when&nbsp;needed.
+
+                     BUT&nbsp;make&nbsp;sure&nbsp;your&nbsp;kernel&nbsp;has&nbsp;
+                     access&nbsp;to&nbsp;essential&nbsp;drivers&nbsp;required&nbsp;to&nbsp;
+                     boot,&nbsp;through&nbsp;an&nbsp;initrd&nbsp;or&nbsp;making&nbsp;
+                     them&nbsp;built­in.
+                                                                     10</li><li>11. &nbsp;Configuring&nbsp;the&nbsp;Kernel&nbsp;101
+
+  Know your Hardware
+  •   To&nbsp;see&nbsp;whats&nbsp;plugged&nbsp;into&nbsp;your&nbsp;motherboard,&nbsp;or&nbsp;USB&nbsp;ports.
+      linux:#&nbsp;lspci&nbsp;­v
+      linux:#&nbsp;lsusb
+
+  •   To&nbsp;check&nbsp;your&nbsp;processor&nbsp;and&nbsp;memory
+      linux:#&nbsp;cat&nbsp;/proc/cpuinfo
+      linux:#&nbsp;cat&nbsp;/proc/meminfo
+
+  •   To&nbsp;see&nbsp;your&nbsp;hard&nbsp;drive&nbsp;partitions.
+      linux:#&nbsp;fdisk&nbsp;­l
+
+
+
+  •   To&nbsp;see&nbsp;your&nbsp;kernel&nbsp;log
+      linux:#&nbsp;dmesg
+
+
+
+
+                                                                  11</li><li>12. &nbsp;Configuring&nbsp;the&nbsp;Kernel&nbsp;101
+
+  Kernel config overview
+  •   Code&nbsp;Maturity&nbsp;Level&nbsp;Options
+
+      You&nbsp;will&nbsp;find&nbsp;options&nbsp;to&nbsp;compile&nbsp;alpha&nbsp;quality&nbsp;or&nbsp;experimental&nbsp;drivers.&nbsp;
+      Generally&nbsp;fine&nbsp;for&nbsp;a&nbsp;desktop&nbsp;system,&nbsp;but&nbsp;use&nbsp;with&nbsp;care&nbsp;for&nbsp;a&nbsp;production&nbsp;
+      quality&nbsp;server.
+
+  •   General&nbsp;Setup
+
+      Options&nbsp;to&nbsp;enable&nbsp;process&nbsp;accounting,&nbsp;optimize&nbsp;the&nbsp;kernel&nbsp;for&nbsp;size&nbsp;or&nbsp;
+      have&nbsp;.config&nbsp;support&nbsp;that&nbsp;allows&nbsp;you&nbsp;to&nbsp;see&nbsp;how&nbsp;the&nbsp;kernel&nbsp;was&nbsp;
+      configured&nbsp;(zcat&nbsp;/proc/config.gz).
+
+  •   Loadable&nbsp;Module&nbsp;Support
+
+      Its&nbsp;generally&nbsp;a&nbsp;good&nbsp;idea&nbsp;to&nbsp;enable&nbsp;this.&nbsp;If&nbsp;you&nbsp;will&nbsp;need&nbsp;third­party&nbsp;
+      kernel&nbsp;modules&nbsp;you&nbsp;will&nbsp;also&nbsp;need&nbsp;to&nbsp;enable&nbsp;Set&nbsp;Version&nbsp;Information&nbsp;
+      on&nbsp;All&nbsp;Module&nbsp;Symbols.
+
+
+                                                                          12</li><li>13. &nbsp;Configuring&nbsp;the&nbsp;Kernel&nbsp;101
+
+  Kernel config overview
+  •   Processor&nbsp;Type&nbsp;and&nbsp;Features
+
+      Included&nbsp;in&nbsp;this&nbsp;submenu&nbsp;are&nbsp;features&nbsp;such&nbsp;as&nbsp;Processor&nbsp;type,&nbsp;
+      Preemptible&nbsp;Kernel&nbsp;which&nbsp;can&nbsp;improve&nbsp;desktop&nbsp;responsiveness,&nbsp;
+      Symmetric&nbsp;Multi­processing&nbsp;Support&nbsp;for&nbsp;machines&nbsp;with&nbsp;multiple&nbsp;CPUs,&nbsp;
+      and&nbsp;High&nbsp;Memory&nbsp;Support&nbsp;for&nbsp;machines&nbsp;with&nbsp;more&nbsp;than&nbsp;1G&nbsp;of&nbsp;RAM.
+
+
+  •   Power&nbsp;Management&nbsp;Options
+
+      Found&nbsp;here&nbsp;are&nbsp;options&nbsp;for&nbsp;ACPI&nbsp;and&nbsp;CPU&nbsp;Frequency&nbsp;Scaling&nbsp;which&nbsp;can&nbsp;
+      dramatically&nbsp;improve&nbsp;laptop&nbsp;power&nbsp;usage
+
+  •   Bus&nbsp;Options&nbsp;(&nbsp;PCI,&nbsp;PCMCIA,&nbsp;EISA,&nbsp;MCA,&nbsp;ISA)
+
+      Here&nbsp;are&nbsp;found&nbsp;options&nbsp;for&nbsp;all&nbsp;system&nbsp;bus&nbsp;devices.&nbsp;On&nbsp;modern&nbsp;
+      machines&nbsp;the&nbsp;ISA&nbsp;and&nbsp;MCA&nbsp;support&nbsp;can&nbsp;often&nbsp;be&nbsp;disabled.
+
+                                                                      13</li><li>14. &nbsp;Configuring&nbsp;the&nbsp;Kernel&nbsp;101
+
+  Kernel config overview
+  •   Networking
+
+      Options&nbsp;to&nbsp;configure&nbsp;network&nbsp;protocols,&nbsp;firewalls,&nbsp;IR,&nbsp;Bluetooth&nbsp;etc.
+
+  •   Device&nbsp;Drivers
+
+      Features&nbsp;such&nbsp;as&nbsp;SCSI&nbsp;support,&nbsp;graphic&nbsp;card&nbsp;optimizations,&nbsp;sound,&nbsp;
+      USB,&nbsp;network&nbsp;cards&nbsp;and&nbsp;other&nbsp;hardware&nbsp;are&nbsp;configured&nbsp;here.
+
+  •   File&nbsp;Systems
+
+      &nbsp;Found&nbsp;here&nbsp;are&nbsp;options&nbsp;for&nbsp;filesystems&nbsp;which&nbsp;are&nbsp;supported&nbsp;by&nbsp;the&nbsp;
+      kernel,&nbsp;such&nbsp;as&nbsp;EXT3,&nbsp;ReiserFS,&nbsp;NTFS&nbsp;or&nbsp;VFAT.&nbsp;It&nbsp;is&nbsp;best&nbsp;to&nbsp;build&nbsp;
+      support&nbsp;for&nbsp;the&nbsp;root&nbsp;filesystems&nbsp;directly&nbsp;into&nbsp;the&nbsp;kernel&nbsp;rather&nbsp;than&nbsp;as&nbsp;a&nbsp;
+      module.&nbsp;
+
+  •   Security&nbsp;Options
+      Interesting&nbsp;options&nbsp;here&nbsp;include&nbsp;support&nbsp;for&nbsp;NSA&nbsp;Security&nbsp;Enhanced&nbsp;
+      Linux&nbsp;and&nbsp;other,&nbsp;somewhat&nbsp;experimental,&nbsp;features&nbsp;to&nbsp;increase&nbsp;security.&nbsp;
+                                                                           14</li><li>15. &nbsp;Configuring&nbsp;the&nbsp;Kernel&nbsp;101
+
+ Optimize for processor architecture
+ •    You&nbsp;can&nbsp;optimize&nbsp;the&nbsp;kernel&nbsp;for&nbsp;your&nbsp;exact&nbsp;processor&nbsp;as&nbsp;shown&nbsp;
+      by&nbsp;/proc/cpuinfo
+      Processor&nbsp;family&nbsp;(Pentium­4/Celeron(P4­based)/Pentium­4&nbsp;
+      M/Xeon)&nbsp;&nbsp;­­­&gt;
+
+
+ •    You&nbsp;could&nbsp;also&nbsp;turn&nbsp;off&nbsp;Generic&nbsp;x86&nbsp;support
+
+      &lt;&nbsp;&gt;&nbsp;Generic&nbsp;x86&nbsp;support
+
+
+  Kernel Preemption
+  •    Normally,&nbsp;“preemption”&nbsp;can&nbsp;happen&nbsp;only&nbsp;at&nbsp;the&nbsp;“user&nbsp;space”
+  •    For&nbsp;a&nbsp;system&nbsp;to&nbsp;be&nbsp;responsive,&nbsp;kernel&nbsp;space&nbsp;preemption&nbsp;needs&nbsp;to&nbsp;be&nbsp;
+       turned&nbsp;on.
+
+       &lt;*&gt;&nbsp;Preemptible&nbsp;kernel
+  •    Do&nbsp;not&nbsp;turn&nbsp;on&nbsp;kernel&nbsp;preemption&nbsp;in&nbsp;server&nbsp;systems
+                                                                        15</li><li>16. &nbsp;Configuring&nbsp;the&nbsp;Kernel&nbsp;101
+
+ Enable High memory
+ •    By&nbsp;default&nbsp;the&nbsp;kernel&nbsp;can&nbsp;access&nbsp;only&nbsp;about&nbsp;890MB.&nbsp;If&nbsp;you&nbsp;have&nbsp;1GB&nbsp;or&nbsp;
+      more&nbsp;memory&nbsp;you&nbsp;need&nbsp;to&nbsp;enable&nbsp;high&nbsp;memory.
+      &lt;*&gt;&nbsp;High&nbsp;Memory&nbsp;Support&nbsp;(4GB)
+
+ FS drivers
+  •    You&nbsp;can&nbsp;add&nbsp;file&nbsp;system&nbsp;drivers&nbsp;via&nbsp;the&nbsp;File&nbsp;systems&nbsp;menu.
+
+       DOS/FAT/NT&nbsp;Filesystems&nbsp;&nbsp;­­­&gt;&nbsp;&nbsp;
+       &nbsp;&nbsp;&lt;M&gt;&nbsp;VFAT&nbsp;(Windows­95)&nbsp;fs&nbsp;support
+       &nbsp;&nbsp;&lt;M&gt;&nbsp;NTFS&nbsp;file&nbsp;system&nbsp;support
+  •    Generally&nbsp;you&nbsp;should&nbsp;make&nbsp;the&nbsp;root&nbsp;file&nbsp;system&nbsp;built­in
+  •    If&nbsp;you&nbsp;want&nbsp;to&nbsp;mount&nbsp;network&nbsp;file&nbsp;systems&nbsp;such&nbsp;as&nbsp;NFS&nbsp;or&nbsp;CIFS&nbsp;you&nbsp;
+       can&nbsp;enable&nbsp;it&nbsp;here.
+
+       Network&nbsp;File&nbsp;Systems&nbsp;&nbsp;­­­&gt;
+       &nbsp;&nbsp;&lt;M&gt;&nbsp;SMB&nbsp;file&nbsp;system&nbsp;support&nbsp;(to&nbsp;mount&nbsp;Windows&nbsp;
+       shares&nbsp;etc.)
+                                                                       16</li><li>17. &nbsp;Configuring&nbsp;the&nbsp;Kernel&nbsp;101
+
+ Magic Sys rq
+ •   On&nbsp;a&nbsp;desktop&nbsp;system&nbsp;Turn&nbsp;on&nbsp;Magic&nbsp;SysRq&nbsp;key&nbsp;in&nbsp;kernel&nbsp;hacking
+     &lt;*&gt;&nbsp;Kernel&nbsp;debugging
+     &lt;*&gt;&nbsp;Magic&nbsp;SysRq&nbsp;key
+
+
+ •   In the unlikely event of a system ?crash? (not responding), press Alt
+     + PrtSc and other keys to reduce the damage:
+
+     Alt&nbsp;+&nbsp;PrtSc&nbsp;+&nbsp;S&nbsp;     :&nbsp;&nbsp;flush&nbsp;buffers
+     Alt&nbsp;+&nbsp;PrtSc&nbsp;+&nbsp;U&nbsp;     :&nbsp;&nbsp;remount&nbsp;disks&nbsp;read&nbsp;only
+     Alt&nbsp;+&nbsp;PrtSc&nbsp;+&nbsp;O&nbsp;     :&nbsp;&nbsp;power&nbsp;off
+     Alt&nbsp;+&nbsp;PrtSc&nbsp;+&nbsp;B&nbsp;     :&nbsp;&nbsp;reboot
+
+
+
+
+                                                                       17</li><li>18. Manually&nbsp;loading&nbsp;Linux&nbsp;device&nbsp;drivers
+
+
+  •   &nbsp;To&nbsp;list&nbsp;modules&nbsp;that&nbsp;are&nbsp;currently&nbsp;loaded&nbsp;you&nbsp;can&nbsp;issue
+       #lsmod
+
+  •   To&nbsp;list&nbsp;available&nbsp;modules&nbsp;(compiled)&nbsp;for&nbsp;the&nbsp;current&nbsp;kernel
+       #modprobe&nbsp;­l
+
+  •   To&nbsp;get&nbsp;a&nbsp;small&nbsp;description&nbsp;about&nbsp;a&nbsp;module&nbsp;...
+       #modinfo&nbsp;radeon
+
+  •   To&nbsp;load&nbsp;a&nbsp;kernel&nbsp;module&nbsp;driver&nbsp;manually
+      #modprobe&nbsp;radeon
+
+
+  •   To&nbsp;load&nbsp;a&nbsp;kernel&nbsp;drive&nbsp;automatically&nbsp;as&nbsp;the&nbsp;machine&nbsp;boots&nbsp;consider&nbsp;
+      adding&nbsp;it&nbsp;to&nbsp;/etc/modules.conf&nbsp;(2.4)&nbsp;or&nbsp;/etc/modprobe.conf&nbsp;(2.6)
+
+
+
+
+                                                                        18</li><li>19. &nbsp;Happy&nbsp;compiling...
+
+
+
+
+                          Thank&nbsp;You
+                              &amp;
+                      Happy compiling ...
+
+
+
+
+                                            19</li></ul>
+
+          </div><!-- .transcript -->
+    </div><!-- .assets -->
+
+
+           <footer>
+            
+           <div class="footerWrapper">
+           <div class="footer">
+            <div class="footerLeft">
+           <!-- .social-links -->
+           <div class="social-links">
+               <ul>
+                  <li><a href="http://www.linkedin.com/company/slideshare" class="iconLinkedInFooter" rel="nofollow">Follow us on LinkedIn</a></li>
+                  <li><a href="http://twitter.com/SlideShare" class="iconTwitterFooter" rel="nofollow">Follow us on Twitter</a></li>
+                  <li><a href="http://www.facebook.com/slideshare" class="iconFacebookFooter" rel="nofollow">Find us on Facebook</a></li>
+                  <li><a href="http://plus.google.com/107202479304826454162" class="iconGooglePlusFooter" rel="publisher">Find us on Google+</a></li>
+               </ul>
+           </div>
+           <!-- /.social-links -->
+            </div>
+            <div class="links footerRight">
+              <div class="fColumn fColumnSmall">
+                <ul class="linksList">
+                  <li><strong>Learn About Us</strong></li>
+                  <li><a title="About us" href="http://www.slideshare.net/about">About</a></li>
+                  <li><a title="Careers" href="http://www.slideshare.net/about/workatslideshare">Careers</a></li>
+                  <li><a title="Our Blog" href="http://blog.slideshare.net/">Our Blog</a></li>
+                  <li><a title="Press" href="http://www.slideshare.net/about/press" rel="nofollow">Press</a></li>
+                  <li><a title="Contact us" href="http://www.slideshare.net/about/contactus" rel="nofollow">Contact Us</a></li>
+                    <li><a title="Get Help" href="http://help.slideshare.com/login" rel="nofollow" data-toggle="modal" data-target="#login_modal">Help &amp; Support</a></li>
+                  </ul>
+              </div><!-- .fColumn -->
+              <div class="fColumn fColumnMid">
+                <ul class="linksList">
+                  <li><strong>Using SlideShare</strong></li>
+                  <li><a title="SlideShare 101" href="http://www.slideshare.net/about" rel="nofollow">SlideShare 101</a></li>
+                  <li><a title="Terms of Use" href="http://www.slideshare.net/terms" rel="nofollow">Terms of Use</a></li>
+                  <li><a title="Privacy Policy" href="http://www.slideshare.net/privacy" rel="nofollow">Privacy Policy</a></li>
+                  <li><a title="Copyright &amp; DMCA" href="http://www.slideshare.net/terms#dmca" rel="nofollow">Copyright &amp; DMCA</a></li>
+                  <li><a title="Community Guidelines" href="http://www.slideshare.net/community_guidelines" rel="nofollow">Community Guidelines</a></li>
+                  <li><a title="SlideShare Mobile" href="http://www.slideshare.net/mobile?enable_mobile=true" rel="nofollow">SlideShare on Mobile</a></li>
+        </ul>
+              </div><!-- .fColumn -->
+              <div class="fColumn">
+                <ul class="linksList">
+                  <li><strong>Pro &amp; more</strong></li>
+                  <li><a title="Go PRO" href="http://www.slideshare.net/business/premium/plans?cmp_src=general&cmp_src_from=footer">Go PRO</a></li>
+                  <li><a title="Enterprise Sales" href="http://www.slideshare.net/contact_sales" rel="nofollow">Enterprise Sales</a></li>
+                  <li><a title="PRO Features" href="http://www.slideshare.net/features?cmp_src=general&cmp_src_from=footer&tabs=true" rel="nofollow">PRO Features</a></li>
+                 </ul>
+              </div><!-- .fColumn -->
+              <div class="fColumn last">
+                <ul class="linksList">
+                  <li><strong>Developers &amp; API</strong></li>
+                  <li><a href="http://www.slideshare.net/developers" rel="nofollow">Developers Section</a></li>
+                  <li><a href="http://groups.google.com/group/slideshare-developers?lnk=srg" rel="nofollow">Developers Group</a></li>
+                  <li><a title="Engineering Blog" href="http://engineering.slideshare.net/">Engineering Blog</a></li>
+                  <li><a title="Widgets for your blog" href="http://www.slideshare.net/widgets/blogbadge">Blog Widgets</a></li>
+                </ul>
+              </div><!-- .fColumn -->
+            </div><!-- .links -->
+            <div class="copyright">
+               <p>LinkedIn Corporation © 2014</p>
+                <a href="http://www.slideshare.net/rss/latest" class="rssFooter" rel="nofollow">RSS Feed</a>
+              <div id="smt-lang-selector"><ul class="smt-menu" style="display: block;"><li class="smt-trigger"><a class="smt-trigger-link"><span class="smt-lang">ENGLISH</span></a><ul style="width: 173px;"><li class="smt-item"><a class="smt-link" href="http://www.slideshare.net/geekaholic/kernel-configuration?smtNoRedir=1" style="display: block;">English</a></li><li class="smt-item"><a class="smt-link" href="http://fr.slideshare.net/geekaholic/kernel-configuration" style="display: block;">Français</a></li><li class="smt-item"><a class="smt-link" href="http://es.slideshare.net/geekaholic/kernel-configuration" style="display: block;">Español</a></li><li class="smt-item"><a class="smt-link" href="http://pt.slideshare.net/geekaholic/kernel-configuration" style="display: block;">Português (Brasil)</a></li><li class="smt-item"><a class="smt-link" href="http://de.slideshare.net/geekaholic/kernel-configuration" style="display: block;">Deutsch</a></li></ul></li></ul></div>
+            </div>
+           </div><!-- .footer -->
+            <img alt="" height="1" src="./Kernel Configuration and Compilation_files/noauthtracker" width="1">
+           </div><!-- .footerWrapper -->
+           </footer>
+
+
+    
+ 
+ <script type="text/javascript" charset="utf-8" id="page-load-loggedin">
+    // <![CDATA[
+      window._auth_token_name = 'authenticity_token';
+      window._auth_token = 'JC4x2ep75J7zcm5iXJgqRivel6dWD/nFFqDn/0LxjjE=';
+      $(document).ready(function() {
+        jQuery.extend(slideshare_object.user,user_info);
+        var loadAdditionalFunctionality = function(){
+          e = document.createElement('script');
+          e.type = 'text/javascript';
+          e.async = true;
+          e.src =  '//public.slidesharecdn.com/slideview/scripts/combined_loggedin.js?5e5757a0';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(e, s);
+        };
+        if(document.readyState === 'complete'){
+          loadAdditionalFunctionality();
+        }else{
+          if(window.addEventListener){
+            window.addEventListener('load', loadAdditionalFunctionality, false);
+          }else if(window.attachEvent){
+            window.attachEvent('onload', loadAdditionalFunctionality);
+          }
+        }
+      });
+    // ]]>
+    </script>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  
+
+
+<div class="modal fade FBlogin login-wrapper hide" id="login_modal" style="width:470px;height:347px;"></div><div id="cta_remove_ad_fancy" class="modal hide">
+
+  <div class="modal-header">
+    <a href="http://www.slideshare.net/geekaholic/kernel-configuration#" class="close" data-dismiss="modal">×</a>
+    <h3>Signup for SlideShare PRO account</h3>
+  </div>
+ <div class="modal-body">
+  <i class="span2">
+    <br><img alt="Remove ads" class="remove_ad_cta_popup_img" src="./Kernel Configuration and Compilation_files/removeads.png" height="100" width="99">
+  </i>
+    <span class="lead">Remove ads from all SlideShare pages with SlideShare PRO</span>
+    <form class="remove_ad_cta_popup" name="upgradeForm" action="https://www.slideshare.net/business/premium/payment" method="post">
+      <input type="hidden" value="JC4x2ep75J7zcm5iXJgqRivel6dWD/nFFqDn/0LxjjE=" name="authenticity_token">
+      <input class="plan_group" type="hidden" name="plan_group" value="business">
+      <p>
+        </p><ul class="unstyled">
+          <li>Improve your slideshare content browsing experience.</li>
+          <li>Engage your content viewers better by removing ads.</li>
+        </ul>
+      <p></p>
+      <p>
+        <a class="btn btn-large btn-primary j-know-more" href="http://www.slideshare.net/geekaholic/kernel-configuration#">See plans and pricing</a>
+      </p>
+      <label><input name="span" checked="checked" type="hidden" value="monthly"></label>
+      <label><input name="from" checked="checked" type="hidden" value="remove_ads"></label>
+      <label><input name="cmp_src_from" class="j-cmp_src_from" checked="checked" type="hidden" value="remove_ads"></label>
+    </form>
+  </div>
+
+</div></body></html>
